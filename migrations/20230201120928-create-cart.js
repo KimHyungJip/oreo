@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Carts', {
-      cart_id: {
+    await queryInterface.createTable('Cart_items', {
+      cart_item_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -30,10 +30,10 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
-    await queryInterface.addConstraint('Carts', {
+    await queryInterface.addConstraint('Cart_items', {
       fields: ['user_id'],
       type: 'foreign key',
-      name: 'FK_Carts_Users',
+      name: 'FK_Cart_items_Users',
       references: {
         table: 'Users',
         field: 'user_id',
@@ -41,10 +41,10 @@ module.exports = {
       onDelete: 'cascade', // set null ?
       onUpdate: 'cascade',
     });
-    await queryInterface.addConstraint('Carts', {
+    await queryInterface.addConstraint('Cart_items', {
       fields: ['product_id'],
       type: 'foreign key',
-      name: 'FK_Carts_Products',
+      name: 'FK_Cart_items_Products',
       references: {
         table: 'Products',
         field: 'product_id',
@@ -55,6 +55,6 @@ module.exports = {
 
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Carts');
+    await queryInterface.dropTable('Cart_items');
   }
 };

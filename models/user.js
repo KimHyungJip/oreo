@@ -14,13 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(models.Order, {
         foreignKey: 'user_id',
       });
-      models.User.hasMany(models.Cart, {
+      models.User.hasMany(models.Cart_item, {
         foreignKey: 'user_id',
       });
     }
   }
-  User.init(
-  {
+  User.init(  {
   user_id: {
   primaryKey: true,
   type: DataTypes.INTEGER,
