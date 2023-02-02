@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Cart.init(
+  Cart_item.init(
     {
       cart_item_id: {
         primaryKey: true,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Cart',
+      modelName: 'Cart_item',
     }
   );
   return Cart_item;
