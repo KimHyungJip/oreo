@@ -1,7 +1,7 @@
 {
   "name": "oreo_bakery",
   "version": "1.0.0",
-  "description": "",
+  "description": "오레오오조 베이커리",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,6 +21,7 @@
     "axios": "^1.3.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.1.0",
     "sequelize": "^6.28.0",
@@ -31,5 +32,6 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "sequelize-cli": "^6.6.0"
-  }
+  },
+  "keywords": []
 }
