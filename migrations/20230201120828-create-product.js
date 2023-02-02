@@ -18,9 +18,11 @@ module.exports = {
         type: Sequelize.STRING,
       },
       product_image: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       product_detail: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
