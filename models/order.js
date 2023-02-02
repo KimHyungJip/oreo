@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
     /**
@@ -19,16 +17,19 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Order.init({
-    order_id: {
+  Order.init(
+    {
+      order_id: {
         primaryKey: true,
         type: DataTypes.INTEGER,
         autoIncrement: true,
+      },
+      user_id: DataTypes.INTEGER,
     },
-    user_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Order',
-  });
+    {
+      sequelize,
+      modelName: 'Order',
+    }
+  );
   return Order;
 };

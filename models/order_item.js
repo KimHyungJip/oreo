@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Order_item extends Model {
     /**
@@ -19,18 +17,21 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Order_item.init({
-    order_item_id: {
+  Order_item.init(
+    {
+      order_item_id: {
         primaryKey: true,
         type: DataTypes.INTEGER,
         autoIncrement: true,
+      },
+      product_id: DataTypes.INTEGER,
+      order_id: DataTypes.INTEGER,
+      item_quantity: DataTypes.INTEGER,
     },
-    product_id: DataTypes.INTEGER,
-    order_id: DataTypes.INTEGER,
-    item_quantity: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Order_item',
-  });
+    {
+      sequelize,
+      modelName: 'Order_item',
+    }
+  );
   return Order_item;
 };
