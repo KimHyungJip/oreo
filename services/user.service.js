@@ -1,10 +1,24 @@
-const UserRepository = require('../repositories/user.repository');
-const { User } = require('../models/index.js');
+const UserRepository = require('../repositories/user.repositories.js');
 
 class UserService {
-  // Repository
-  UserRepository = new UserRepository(User);
-
+  userRepository = new UserRepository();
+  findUser = async (email) => {
+    const userData = await this.userRepository.findUser(email);
+    if (!userData) {
+      return 0;
+    }
+    return userData;
+  };
+  createUser = async (password, phone, email, address, salt) => {
+    const createData = await this.userRepository.createUser(
+      password,
+      phone,
+      email,
+      address,
+      salt
+    );
+    return createData;
+  };
   // 회원 목록 조회(관리자)
   userlistget = async () => {
     try {
@@ -17,5 +31,4 @@ class UserService {
     }
   };
 }
-
 module.exports = UserService;
