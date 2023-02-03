@@ -3,39 +3,38 @@ const expressLayouts = require('express-ejs-layouts') //헤더와 풋터 레이�
 // const Orders = require('./models/orders')
 // const Users = require('./models/users')
 const app = express()
+const router = require('./routes');
 
-const dotenv = require('dotenv');
 require('dotenv').config()
 
+// view engine 템플릿 사용 명시
+app.set('views', './views')
+app.set('view engine', 'ejs')
 
-app.use(express.urlencoded( { extended: true}));
+// Set Temlplating Engine
+app.use(expressLayouts)
+app.set('layout', './layouts/main')  // express-ejs-layouts 사용중, default 파일의 경로 설정
 
-// Static Files 
+
+app.use(express.json());
+app.use(express.urlencoded( { extended: true }));
+app.use('/', router)
+// app.use('/test', router)
+
+// Static Files
 app.use(express.static('public'))
 // app.use('/css', express.static(__dirname + 'public/css'))
 // app.use('/js', express.static(__dirname + 'public/js'))
 // app.use('/img', express.static(__dirname + 'public/img'))
 
-// Set Temlplating Engine
-app.use(expressLayouts)
-app.set('layout', './layouts/main')  // express-ejs-layouts 사용중, default 파일의 경로 설정 
 
-// Set views
-app.set('views', './views')
-app.set('view engine', 'ejs')
+// const routes = require('./routes/home.Routes.js')
+// app.use('/', routes);
 
 
-
-const routes = require('./routes/home.Routes.js')
-app.use('/', routes);
-
-
-
-app.get('/mypage', (req, res) => {
-    res.render('mypage', {title: '마이페이지'})
-})
-
-
+// app.get('/mypage', (req, res) => {
+//     res.render('mypage', {title: '마이페이지'})
+// })
 
 
 // // 마이페이지 회원 정보 조회
