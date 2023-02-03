@@ -24,6 +24,20 @@ footer {
     font-size: large;
 }
 
-
-
 a { color: var(--bs-dark); }
+
+
+/* 마이페이지 */
+.userinfo {
+    text-align: center;
+    font-size: large;
+    color: rgb(47, 26, 182);
+}
+
+/* 주문정보 */
+.orderinfo {
+    text-align: center;
+    font-size: large;
+    color: rgb(41, 75, 76);
+
+} 

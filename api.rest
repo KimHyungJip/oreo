@@ -1,0 +1,59 @@
+GET http://localhost:7000/product
+
+###
+
+POST http://localhost:7000/product/admin
+Content-Type: application/json
+
+{
+  "product_name": "Chocolate Cup Cake",
+  "product_price": "3200",
+  "product_detail": "촉촉한 초코 컵케익",
+  "product_image": "images/super-moist-chocolate-cupcakes-524176-1.jpg"
+}
+
+###
+
+PUT http://localhost:7000/product/admin/9
+Content-Type: application/json
+
+{
+  "product_name": "Chocolate Cup Cake",
+  "product_price": "2800",
+  "product_detail": "촉촉한 초코 컵케익",
+  "product_image": "images/super-moist-chocolate-cupcakes-524176-1.jpg"
+}
+
+###
+
+DELETE http://localhost:7000/product/admin/9
+
+###
+
+POST http://localhost:7000/signup
+Content-Type: application/json
+
+{
+    "email": "pear@baker.com",
+    "password": "password1234",
+    "confirm": "password1234"
+}
+
+###
+
+POST http://localhost:7000/login
+Content-Type: application/json
+
+{
+    "email": "pear@baker.com",
+    "password": "password1234"
+}
+
+###
+
+
+GET http://localhost:7000/orders/admin
+
+
+###
+GET http://localhost:7000/users/admin
