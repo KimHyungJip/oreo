@@ -51,14 +51,6 @@ class CartRepository {//서비스 계층에서 내가줄 모델을 고를 수 �
     return 1;
   }
 
-  findUser = async (email) => {
-    console.log('로그인 레파짓토리 진입');
-    console.log(email);
-    const createUserData = await this.UserModel.findOne({ raw: true, where: { email } });
-    console.log('여기입니다',createUserData);
-    return createUserData;
-  }
-
   findId = async (userId) => {
     const createUserData = await this.UserModel.findByPk(userId);
     return createUserData;

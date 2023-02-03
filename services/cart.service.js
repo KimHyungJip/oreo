@@ -2,7 +2,7 @@ const CartRepository = require('../repositories/cart.repository.js');
 
 
 class CartService {
-  cartRepository = new CartRepository();//의존성 주입! 강의에 있음
+  cartRepository = new CartRepository();
 
   findAllCart = async(user_id)=>{
     console.log("service진입")
@@ -12,6 +12,11 @@ class CartService {
     }
     console.log("allCart : ",allCart)
     return allCart
+  }
+
+  productToCart = async(user_id,product_id, quantity)=>{
+
+
   }
 
 

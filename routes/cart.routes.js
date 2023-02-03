@@ -7,5 +7,13 @@ const router = express.Router();
 const cartController = new CartController();
 
 router.get('/',cartController.getCart);
+router.post('/', (req, res, next) => {
+    console.log('장바구니등록');
+    next();
+}, cartController.postCart);
+
+
+
+
 
 module.exports = router;
