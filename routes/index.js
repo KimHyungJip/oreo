@@ -9,15 +9,15 @@ router.get('/test', (req, res) => {
 })
 
 const homeRouter = require('./home.Routes')
-// const userRouter = require('./user.routes');
+const userRouter = require('./user.routes');
 const productRouter = require('./product.routes');
 // const cartRouter = require('./cart.routes');
-// const orderRouter = require('./order.routes');
+const orderRouter = require('./order.routes');
 
 router.use('/', homeRouter)
-// router.use('/users', userRouter);
+router.use('/users', userRouter);
 router.use('/products', productRouter);
 // router.use('/carts', cartRouter);
-// router.use('/orders', orderRouter);
+router.use('/orders', orderRouter);
 
 module.exports = router;
