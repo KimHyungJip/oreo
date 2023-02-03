@@ -50,3 +50,10 @@ Content-Type: application/json
 }
 
 ###
+
+
+GET http://localhost:7000/orders/admin
+
+
+###
+GET http://localhost:7000/users/admin

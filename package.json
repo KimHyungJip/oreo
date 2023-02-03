@@ -35,6 +35,6 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "sequelize-cli": "^6.6.0"
-  }
+  },
   "keywords": []
 }
