@@ -1,9 +1,19 @@
 
 class UserRepository {
-  constructor(UserModel) {
-    this.userModel = UserModel;
-  }
-
+  findUser = async (email) => {
+    const userData = await User.findOne({ where: { email: email } });
+    return userData;
+  };
+  createUser = async (password, phone, email, address, salt) => {
+    const createData = await User.create({
+      password: password,
+      phone: phone,
+      email: email,
+      address: address,
+      salt: salt,
+    });
+    return createData;
+  };
   // 회원 목록 조회(관리자)
   userlistget = async () => {
     try {
@@ -20,5 +30,4 @@ class UserRepository {
     }
   };
 }
-
 module.exports = UserRepository;

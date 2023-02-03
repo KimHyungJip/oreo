@@ -1,9 +1,103 @@
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 const UserService = require('../services/user.service.js');
+require('dotenv').config();
 
 class UserController {
-  // Service
-  UserService = new UserService();
+  userService = new UserService();
+  duplication = async (req, res, next) => {
+    const { email } = req.body;
+    const duplicationCheck = await this.userService.findUser(email);
+    if (duplicationCheck !== 0) {
+      res.status(403).send({ message: '중복된 이메일 입니다.' });
+    } else {
+      res.status(200).send({ message: '사용 가능한 이메일 입니다.' });
+    }
+  };
 
+  signup = async (req, res, next) => {
+    const { password, phone, email, address } = req.body;
+    const dupCheck = await this.userService.findUser(email);
+    if (!dupCheck) {
+      const salt = crypto.randomBytes(64).toString('base64');
+      const hashedPwd = crypto
+        .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+        .toString('base64');
+      const signUpData = await this.userService.createUser(
+        hashedPwd,
+        phone,
+        email,
+        address,
+        salt
+      );
+      res.status(200).send({ message: '회원가입이 성공하였습니다.' });
+    } else {
+      res.status(403).send({ message: '이메일 중복 체크 바랍니다.' });
+    }
+  };
+
+  login = async (req, res, next) => {
+    const { password, email } = req.body;
+    const user = await this.userService.findUser(email);
+    const userSalt = user.salt;
+    const hashedPwd = crypto
+      .pbkdf2Sync(password, userSalt, 99999, 64, 'sha512')
+      .toString('base64');
+    if (user.password !== hashedPwd) {
+      res.status(403).send({ errorMessage: '비밀번호가 틀렸습니다.' });
+    } else if (user.email !== email) {
+      res.status(403).send({ errorMessage: '이메일이 존재하지 않습니다.' });
+    } else {
+      const user_id = user.user_id;
+      const payload = { user_id };
+      const accessToken = jwt.sign(
+        payload,
+        process.env.ACCESSTOKEN_SECRET_KEY,
+        { expiresIn: '3600s' }
+      );
+      const refreshToken = jwt.sign(
+        payload,
+        process.env.REFRESHTOKEN_SECRET_KEY,
+        { expiresIn: '360000s' }
+      );
+      res.status(200).send({ accessToken, refreshToken });
+    }
+  };
+
+  validationCheck = async (req, res, next) => {
+    const authHeader = req.headers['authorization']; //access,refresh
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      res.satus(401).send({ tokenNotFound: '토큰이 만료되었거나 없습니다.' });
+    } else {
+      jwt.verify(token, process.env.ACCESSTOKEN_SECRET_KEY, (err, payload) => {
+        if (err) {
+          res.status(403).send({ errorMessage: err });
+        }
+        res.status(200).send({ payload });
+      });
+    }
+  };
+
+  tokenRefresh = async (req, res, next) => {
+    const refreshToken = req.body.token;
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESHTOKEN_SECRET_KEY,
+      (err, payload) => {
+        if (err) {
+          res.status(403).send({ errorMessage: err });
+        } else {
+          const accessToken = jwt.sign(
+            payload,
+            process.env.ACCESSTOKEN_SECRET_KEY,
+            { expiresIn: '3600s' }
+          );
+          res.status(200).send({ accessToken });
+        }
+      }
+    );
+  };
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
     try {
@@ -25,5 +119,4 @@ class UserController {
     }
   };
 }
-
 module.exports = UserController;
