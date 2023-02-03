@@ -35,7 +35,9 @@ app.get('/mypage', (req, res) => {
     res.render('mypage', {title: '마이페이지'})
 })
 
-
+app.get('/login', (req, res) => {
+    res.render('mypage', {logged: true})
+})
 
 
 // // 마이페이지 회원 정보 조회
