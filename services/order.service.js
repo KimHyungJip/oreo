@@ -1,4 +1,4 @@
-const OrderRepository = require("../repositories/order.repository");
+const OrderRepository = require('../repositories/order.repository');
 
 class OrderService {
   // Repository
@@ -8,7 +8,7 @@ class OrderService {
   getorderlist = async () => {
     try {
       // OrderRepository에서 실행한 orderslistget 함수를 getorderslist 변수에 담는다.
-      const getorderslist = this.OrderRepository.orderslistget;
+      const getorderslist = await this.OrderRepository.orderslistget();
 
       return getorderslist;
     } catch (error) {
