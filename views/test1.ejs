@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+    <form>
+        <div class="input-group mb-3">
+            
+            <div class="input-group">
+                <form>
+                    <input id="emailId" type="text" class="form-control" placeholder="이메일 아이디" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <span class="input-group-text">@</span>
+                    <input id = "domain" type="text" class="form-control" placeholder="도메인" aria-describedby="button-addon2" value = "">
+                    <select class="form-select" id="changeDomain" onchange="changDomain(this)" aria-label="Example select with button addon">
+                        <option value="" selected>직접입력</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="daum.net">daum.net</option>
+                    </select>
+                    <button onclick="dupCheck()" class="btn btn-outline-secondary" type="button">중복체크</button>
+                    <div><input type="password" id="password1" placeholder="비밀번호를 입력하세요." /></div>
+                    <div><input type="password" id="password2" placeholder="비밀번호를 다시 입력하세요." /></div>
+                    <div><input type="text" id="phone" placeholder="핸드폰 번호" /></div>
+                    <div><input type="text" id="address" placeholder="주소" /></div>
+                    <button onclick="signup()" class="btn btn-outline-secondary" type="button">회원가입</button>
+                </form>
+            </div>
+        </div>
+        <div>
+            <div>
+                <form>
+                    <div><input type="text" id="loginEmail" placeholder="이메일을 입력해 주세요" /></div>
+                    <div><input type="password" id="loginPassword" placeholder="비밀번호를 입력하세요." /></div>
+                    <button onclick="login()" class="btn btn-outline-secondary" type="button">로그인</button>
+                </form>
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+    function changDomain(domain){
+        $('#domain').attr('value',domain.value)
+    }
+    function dupCheck(){
+        const emailId = $('#emailId').val()
+        const emailDomain = $('#domain').val()
+        const email = emailId+'@'+emailDomain
+        if(!emailId){
+            alert("이메일을 입력해주세요")
+        }
+        else if(!emailDomain){
+            alert("도메인을 입력해주세요")
+        }else{
+            $.ajax({
+                type: "POST",
+                url: "/users/duplication",
+                data: {email: email},
+                success:function(response){
+                    alert(response.responseJSON.message)
+                },error:function(error){
+                    alert(error.responseJSON.message)
+                }
+            })
+        }
+    }
+    function signup(){        
+        const emailId = $('#emailId').val()
+        const emailDomain = $('#domain').val()
+        const email = emailId+'@'+emailDomain
+        const phone = $('#phone').val()
+        const address = $('#address').val()
+        const password1 = $('#password1').val()
+        const password2 = $('#password2').val()
+        if(!emailId || !emailDomain || !phone || !address || !password1 || !password2){
+            alert("회원가입 양식에 맞지 않습니다.")
+        }else{
+            if (password1 !== password2){
+                alert("비밀번호가 서로 맞지 않습니다.")
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: "/users/signup",
+                    data: {
+                        email: email,
+                        password: password1,
+                        phone: phone,
+                        address: address,
+                    },
+                    success:function(response){
+                        alert(response.responseJSON.message)
+                        window.location.href="/"
+                    },error:function(error){
+                        alert(error.responseJSON.message)
+                    }
+                })
+            }
+        }
+    }
+    function login(){
+        const loginEmail = $('#loginEmail').val()
+        const loginPassword = $('#loginPassword').val()
+        $.ajax({
+            type: "POST",
+            url: "/users/login",
+            data: {
+                email: loginEmail,
+                password: loginPassword,
+            },
+            success:function(response){
+                alert("로그인에 성공하였습니다.")
+                localStorage.setItem('accesstoken',response.accessToken)
+                localStorage.setItem('refreshtoken',response.refreshToken)
+                window.location.href="/"
+            },
+        })
+    }
+</script>
+</html>
