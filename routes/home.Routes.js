@@ -5,8 +5,8 @@ const homeController = require('../controllers/home.Controller.js')
 
 // App Routes
 
-router.get('/', homeController.homepage);
-
+router.get('/', homeController.homepage22);
+router.get('/mypage', homeController.mypage)
 
 
 module.exports =router;
