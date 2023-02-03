@@ -1,4 +1,3 @@
-
 class UserRepository {
   findUser = async (email) => {
     const userData = await User.findOne({ where: { email: email } });
