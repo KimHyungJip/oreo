@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettify": "prettier --write *.js **/*.js"
+    "prettify": "prettier --write *.js **/*.js",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,10 @@
   "homepage": "https://github.com/KimHyungJip/oreo#readme",
   "dependencies": {
     "axios": "^1.3.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16  .0.3",
+    "ejs": "^3.1.8",
     "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.1.0",
