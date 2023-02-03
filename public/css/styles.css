@@ -10,9 +10,20 @@ body {
 }
 
 
-header, footer {
+header {
     background-color:rgb(247, 235, 220) ;
     padding: 10px;
+    font-size: x-large;
 }
+
+footer {
+    background-color:rgb(72, 25, 25) ;
+    padding: 50px;
+    text-align: center;
+    color: rgb(212, 202, 202);
+    font-size: large;
+}
+
+
 
 a { color: var(--bs-dark); }
