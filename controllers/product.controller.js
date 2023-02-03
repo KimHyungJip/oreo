@@ -40,6 +40,7 @@ class ProductController {
     } catch (error) {
       return res.status(500).json({
         errorMessage: error.message,
+        errorStack: error.stack,
       });
     }
   };
@@ -78,9 +79,12 @@ class ProductController {
         updated,
       });
     } catch (error) {
-      console.log(error.message);
-      return res.status(500).json({
+      // console.log(error.message);
+      return res.json({
+        errorCode: error.statusCode,
         errorMessage: error.message,
+        errorStack: error.stack,
+        errorStackTrace: error.stackTrace,
       });
     }
   };
@@ -97,7 +101,10 @@ class ProductController {
       });
     } catch (error) {
       return res.status(500).json({
+        errorCode: error.statusCode,
         errorMessage: error.message,
+        errorStack: error.stack,
+        errorStackTrace: error.stackTrace,
       });
     }
   };

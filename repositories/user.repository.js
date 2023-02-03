@@ -1,5 +1,3 @@
-const { User } = require('../models/index.js');
-const Sequelize = require('sequelize');
 
 class UserRepository {
   constructor(UserModel) {
