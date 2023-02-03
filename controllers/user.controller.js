@@ -24,6 +24,23 @@ class UserController {
         .json({ success: error.success, message: error.message });
     }
   };
-}
+
+  GetUserInfo = async (req, res) => {
+    // const {user_id} = req.locals.user;
+    const user_id = 4;
+    try {
+      const user = await this.UserService.FindUserInfo(user_id);
+      return res.status(200).json({
+        user
+      })
+    } catch (err) {;
+        return res.status(500).json({
+          errorMessage: err
+        })
+      }
+      
+    }
+  }
+
 
 module.exports = UserController;

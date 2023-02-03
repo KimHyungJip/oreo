@@ -16,6 +16,24 @@ class UserService {
       throw error;
     }
   };
+
+  FindUserInfo = async (user_id) => {
+    try {
+      const user =await this.UserRepository.FindUserInfo(user_id);
+      return user;
+    } catch (err) {
+      console.log(err);
+      err.name = 'Database Error';
+      err.message = '요청을 처리하지 못하였습니다.';
+      err.status = 400;
+      throw err;
+    }
+  }
+
 }
+
+
+
+
 
 module.exports = UserService;

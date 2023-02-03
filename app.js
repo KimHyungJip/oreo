@@ -26,7 +26,7 @@ app.set('layout', './layouts/main'); // express-ejs-layouts 사용중, default �
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-const routes = require('./routes/home.Routes.js');
+const routes = require('./routes/home.routes.js');
 app.use('/', routes);
 
 app.get('/mypage', (req, res) => {
