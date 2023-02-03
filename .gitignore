@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,visualstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudio
 
+.idea
 ### Node ###
 # Logs
 logs
