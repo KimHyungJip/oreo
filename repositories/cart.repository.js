@@ -14,6 +14,7 @@ class CartRepository {//서비스 계층에서 내가줄 모델을 고를 수 �
 
   //장바구니에 상품 등록
   createCart= async (user_id,product_id,item_quantity) => {
+    console.log("장바구니검색 repo ",user_id,product_id,item_quantity)
     const createCartdata = await this.cart_item.create({
       user_id,product_id,item_quantity
     });

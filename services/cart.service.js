@@ -15,6 +15,7 @@ class CartService {
 
     //장바구니 등록
   productToCart = async(user_id,product_id, item_quantity)=>{
+    console.log("service진입")
     const createdCart = await this.cartRepository.createCart(user_id,product_id,item_quantity);
     return createdCart;
   }

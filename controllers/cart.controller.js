@@ -22,9 +22,11 @@ class CartController{
 
     //장바구니 등록
     postCart = async(req,res,next)=>{
-        const user_id = res.locals.user.user_id;
+        console.log("장바구니등록controller")
+        //const user_id = res.locals.user.user_id;
+        const user_id = 3
         const { product_id, item_quantity } = req.body;
-        await this.CartService.productToCart(user_id,product_id, item_quantity);
+        await this.cartService.productToCart(user_id,product_id, item_quantity);
 
         res.status(200).json({ message: '장바구니등록완료' });
     }
