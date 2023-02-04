@@ -4,10 +4,9 @@ class ProductRepository {
   }
 
   findAllProducts = async () => {
-    const products = await this.productModel.findAll();
-    // const products = await this.productModel.findAll({
-    //   order: ['updatedAt', 'DESC'],
-    // });
+    const products = await this.productModel.findAll({
+      order: ['updatedAt', 'DESC'],
+    });
     return products;
   };
 

@@ -14,7 +14,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:7000/products/admin/10
+PUT http://localhost:7000/products/admin/100
 Content-Type: application/json
 
 {
@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:7000/products/admin/9
+DELETE http://localhost:7000/products/admin/55
 
 ###
 
