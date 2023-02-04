@@ -1,4 +1,3 @@
-
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
 
@@ -30,4 +29,3 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`서버가 ${PORT} 포트로 열렸습니다. http://localhost:${PORT}`);
 });
-

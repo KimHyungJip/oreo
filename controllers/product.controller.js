@@ -15,7 +15,7 @@ class ProductController {
     } catch (error) {
       return res.status(500).json({
         errorMessage: error.message,
-        errorLocation: error.stack.split("\n")[1].trim(), // 에러가 발생한 첫 위치.
+        errorLocation: error.stack.split('\n')[1].trim(), // 에러가 발생한 첫 위치.
       });
     }
   };
@@ -43,7 +43,7 @@ class ProductController {
     } catch (error) {
       return res.status(500).json({
         errorMessage: error.message,
-        errorLocation: error.stack.split("\n")[1].trim(),
+        errorLocation: error.stack.split('\n')[1].trim(),
       });
     }
   };
@@ -75,7 +75,7 @@ class ProductController {
     } catch (error) {
       return res.status(500).json({
         errorMessage: error.message,
-        errorLocation: error.stack.split("\n")[1].trim(),
+        errorLocation: error.stack.split('\n')[1].trim(),
       });
     }
   };
@@ -92,7 +92,7 @@ class ProductController {
     } catch (error) {
       return res.status(500).json({
         errorMessage: error.message,
-        errorLocation: error.stack.split("\n")[1].trim(),
+        errorLocation: error.stack.split('\n')[1].trim(),
       });
     }
   };
