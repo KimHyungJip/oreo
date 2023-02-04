@@ -19,34 +19,29 @@ class CartController{
     //장바구니 등록
     postCart = async(req,res,next)=>{
         const user_id = res.locals.user.user_id;
-        const { product_id, quantity } = req.body;
-        await this.CartService.productToCart(user_id,product_id, quantity);
+        const { product_id, item_quantity } = req.body;
+        await this.CartService.productToCart(user_id,product_id, item_quantity);
 
         res.status(200).json({ message: '장바구니등록완료' });
     }
 
     //장바구니 수정
+    updateCart = async(req,res,next)=>{
+        const user_id = res.locals.user.user_id;
+        const { product_id, item_quantity } = req.body;
+        await this.CartService.updateCart(user_id,product_id, item_quantity);
 
-
-
-    updateRequireStatus = async(req,res,next)=>{
-        //빨래번호받아와
-        const {request_id} = req.params;
-        //수정하려는 사람id, 수정하려는 상태
-        const {current_status} = req.body;
-        const provider_id = res.locals.user.user_id;//토큰에서 빼오는 user_id
-        //console.log("provider_id,controller",provider_id)
-        //console.log('controller확인',request_id,provider_id,current_status);
-        // console.log(req.params);
-        // console.log(req.body);
-        const updateRequireStatus = await this.getallService.updateRequireStatus(request_id,provider_id,current_status);
-
-        res.status(200).json({data:updateRequireStatus});
-    };
+        res.status(200).json({ message: '장바구니수정완료' });
+    } 
 
     //장바구니 삭제
-
+    deleteCart = async(req,res,next)=>{
+        const { cart_item_id } = req.body;
+        await this.CartService.deleteCart(cart_item_id);
+        res.status(200).json({ message: '장바구니등록완료' });
+    } 
     //장바구니 주문
+
 }
 
 module.exports = CartController;

@@ -12,8 +12,8 @@ router.post('/', (req, res, next) => {
     next();
 }, cartController.postCart);
 
-
-
+router.put('/',cartController.updateCart);
+router.delete('/',cartController.deleteCart);
 
 
 module.exports = router;

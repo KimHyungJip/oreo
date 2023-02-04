@@ -1,5 +1,5 @@
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
+//const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
 // const Orders = require('./models/orders')
 // const Users = require('./models/users')
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static Files
-app.use(express.static('public'));
+//app.use(express.static('public'));
 // app.use('/css', express.static(__dirname + 'public/css'))
 // app.use('/js', express.static(__dirname + 'public/js'))
 // app.use('/img', express.static(__dirname + 'public/img'))

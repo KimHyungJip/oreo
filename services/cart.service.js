@@ -1,8 +1,8 @@
 const CartRepository = require('../repositories/cart.repository.js');
-
+const {Cart} = require('../models');
 
 class CartService {
-  cartRepository = new CartRepository();
+  cartRepository = new CartRepository(Cart);
 
   findAllCart = async(user_id)=>{
     console.log("service진입")
@@ -14,48 +14,22 @@ class CartService {
     return allCart
   }
 
-  productToCart = async(user_id,product_id, quantity)=>{
-
-
+  productToCart = async(user_id,product_id, item_quantity)=>{
+    const createdCart = await this.cartRepository.createCart(user_id,product_id,item_quantity);
+    return createdCart;
   }
 
-
-
-//   createUser = async (email, name, phone, address, pw, user_type, point) => {
-//     console.log('회원가입 서비스 진입');
-//     const userData = await this.userRepository.createUser(email, name, phone, address, pw, user_type, point)
-//     console.log('userData@', userData);
-//     if (userData !== 1) {
-//       return userData;
-//     }
-
-//     // console.log('서비스 퇴장');
-//     return 1;
-//   }
-
-//   loginUser = async (email, pw) => {
-//     console.log('로그인 서비스 진입');
-//     console.log(email);
-//     const userData = await this.userRepository.findUser(email);
-//     if (!userData) {
-//       return -1
-//     }
-//     if (userData.pw !== pw) {
-//       return -2
-//     }
-
-//     return userData;
-//   }
-
-//   findIdUser = async (userId) => {
-//     const userData = await this.userRepository.findId(userId);
-//     if (!userData) {
-//       return -1
-//     }
-    
-//     return userData.dataValues;
-//   }
   
+  updateCart = async(user_id,product_id, item_quantity)=>{
+    const updateCart = await this.cartRepository.updateCart(user_id,product_id,item_quantity);
+    return updateCart;
+
+  }
+  deleteCart = async(cart_item_id)=>{
+    const deleteCart = await this.cartRepository.deleteCart(cart_item_id);
+    return deleteCart;
+
+  }
 }
 
 module.exports = CartService;
