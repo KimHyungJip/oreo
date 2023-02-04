@@ -1,10 +1,14 @@
 class UserRepository {
+  constructor(UserModel) {
+    this.userModel = UserModel;
+  }
+
   findUser = async (email) => {
-    const userData = await User.findOne({ where: { email: email } });
+    const userData = await this.userModel.findOne({ where: { email: email } });
     return userData;
   };
   createUser = async (password, phone, email, address, salt) => {
-    const createData = await User.create({
+    const createData = await this.userModel.create({
       password: password,
       phone: phone,
       email: email,
@@ -17,7 +21,7 @@ class UserRepository {
   userlistget = async () => {
     try {
       const userlist = await this.userModel.findAll({
-        attributes: ['user_id', 'phone', 'email', 'address'],
+        // attributes: ['user_id', 'phone', 'email', 'address'],
       });
       return userlist;
     } catch (error) {

@@ -9,7 +9,7 @@ Content-Type: application/json
   "product_name": "Chocolate Cup Cake",
   "product_price": "3200",
   "product_detail": "촉촉한 초코 컵케익",
-  "product_image": "public/img/super-moist-chocolate-cupcakes-524176-1.jpg"
+  "product_image": "img/super-moist-chocolate-cupcakes-524176-1.jpg"
 }
 
 ###
@@ -21,7 +21,7 @@ Content-Type: application/json
   "product_name": "Chocolate Cup Cake",
   "product_price": "2800",
   "product_detail": "촉촉한 초코 컵케익",
-  "product_image": "public/img/super-moist-chocolate-cupcakes-524176-1.jpg"
+  "product_image": "img/super-moist-chocolate-cupcakes-524176-1.jpg"
 }
 
 ###

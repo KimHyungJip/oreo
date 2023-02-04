@@ -1,7 +1,8 @@
 const UserRepository = require('../repositories/user.repository.js');
+const { User } = require('../models')
 
 class UserService {
-  userRepository = new UserRepository();
+  userRepository = new UserRepository(User);
   findUser = async (email) => {
     const userData = await this.userRepository.findUser(email);
     if (!userData) {
@@ -23,7 +24,7 @@ class UserService {
   userlistget = async () => {
     try {
       // UserRepository 에서 실행한 userslistget 함수를 getuserslist 변수에 담는다.
-      const getuserslist = await this.UserRepository.userlistget();
+      const getuserslist = await this.userRepository.userlistget();
       console.log('at service.js', getuserslist);
       return getuserslist;
     } catch (error) {
