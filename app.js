@@ -1,7 +1,7 @@
+
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
-// const Orders = require('./models/orders')
-// const Users = require('./models/users')
+
 const app = express();
 const router = require('./routes');
 
@@ -28,5 +28,6 @@ app.use(express.static('public'));
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`서버가 ${PORT} 포트로 열렸습니다.`);
+  console.log(`서버가 ${PORT} 포트로 열렸습니다. http://localhost:${PORT}`);
 });
+
