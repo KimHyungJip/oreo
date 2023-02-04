@@ -23,6 +23,7 @@ class CartRepository {//서비스 계층에서 내가줄 모델을 고를 수 �
 
   //product_id로 장바구니에 있는 아이템량 수정
   updateCart= async (user_id,product_id,item_quantity) => {
+    console.log("장바구니수정 repo ")
     const updateCartdata = await this.cart_item.update(
     { item_quantity},
     {
