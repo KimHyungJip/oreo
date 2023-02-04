@@ -1,11 +1,13 @@
+
 class CartRepository {//서비스 계층에서 내가줄 모델을 고를 수 있다.
   constructor(cart_item) {
     this.cart_item = cart_item;
   }
   //user_id로 장바구니 검색
   findCart = async (user_id) => {
+    console.log("장바구니검색 repo ")
     const getCartdata = await this.cart_item.findAll({
-      where: {user_id}
+      where: {user_id:user_id}
     });
     return getCartdata;
   }

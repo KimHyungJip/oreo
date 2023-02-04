@@ -10,8 +10,12 @@ class CartController{
 
     //장바구니조회
     getCart = async(req,res,next)=>{
-        const user_id = res.locals.user.user_id;
+        console.log("장바구니조회controller")
+
+        //const user_id = res.locals.user.user_id;
+        const user_id = 3
         const cart = await this.cartService.findAllCart(user_id);
+        console.log(cart)
         //console.log("컨트롤러확인",cart,jwt.sign);
         res.status(200).json({data:cart});
     };
