@@ -20,6 +20,20 @@ class ProductController {
     }
   };
 
+  getProduct = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const product = await this.productService.findProductById(id);
+      return res.status(200).json({
+        product,
+      });
+    } catch (e) {
+      return res.status(500).json({
+        errorMessage: e.message,
+      });
+    }
+  };
+
   // 상품 등록
   registerProduct = async (req, res) => {
     const { product_name, product_price, product_detail, product_image } =

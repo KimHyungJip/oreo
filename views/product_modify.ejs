@@ -1,1 +1,89 @@
-<h1>상품 수정 페이지</h1>
+<div class="main-section-container" style="margin:30px auto; width: 70%">
+    <h1>상품 수정 페이지</h1>
+    <br>
+    <div id="product-modify-form">
+        <form
+                action="/products/"
+                method="post"
+                enctype="multipart/form-data">
+            <br>
+            <div class="row mb-3">
+                <label for="inputTitle" class="col-sm-2 col-form-label">상품명</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputTitle" value="<%= product_name %>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputPrice" class="col-sm-2 col-form-label">가격</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputPrice" value="<%- product_price %>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputDetail" class="col-sm-2 col-form-label">상세설명</label>
+                <div class="col-sm-10">
+          <textarea class="form-control" placeholder="Leave a comment here" id="inputDetail"
+                    style="height: 100px"><%= product_detail %></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="formFile" class="col-sm-2 col-form-label">이미지</label>
+                <div id="image-show">
+                    <img id="image" src="<%= product_image %>"/>
+                </div>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile" value="<%= product_image %>">
+                </div>
+            </div>
+            <button type="button"
+                    onclick="modifyProduct()"
+                    class="btn btn-primary">수정 완료
+            </button>
+            <button type="button" onclick="location.href='/admin_products'" class="btn btn-secondary">취소</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function modifyProduct() {
+        const product_name = document.getElementById('inputTitle').value;
+        const product_price = document.getElementById('inputPrice').value;
+        const product_detail = document.getElementById('inputDetail').value;
+        const file = document.getElementById('formFile').files[0];
+        // const imageSrc = document.getElementById('image').src;
+        const product_image = `/img/${file.name}` || ' ';
+        // const image = `./uploadImages/${imageSrc.name}`;
+
+        if (!product_name) {
+            alert('상품명을 입력하세요.')
+        } else if (!product_price) {
+            alert('판매가를 입력하세요.')
+        } else if (!product_detail) {
+            alert('제품 상세설명을 입력하세요.')
+        } else {
+            axios
+                .put(
+                    'products/admin',
+                    {
+                        product_name,
+                        product_price,
+                        product_detail,
+                        product_image,
+                    },
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    // customAlert2(response.data.message);
+                    alert(response.data.message);
+                    location.href = '/admin_products';
+                })
+                .catch((error) => {
+                    alert(error.response.data.errorMessage);
+                });
+        }
+    }
+</script>

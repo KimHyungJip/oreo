@@ -12,7 +12,7 @@ class ProductRepository {
   };
 
   findProductById = async (product_id) => {
-    const product = await this.productModel.findByPk(product_id);
+    const product = await this.productModel.findByPk(product_id, { raw: true });
     return product;
   };
 

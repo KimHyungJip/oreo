@@ -9,6 +9,11 @@ class ProductService {
     return products;
   };
 
+  findProductById = async (id) => {
+    const product = await this.productRepository.findProductById(id);
+    return product;
+  };
+
   createProduct = async (
     product_price,
     product_name,
