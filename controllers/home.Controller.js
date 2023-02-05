@@ -6,6 +6,14 @@ exports.mypage = async (req, res) => {
   res.render('mypage', { title: '마이페이지' });
 };
 
+exports.loginpage = async (req, res) => {
+  res.render('loginpage', { title: '로그인페이지' });
+};
+
+exports.signuppage = async (req, res) => {
+  res.render('signuppage', { title: '회원가입페이지' });
+};
+
 // 관리자 - 상품 관리 페이지
 exports.adminProducts = async (req, res) => {
   const { page } = req.query; // 왜 '문자'그대로 놔둬야 제대로 동작하는 거지?
