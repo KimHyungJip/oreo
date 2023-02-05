@@ -10,3 +10,7 @@ exports.mypage = async (req, res) => {
 exports.adminProducts = async (req, res) => {
   res.render('admin_product_list', { title: '상품 관리 페이지' });
 };
+
+exports.loginPage = async (req, res) => {
+  res.render('login', { title: '로그인 페이지' });
+};

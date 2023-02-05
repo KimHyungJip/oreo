@@ -1,0 +1,17 @@
+<form>
+    <input id="emailId" type="text" class="form-control" placeholder="이메일 아이디" aria-label="Recipient's username" aria-describedby="button-addon2">
+    <span class="input-group-text">@</span>
+    <input id = "domain" type="text" class="form-control" placeholder="도메인" aria-describedby="button-addon2" value = "">
+    <select class="form-select" id="changeDomain" onchange="changDomain(this)" aria-label="Example select with button addon">
+        <option value="" selected>직접입력</option>
+        <option value="naver.com">naver.com</option>
+        <option value="gmail.com">gmail.com</option>
+        <option value="daum.net">daum.net</option>
+    </select>
+    <button onclick="dupCheck()" class="btn btn-outline-secondary" type="button">중복체크</button>
+    <div><input type="password" id="password1" placeholder="비밀번호를 입력하세요." /></div>
+    <div><input type="password" id="password2" placeholder="비밀번호를 다시 입력하세요." /></div>
+    <div><input type="text" id="phone" placeholder="핸드폰 번호" /></div>
+    <div><input type="text" id="address" placeholder="주소" /></div>
+    <button onclick="signup()" class="btn btn-outline-secondary" type="button">회원가입</button>
+</form>
