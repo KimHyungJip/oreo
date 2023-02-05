@@ -9,5 +9,8 @@ router.get('/mypage', homeController.mypage);
 
 // 관리자 관련 페이지
 router.get('/admin_products', homeController.adminProducts);
-router.get('/loginpage', homeController.loginPage);
+router.get('/admin_users', homeController.adminUsers);
+
+router.get('/loginpage', homeController.loginpage);
+router.get('/signuppage', homeController.signuppage);
 module.exports = router;

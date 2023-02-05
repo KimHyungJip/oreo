@@ -1,30 +1,30 @@
 <body>
-    <h2>상품 관리</h2>
-    <a href="#">상품 등록하기</a>
+    <h2>회원 관리</h2>
+    <br>
     <section>
-        <div id="product-table">
+        <div id="user-table">
             <table class="table table-hover align-middle text-center">
               <thead class="table-dark">
                 <tr>
                   <th scope="col">삭제</th>
                   <th scope="col">수정</th>
-                  <th scope="col">상품번호</th>
-                  <th scope="col">상품명</th>
-                  <th scope="col">판매가</th>
-                  <th scope="col">상세설명</th>
-                  <th scope="col">상품이미지</th>
+                  <th scope="col">고유ID</th>
+                  <th scope="col">이메일</th>
+                  <th scope="col">핸드폰 번호</th>
+                  <th scope="col">주소</th>
+                  <th scope="col">관리자 여부(1=관리자)</th>
                 </tr>
               </thead>
               <tbody>
-                <% products.forEach(product => { %>
+                <% users.forEach(user => { %>
                 <tr>
                   <td><a class="btn btn-outline-danger" href="#" role="button">삭제</a></td>
                   <td><a class="btn btn-outline-secondary" href="#" role="button">수정</a></td>
-                  <th scope="row"><%= product.product_id %></th>
-                  <td><%= product.product_name %></td>
-                  <td><%= product.product_price %></td>
-                  <td><%= product.product_detail %></td>
-                  <td><img src="../<%= product.product_image %>" class="img-fluid" style="height:50px" alt="..."></td>
+                  <th scope="row"><%= user.user_id %></th>
+                  <td><%= user.email %></td>
+                  <td><%= user.phone %></td>
+                  <td><%= user.address %></td>
+                  <td><%= user.is_admin %></td>
                 </tr>
                 <% }) %>
               </tbody>
@@ -37,7 +37,7 @@
               <ul class="pagination justify-content-center">
                 <% if (chunk_start - 1 > 0) { %>
                     <li class="page-item">
-                        <a class="page-link" href="/admin_products?page=<%= chunk_start - 1 %>" tabindex="-1"
+                        <a class="page-link" href="/admin_users?page=<%= chunk_start - 1 %>" tabindex="-1"
                            aria-disabled="true">Previous</a>
                     </li>
                 <% } %>
@@ -50,13 +50,13 @@
                             </li>
                         <% } else { %>
                             <li class="page-item"><a class="page-link"
-                                 href="/admin_products?page=<%= i %>"><%= i %></a></li>
+                                 href="/admin_users?page=<%= i %>"><%= i %></a></li>
                         <% } %>
                     <% } %>
                 <% } %>
                 <% if (chunk_end < last_page_num) { %>
                     <li class="page-item">
-                        <a class="page-link" href="/admin_products?page=<%= chunk_end + i %>">Next</a>
+                        <a class="page-link" href="/admin_users?page=<%= chunk_end + i %>">Next</a>
                     </li>
                 <% } %>
               </ul>

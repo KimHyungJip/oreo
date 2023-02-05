@@ -14,8 +14,9 @@
 
     <div class="col-md-3 text-end">
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/loginpage" class="btn btn-outline-dark me-2">로그인</a></li>
-            <button type="button" class="btn btn-dark">회원가입</button>
+            <li><button onclick="location.href='/loginpage'" id="loginbutton" class="btn btn-outline-dark me-2" style="display:block;">로그인</a></li>
+            <li><button onclick="logout()" id="logoutbutton" class="btn btn-outline-dark me-2" style="display:none;">로그아웃</a></li>
+            <li><a href="/signuppage" id="signupbutton" class="btn btn-outline-dark me-2">회원가입</a></li>
             <li><a href="/admin_products" class="btn btn-outline-dark me-2">(임시)관리자 페이지로</a></li>
         </ul>
     </div>

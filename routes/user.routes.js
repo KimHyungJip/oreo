@@ -25,10 +25,17 @@ router.post(
 );
 router.post(
   '/refresh',
-  (req, res) => {
+  (req, res, next) => {
     next();
   },
   userController.tokenRefresh
+);
+router.get(
+  '/me',
+  (req, res, next) => {
+    next();
+  },
+  userController.validationCheck
 );
 router.get('/admin', userController.userlistget);
 
