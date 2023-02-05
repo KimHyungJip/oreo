@@ -72,12 +72,14 @@ async function _get_items(page = 1, category) {
 }
 
 // 상품 수정 페이지로 이동
-exports.adminProductModify = (req, res) => {
-  console.log('\n\nreached to edit page.');
+exports.adminProductModify = async (req, res) => {
   const { id } = req.query;
+  const product = await productService.findProductById(id);
+  console.log('\n\nreached to edit page. => ', product);
+
   res.render('product_modify', {
     title: '상품 수정',
-    id,
+    ...product,
   });
 };
 
