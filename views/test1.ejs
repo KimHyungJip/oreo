@@ -114,11 +114,13 @@
             },
             success:function(response){
                 alert("로그인에 성공하였습니다.")
-                localStorage.setItem('accesstoken', response.accessToken)
-                localStorage.setItem('refreshtoken', response.refreshToken)
+                localStorage.setItem('accesstoken',response.accessToken)
+                localStorage.setItem('refreshtoken',response.refreshToken)
                 window.location.href="/"
             },
         })
     }
 </script>
 </html>
+
+
