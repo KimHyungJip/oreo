@@ -5,6 +5,7 @@ require('dotenv').config();
 
 class UserController {
   userService = new UserService();
+
   duplication = async (req, res, next) => {
     const { email } = req.body;
     const duplicationCheck = await this.userService.findUser(email);

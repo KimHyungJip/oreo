@@ -39,7 +39,10 @@ class ProductController {
         product_detail,
         product_image
       );
-      return res.status(201).json({ product });
+      return res.status(201).json({
+        message: '상품 등록이 완료되었습니다.',
+        product,
+      });
     } catch (error) {
       return res.status(500).json({
         errorMessage: error.message,

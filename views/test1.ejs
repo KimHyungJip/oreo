@@ -94,7 +94,7 @@
                     },
                     success:function(response){
                         alert(response.responseJSON.message)
-                        window.location.href="/"
+                        window.location.href="/test1"
                     },error:function(error){
                         alert(error.responseJSON.message)
                     }
@@ -114,8 +114,8 @@
             },
             success:function(response){
                 alert("로그인에 성공하였습니다.")
-                localStorage.setItem('accesstoken',response.accessToken)
-                localStorage.setItem('refreshtoken',response.refreshToken)
+                localStorage.setItem('accesstoken', response.data.accessToken)
+                localStorage.setItem('refreshtoken', response.data.refreshToken)
                 window.location.href="/"
             },
         })

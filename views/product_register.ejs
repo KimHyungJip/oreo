@@ -1,0 +1,124 @@
+<h1>상품 등록 페이지</h1>
+
+<div class="container">
+    <div class="forms">
+      <div class="form signup">
+        <span class="title">상품 등록</span>
+
+        <form
+          action="/products/upload"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+<!--            <div class="input-field">-->
+<!--              상품번호: -->
+<!--              <div>33</div>-->
+<!--              <i class="uil uil-comment-dots"></i>-->
+<!--            </div>-->
+            <div class="input-field">
+              상품명:
+              <input
+                id="inputTitle"
+                type="text"
+                placeholder="상품명을 입력하세요"
+                required
+              />
+              <i class="uil uil-user"></i>
+            </div>
+            <div class="input-field">
+              판매가:
+              <input
+                id="inputPrice"
+                type="text"
+                placeholder="판매가를 입력하세요"
+                required
+              />
+              <i class="uil uil-phone icon"></i>
+            </div>
+            <div class="input-field">
+              상세설명:
+              <input
+                id="inputDetail"
+                type="text"
+                placeholder="제품 상세설명을 입력하세요"
+                required
+              />
+              <i class="uil uil-home icon"></i>
+            </div>
+
+            <div class="input-image-field">
+              이미지:
+              <div id="image-show">
+                <img id="image"/>
+              </div>
+              <input
+                type="file"
+                name="userfile"
+                onchange="loadFile(this)"
+              />
+            </div>
+            <div class="input-field button">
+              <input
+                type="button"
+                onclick="applyProduct()"
+                value="등록하기"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+    let imageSrc = '';
+
+    function loadFile(input) {
+      // imageSrc = input.files[0];
+
+      let file = input.files[0];
+
+      let newImage = document.getElementById('image');
+      newImage.src = URL.createObjectURL(file);
+
+      newImage.style.width = '100%';
+      newImage.style.height = '100%';
+      newImage.style.objectFit = 'contain';
+    }
+
+    // 서비스 신청
+    function applyProduct() {
+      const product_name = document.getElementById('inputTitle').value;
+      const product_price = document.getElementById('inputPrice').value;
+      const product_detail = document.getElementById('inputDetail').value;
+      const imageSrc = document.getElementById('image').src;
+      const product_image = imageSrc || ' ';
+      // const image = `./uploadImages/${imageSrc.name}`;
+
+      axios
+        .post(
+          'products/admin',
+          {
+            product_name,
+            product_price,
+            product_detail,
+            product_image,
+          },
+          {
+            // headers: {
+            //   authorization: `Bearer ${localStorage.getItem('token')}`,
+            // },
+          }
+        )
+        .then((response) => {
+          // customAlert2(response.data.message);
+          alert(response.data.message);
+          location.href = '/admin_products';
+        })
+        .catch((error) => {
+          alert(error.response.data.errorMessage);
+        });
+    }
+
+</script>
