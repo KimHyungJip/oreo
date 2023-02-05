@@ -1,6 +1,3 @@
-const { Order } = require('../models/index.js');
-const Sequelize = require('sequelize');
-
 class OrderRepository {
   constructor(OrderModel) {
     this.orderModel = OrderModel;
@@ -19,6 +16,13 @@ class OrderRepository {
       throw error;
     }
   };
+  //order table에 넣음
+  orderCreate = async (user_id) => {
+    const createOrder = await this.orderModel.create({
+      user_id
+    });
+    return createOrder;
+  }
 }
 
 module.exports = OrderRepository;

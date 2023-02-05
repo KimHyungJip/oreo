@@ -38,6 +38,14 @@ class CartRepository {//서비스 계층에서 내가줄 모델을 고를 수 �
     });
     return deleteCartdata;
   }
+  //주문에의한 장바구니 삭제
+  deleteAllCart = async(orderTableInfo)=>{
+    for(let i =0;i<orderTableInfo.length;i++){
+      const cart_item_id = orderTableInfo[i].cart_item_id
+      await this.cart_item.destroy({where : {cart_item_id}});
+    }
+    return 1;
+  }
 }
 
 module.exports = CartRepository;

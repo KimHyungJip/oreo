@@ -31,8 +31,8 @@ class CartService {
   deleteCart = async(cart_item_id)=>{
     const deleteCart = await this.cartRepository.deleteCart(cart_item_id);
     return deleteCart;
-
   }
+  
 }
 
 module.exports = CartService;
