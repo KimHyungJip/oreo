@@ -5,7 +5,7 @@
 .container-xxl { max-width: 1530px; }
 
 body {
-  background-image: url("/img/foods.svg");
+  background-image: url("../img/foods.svg");
   background-color: rgb(243, 243, 243);
 }
 

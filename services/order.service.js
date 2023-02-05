@@ -12,7 +12,7 @@ class OrderService {
   cartRepository = new CartRepository(Cart_item);
   orderItemRepository = new OrderItemRepository(Order_item);
   // 주문 목록 조회(관리자)
-  getorderlist = async () => {
+  getOrderList = async () => {
     try {
       // OrderRepository에서 실행한 orderslistget 함수를 getorderslist 변수에 담는다.
       const getorderslist = await this.orderRepository.orderslistget();

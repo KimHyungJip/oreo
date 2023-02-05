@@ -7,8 +7,8 @@ class CartService {
   findAllCart = async(user_id)=>{
     console.log("service진입")
     const allCart = await this.cartRepository.findCart(user_id);
-    if(!allCart){
-        return -1
+    if (!allCart) {
+      return -1;
     }
     return allCart.map(cart=>cart.dataValues)
   }

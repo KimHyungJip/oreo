@@ -4,9 +4,9 @@ class OrderRepository {
   }
 
   // 주문 목록 조회(관리자)
-  getorderlist = async () => {
+  getOrderList = async () => {
     try {
-      const orderlist = await this.orderModel.findall();
+      const orderlist = await this.orderModel.findAll();
       return orderlist;
     } catch (error) {
       console.log(error);
