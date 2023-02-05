@@ -1,5 +1,5 @@
 const UserRepository = require('../repositories/user.repository.js');
-const { User } = require('../models')
+const { User } = require('../models');
 
 class UserService {
   userRepository = new UserRepository(User);
@@ -8,7 +8,15 @@ class UserService {
     if (!userData) {
       return 0;
     }
-    return userData;
+    return {
+      user_id: userData.user_id,
+      email: userData.email,
+      password: userData.password,
+      phone: userData.phone,
+      address: userData.address,
+      is_admin: userData.is_admin,
+      salt: userData.salt,
+    };
   };
   createUser = async (password, phone, email, address, salt) => {
     const createData = await this.userRepository.createUser(
