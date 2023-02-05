@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const { resourceLimits } = require('worker_threads');
 const UserService = require('../services/user.service.js');
 require('dotenv').config();
 
@@ -9,7 +10,7 @@ class UserController {
     const { email } = req.body;
     const duplicationCheck = await this.userService.findUser(email);
     if (duplicationCheck !== 0) {
-      res.status(403).send({ message: '중복된 이메일 입니다.' });
+      res.status(200).send({ message: '중복된 이메일 입니다.' });
     } else {
       res.status(200).send({ message: '사용 가능한 이메일 입니다.' });
     }

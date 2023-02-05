@@ -6,31 +6,32 @@ function button_action() {
     $('#loginbutton').hide();
     $('#logoutbutton').show();
     $('#signupbutton').hide();
+    //login 되었을 때 localstorage에 is_admin이 저장되어있음
+    //활용해서 header가 보이는것을 컨트롤 해주면 될 것 같음
     // if(localStorage.getItem(is_admin)===0){
 
     // }else if(localStorage.getItem(is_admin)===1){
 
+    // }else{
+
     // }
   }
 }
-function changDomain(domain) {
-  $('#domain').attr('value', domain.value);
-}
 function dupCheck() {
-  const emailId = document.getElementById('emailId').value;
-  const emailDomain = document.getElementById('domain').value;
+  const emailId = $('#emailId').val();
+  const emailDomain = $('#emailDomain').val();
   const email = emailId + '@' + emailDomain;
-  if (!emailId) {
-    alert('아이디를 입력해주세요');
-  } else if (!emailDomain) {
-    alert('도메인을 입력해주세요');
+  if (!email) {
+    alert('이메일 형식이 맞지 않습니다.');
+  } else if (emailDomain.indexOf('.') === -1) {
+    alert('이메일 형식이 맞지 않습니다.');
   } else {
     $.ajax({
       type: 'POST',
       url: '/users/duplication',
       data: { email: email },
       success: function (response) {
-        alert(response.responseJSON.message);
+        alert(response.message);
       },
       error: function (err) {
         alert(err.responseJSON.message);
@@ -39,13 +40,13 @@ function dupCheck() {
   }
 }
 function signup() {
-  const emailId = document.getElementById('emailId').value;
-  const emailDomain = document.getElementById('domain').value;
+  const emailId = $('#emailId').val();
+  const emailDomain = $('#emailDomain').val();
   const email = emailId + '@' + emailDomain;
-  const phone = document.getElementById('phone').value;
-  const address = document.getElementById('address').value;
-  const password1 = document.getElementById('password1').value;
-  const password2 = document.getElementById('password2').value;
+  const phone = $('#phone').val();
+  const address = $('#address').val();
+  const password1 = $('#password1').val();
+  const password2 = $('#password2').val();
   if (
     !emailId ||
     !emailDomain ||
@@ -69,7 +70,7 @@ function signup() {
           address: address,
         },
         success: function (response) {
-          alert(response.responseJSON.message);
+          alert(response.message);
           window.location.href = '/';
         },
         error: function (err) {
@@ -97,7 +98,7 @@ function login() {
         password: loginPassword,
       },
       success: function (response) {
-        alert('로그인에 성공하였습니다.');
+        alert(response.message);
         localStorage.setItem('accesstoken', response.accessToken);
         localStorage.setItem('refreshtoken', response.refreshToken);
         localStorage.setItem('is_admin', response.is_admin);
