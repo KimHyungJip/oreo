@@ -71,3 +71,19 @@ async function _get_items(page = 1, category) {
   };
 }
 
+// 상품 수정 페이지로 이동
+exports.adminProductModify = (req, res) => {
+  console.log('\n\nreached to edit page.');
+  const { id } = req.query;
+  res.render('product_modify', {
+    title: '상품 수정',
+    id,
+  });
+};
+
+// 상품 등로 페이지로 이동
+exports.adminProductRegister = (req, res) => {
+  res.render('product_register', {
+    title: '상품 등록',
+  });
+};

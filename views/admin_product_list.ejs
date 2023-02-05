@@ -1,6 +1,8 @@
 <body>
-    <h2>상품 관리</h2>
-    <a href="#">상품 등록하기</a>
+    <div class="d-flex justify-content-between align-items-end" style="margin-bottom: 10px">
+        <h2>상품 관리</h2>
+        <a class="btn btn-outline-dark" href="/admin_product_register" role="button">상품 등록하기</a>
+    </div>
     <section>
         <div id="product-table">
             <table class="table table-hover align-middle text-center">
@@ -18,13 +20,15 @@
               <tbody>
                 <% products.forEach(product => { %>
                 <tr>
-                  <td><a class="btn btn-outline-danger" href="#" role="button">삭제</a></td>
-                  <td><a class="btn btn-outline-secondary" href="#" role="button">수정</a></td>
+                  <td><button type="button" onclick="deleteProduct(<%= product.product_id %>)" class="btn
+                  btn-outline-danger">삭제</button></td>
+                  <td><a class="btn btn-outline-secondary" href="/admin_product_modify?id=<%= product.product_id %>"
+                         role="button">수정</a></td>
                   <th scope="row"><%= product.product_id %></th>
                   <td><%= product.product_name %></td>
                   <td><%= product.product_price %></td>
                   <td><%= product.product_detail %></td>
-                  <td><img src="../<%= product.product_image %>" class="img-fluid" style="height:50px" alt="..."></td>
+                  <td><img src="/<%= product.product_image %>" class="img-fluid" style="height:50px" alt="..."></td>
                 </tr>
                 <% }) %>
               </tbody>
@@ -38,7 +42,7 @@
                 <% if (chunk_start - 1 > 0) { %>
                     <li class="page-item">
                         <a class="page-link" href="/admin_products?page=<%= chunk_start - 1 %>" tabindex="-1"
-                           aria-disabled="true">Previous</a>
+                           aria-disabled="true"><</a>
                     </li>
                 <% } %>
                 <% for (let i = chunk_start; i <= chunk_end; i++) { %>
@@ -56,11 +60,37 @@
                 <% } %>
                 <% if (chunk_end < last_page_num) { %>
                     <li class="page-item">
-                        <a class="page-link" href="/admin_products?page=<%= chunk_end + i %>">Next</a>
+                        <a class="page-link" href="/admin_products?page=<%= chunk_end + i %>">></a>
                     </li>
                 <% } %>
               </ul>
             </nav>
         </div>
     </section>
+
+<!--    <script src="./admin_products.js" type="text/javascript"></script>-->
+    <script>
+        function deleteProduct(id) {
+            const check = confirm(`${id}번 상품을 정말 삭제하시겠습니까?`)
+            if (check) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: `/products/admin/${id}`,
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+                    },
+                    success: function (response) {
+                        alert(response.message);
+                        location.reload();
+                        // location.replace(location.href);
+                        // location.href = location.href;
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseJSON.errorMessage);
+                        // customAlert2(xhr.responseJSON.errorMessage);
+                    },
+                })
+            }
+        }
+    </script>
 </body>
