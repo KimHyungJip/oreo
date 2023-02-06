@@ -36,6 +36,25 @@
                   style="height: 100px"></textarea>
                 </div>
             </div>
+
+            <div class="input-image-field">
+              이미지:
+              <div id="image-show">
+                <img id="image"/>
+              </div>
+              <input
+                type="file"
+                name="userfile"
+                id="image_file"
+                accept="image/*"
+              /><button ></button>
+            </div>
+            <div class="input-field button">
+              <button
+                type="button"
+                onclick="upload()"
+              >등록하기</button>
+            </div>
             <div class="row mb-3">
                 <div id="image-show">
                     <img id="image"/>
@@ -52,63 +71,5 @@
             <button type="button" onclick="history.back()" class="btn btn-secondary">취소</button>
         </form>
     </div>
+  </div>
 </div>
-
-<script>
-    let imageSrc = '';
-
-    function loadFile(input) {
-        let file = input.files[0];
-        let newImage = document.getElementById('image');
-        // newImage.src = URL.createObjectURL(file);
-        newImage.src = 'img/' + file.name;
-
-        newImage.style.width = '100%';
-        newImage.style.height = '100%';
-        newImage.style.objectFit = 'contain';
-    }
-
-    // 상품 등록
-    function applyProduct() {
-        const product_name = document.getElementById('inputTitle').value;
-        const product_price = document.getElementById('inputPrice').value;
-        const product_detail = document.getElementById('inputDetail').value;
-        const imageSrc = document.getElementById('image').src;
-        const product_image = imageSrc || ' ';
-        // const image = `./uploadImages/${imageSrc.name}`;
-
-        if (!product_name) {
-            alert('상품명을 입력하세요.')
-        } else if (!product_price) {
-            alert('판매가를 입력하세요.')
-        } else if (!product_detail) {
-            alert('제품 상세설명을 입력하세요.')
-        } else {
-            axios
-                .post(
-                    'products/admin',
-                    {
-                        product_name,
-                        product_price,
-                        product_detail,
-                        product_image,
-                    },
-                    {
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
-                        },
-                    }
-                )
-                .then((response) => {
-                    // customAlert2(response.data.message);
-                    alert(response.data.message);
-                    location.href = '/admin_products';
-                })
-                .catch((error) => {
-                    alert(error.response.data.errorMessage);
-                });
-        }
-
-    }
-
-</script>
