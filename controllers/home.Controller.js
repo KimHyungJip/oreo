@@ -47,7 +47,6 @@ exports.adminUsers = async (req, res) => {
   });
 };
 
-const { use } = require('../routes');
 const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');
 const productService = new ProductService();
