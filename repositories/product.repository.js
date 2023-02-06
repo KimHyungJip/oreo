@@ -4,15 +4,15 @@ class ProductRepository {
   }
 
   findAllProducts = async () => {
-    const products = await this.productModel.findAll();
-    // const products = await this.productModel.findAll({
-    //   order: ['updatedAt', 'DESC'],
-    // });
+    const products = await this.productModel.findAll({
+      order: [['updatedAt', 'DESC']],
+      raw: true,
+    });
     return products;
   };
 
   findProductById = async (product_id) => {
-    const product = await this.productModel.findByPk(product_id);
+    const product = await this.productModel.findByPk(product_id, { raw: true });
     return product;
   };
 

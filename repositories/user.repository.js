@@ -1,16 +1,27 @@
-const { User } = require('../models/index.js');
-const Sequelize = require('sequelize');
-
 class UserRepository {
   constructor(UserModel) {
     this.userModel = UserModel;
   }
 
+  findUser = async (email) => {
+    const userData = await this.userModel.findOne({ where: { email: email } });
+    return userData;
+  };
+  createUser = async (password, phone, email, address, salt) => {
+    const createData = await this.userModel.create({
+      password: password,
+      phone: phone,
+      email: email,
+      address: address,
+      salt: salt,
+    });
+    return createData;
+  };
   // 회원 목록 조회(관리자)
   userlistget = async () => {
     try {
       const userlist = await this.userModel.findAll({
-        attributes: ['user_id', 'phone', 'email', 'address'],
+        // attributes: ['user_id', 'phone', 'email', 'address'],
       });
       return userlist;
     } catch (error) {
@@ -22,5 +33,4 @@ class UserRepository {
     }
   };
 }
-
 module.exports = UserRepository;

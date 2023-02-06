@@ -1,13 +1,10 @@
-const { Order } = require('../models/index.js');
-const Sequelize = require('sequelize');
-
 class OrderRepository {
   constructor(OrderModel) {
     this.orderModel = OrderModel;
   }
 
   // 주문 목록 조회(관리자)
-  getorderlist = async () => {
+  getOrderList = async () => {
     try {
       const orderlist = await this.orderModel.findAll();
       return orderlist;

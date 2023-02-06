@@ -1,32 +1,32 @@
-GET http://localhost:7000/product
+GET http://localhost:7000/products
 
 ###
 
-POST http://localhost:7000/product/admin
+POST http://localhost:7000/products/admin
 Content-Type: application/json
 
 {
   "product_name": "Chocolate Cup Cake",
   "product_price": "3200",
   "product_detail": "촉촉한 초코 컵케익",
-  "product_image": "images/super-moist-chocolate-cupcakes-524176-1.jpg"
+  "product_image": "img/super-moist-chocolate-cupcakes-524176-1.jpg"
 }
 
 ###
 
-PUT http://localhost:7000/product/admin/9
+PUT http://localhost:7000/products/admin/100
 Content-Type: application/json
 
 {
   "product_name": "Chocolate Cup Cake",
   "product_price": "2800",
   "product_detail": "촉촉한 초코 컵케익",
-  "product_image": "images/super-moist-chocolate-cupcakes-524176-1.jpg"
+  "product_image": "img/super-moist-chocolate-cupcakes-524176-1.jpg"
 }
 
 ###
 
-DELETE http://localhost:7000/product/admin/9
+DELETE http://localhost:7000/products/admin/55
 
 ###
 
