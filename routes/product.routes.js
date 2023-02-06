@@ -13,23 +13,4 @@ router.post('/imageupload', upload.single('image'), (req, res) => {
 router.post('/admin', adminCheck, productController.registerProduct);
 router.put('/admin/:id', adminCheck, productController.updateProduct);
 router.delete('/admin/:id', adminCheck, productController.deleteProduct);
-router.post(
-  '/admin',
-  authMiddleware,
-  adminCheck,
-  productController.registerProduct
-);
-router.put(
-  '/admin/:id',
-  authMiddleware,
-  adminCheck,
-  productController.updateProduct
-);
-router.delete(
-  '/admin/:id',
-  authMiddleware,
-  adminCheck,
-  productController.deleteProduct
-);
-
 module.exports = router;
