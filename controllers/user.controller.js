@@ -124,5 +124,8 @@ class UserController {
         .json({ success: error.success, message: error.message });
     }
   };
+
+  // 유저ID로 해당 유저 정보 수정
+  modifyUser = async (req, res) => {};
 }
 module.exports = UserController;

@@ -21,7 +21,8 @@
                 <% users.forEach(user => { %>
                 <tr>
                   <td><a class="btn btn-outline-danger" href="#" role="button">삭제</a></td>
-                  <td><a class="btn btn-outline-secondary" href="#" role="button">수정</a></td>
+                  <td><a class="btn btn-outline-secondary" href="/admin_user_modify?email=<%= user.email%>"
+                         role="button">수정</a></td>
                   <th scope="row"><%= user.user_id %></th>
                   <td><%= user.email %></td>
                   <td><%= user.phone %></td>

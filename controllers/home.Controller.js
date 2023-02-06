@@ -14,6 +14,11 @@ exports.signuppage = async (req, res) => {
   res.render('signuppage', { title: '회원가입페이지' });
 };
 
+// 관리자 - 인트로 페이지
+exports.adminIndex = async (req, res) => {
+  res.render('managermain', { title: '관리자메인' });
+};
+
 // 관리자 - 상품 관리 페이지
 exports.adminProducts = async (req, res) => {
   const { page } = req.query; // 왜 '문자'그대로 놔둬야 제대로 동작하는 거지?
@@ -71,7 +76,7 @@ async function _get_items(page = 1, category) {
   };
 }
 
-// 상품 수정 페이지로 이동
+// 관리자 - 상품 수정 페이지
 exports.adminProductModify = async (req, res) => {
   const { id } = req.query;
   const product = await productService.findProductById(id);
@@ -83,9 +88,23 @@ exports.adminProductModify = async (req, res) => {
   });
 };
 
-// 상품 등로 페이지로 이동
+// 관리자 - 상품 등록 페이지
 exports.adminProductRegister = (req, res) => {
   res.render('product_register', {
     title: '상품 등록',
+  });
+};
+
+// 관리자 - 회원 정보 수정 페이지
+exports.adminUserModify = async (req, res) => {
+  const { email } = req.query;
+  // const { email } = res.locals.user;
+  const user = await userService.findUser(email);
+  // const user = res.locals;
+
+  // res.render('user_modify', {
+  res.render('managerpost', {
+    title: '회원 정보 수정',
+    ...user,
   });
 };
