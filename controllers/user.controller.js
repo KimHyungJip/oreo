@@ -54,7 +54,7 @@ class UserController {
         const accessToken = jwt.sign(
           payload,
           process.env.ACCESSTOKEN_SECRET_KEY,
-          { expiresIn: '3600s' }
+          { expiresIn: '36000s' }
         );
         const refreshToken = jwt.sign(
           payload,
@@ -97,12 +97,15 @@ class UserController {
           const accessToken = jwt.sign(
             payload,
             process.env.ACCESSTOKEN_SECRET_KEY,
-            { expiresIn: '3600s' }
+            { expiresIn: '36000s' }
           );
           res.status(200).send({ accessToken });
         }
       }
     );
+  };
+  me = async (req, res) => {
+    res.send(res.locals.user);
   };
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
@@ -121,34 +124,33 @@ class UserController {
       error.message = '회원 목록을 불러오지 못했습니다.';
       return res
         .status(error.status)
-        .json({ sucwcess: error.success, message: error.message });
+        .json({ success: error.success, message: error.message });
     }
   };
-
-  // 회원 정보 조회(개인별)
-  getUserInfo = async (req, res) => {
-    const { user_id } = res.query;
-    // const user_id = 4;
-    // const { user_id } = req.params;
-    // const user_id = res.locals.user.user_id;
-    try {
-      const userinfo = await this.userService.findUserInfo(user_id);
-      console.log('at controlloer.js 개인정보');
-      return res.status(200).json({
-        userinfo,
-      });
-    } catch (err) {
-      return res.status(500).json({
-        errorMessage: err.message,
-      });
-    }
-  };
-
-  // const {user_id} = req.query;
-  // const userinfo = await userService.findUserInfo(user_id);
-  // console.log('홈 컨트롤러 작동')
 
   // 유저ID로 해당 유저 정보 수정
-  modifyUser = async (req, res) => {};
+  modifyUser = async (req, res) => {
+    const userId = res.locals.user.user_id;
+    const { email, phone, password, address } = req.body;
+    try {
+      const dupCheck = await this.userService.findUser(email);
+      if (!dupCheck) {
+        const salt = crypto.randomBytes(64).toString('base64');
+        const hashedPwd = crypto
+          .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+          .toString('base64');
+        const usermodify = await this.userService.modifyUser(
+          userId,
+          email,
+          phone,
+          hashedPwd,
+          address
+        );
+      }
+      res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
+    } catch (err) {
+      res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
+    }
+  };
 }
 module.exports = UserController;

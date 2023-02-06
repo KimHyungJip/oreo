@@ -41,18 +41,28 @@ class UserService {
   };
 
   // 회원 개인 정보 조회
-  findUserInfo = async (user_id) => {
-    try {
-      const userinfo = await this.userRepository.findUserInfo(user_id);
-      console.log('at service.js');
-      return userinfo;
-    } catch (err) {
-      console.log(err);
-      err.name = 'database error';
-      err.message = '요청을 처리하지 못하였습니다.';
-      err.status = 400;
-      throw err;
-    }
+  // findUserInfo = async (user_id) => {
+  //   try {
+  //     const userinfo = await this.userRepository.findUserInfo(user_id);
+  //     console.log('at service.js');
+  //     return userinfo;
+  //   } catch (err) {
+  //     console.log(err);
+  //     err.name = 'database error';
+  //     err.message = '요청을 처리하지 못하였습니다.';
+  //     err.status = 400;
+  //     throw err;
+  //   }
+  
+  modifyUser = async (userId, email, phone, password, address) => {
+    const usermodify = await this.userRepository.modifyUser(
+      userId,
+      email,
+      phone,
+      password,
+      address
+    );
+    return usermodify;
   };
 }
 module.exports = UserService;

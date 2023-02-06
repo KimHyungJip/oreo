@@ -3,10 +3,13 @@ const express = require('express');
 const authMiddleware = require('../middlewares/auth-middleware.js');
 const router = express.Router();
 const userController = new UserController();
+const adminCheck = require('../middlewares/admin');
 
 router.post('/signup', userController.signup);
 
 router.post('/login', userController.login);
+
+router.get('/me', authMiddleware, userController.me);
 
 router.post('/duplication', userController.duplication);
 
@@ -16,8 +19,6 @@ router.get('/admin', userController.userlistget);
 
 router.put('/admin/:id', userController.modifyUser);
 
-// router.get('/userinfo', authMiddleware, userController.getUserInfo);
-
-// router.get('/usermodify', authMiddleware, userController.modifyUserInfo);
+router.put('/modifyinfo', authMiddleware, userController.modifyUser);
 
 module.exports = router;

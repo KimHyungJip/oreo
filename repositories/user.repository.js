@@ -34,18 +34,33 @@ class UserRepository {
   };
 
   // 회원 정보 조회(개인)
-  findUserInfo = async (user_id) => {
-    try {
-      const userinfo = await this.userModel.findByPk(user_id, { raw: true });
-      console.log('at repository.js');
-      return userinfo;
-    } catch (err) {
-      console.log(err);
-      err.name = 'database error';
-      err.message = '요청을 처리하지 못하였습니다.';
-      err.status = 400;
-      throw err;
-    }
+
+  // findUserInfo = async (user_id) => {
+  //   try {
+  //     const userinfo = await this.userModel.findByPk(user_id, { raw: true });
+  //     console.log('at repository.js');
+  //     return userinfo;
+  //   } catch (err) {
+  //     console.log(err);
+  //     err.name = 'database error';
+  //     err.message = '요청을 처리하지 못하였습니다.';
+  //     err.status = 400;
+  //     throw err;
+  //   }
+  // };
+
+  modifyUser = async (userId, email, phone, password, address) => {
+    const usermodify = await this.userModel.update(
+      {
+        email: email,
+        phone: phone,
+        password: password,
+        address: address,
+        updatedAt: new Date(),
+      },
+      { where: { user_id: userId } }
+    );
+    return usermodify;
   };
 }
 module.exports = UserRepository;

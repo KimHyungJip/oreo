@@ -1,15 +1,44 @@
-
 <p></p>
 <h1>회원 정보</h1>
 <span class="userinfo">
     <h1>제목 : <%- title %> </h1>
-    <h1>아이디 : <%- user.user_id %> </h1>
-    <h1>이메일 : <%- user.email %> </h1>
-    <h1>주소 : <%- user.address %> </h1>
-    <h1>연락처 : <%- user.phone %> </h1>
-</span>
 
 
-$(document).ready(function) () {
-    me();
-}
+<body>
+    <h1>마이페이지</h1>
+    <a href="/">홈페이지 돌아가기</a>
+    <div id = "myinfo">
+      <div class ="me" id="me"></div>
+    </div>
+    
+    <button onclick="modifybutton()" id="modifyinfobutton" class="btn btn-outline-secondary" type="button">수정하기</button>
+    <section id = "modifyinfo">
+      <div class="signupCard">
+        <form>
+          <div class="input-group mb-3">
+              <input id="emailId" type="text" class="form-control" placeholder="아이디" aria-describedby="button-addon2">
+              <span class="input-group-text">@</span>
+              <input id="emailDomain" type="text" class="form-control" placeholder="도메인" aria-describedby="button-addon2">
+              <button onclick="dupCheck()" class="btn btn-outline-secondary" type="button">중복체크</button>
+          </div>
+          <input type="password" id="password1" placeholder="비밀번호를 입력하세요."/>
+          <input type="password" id="password2" placeholder="비밀번호를 다시 입력하세요."/>
+          <input type="text" id="phone" placeholder="핸드폰 번호"/>
+          <input type="text" id="address" placeholder="주소"/>
+        </form>
+        <div class="signup_actions">
+          <button onclick="modifyinfo()" class="btn btn-outline-secondary" type="button">수정하기</button>
+          <button onclick="myinfobutton()" class="btn btn-outline-secondary" type="button" id="myinfo">취소하기</button>
+        </div>
+      </div>
+    
+  </section>
+</body>
+
+
+<script>
+    $(document).ready(function () {
+      $('#modifyinfo').hide()
+      me();
+    });
+</script>
