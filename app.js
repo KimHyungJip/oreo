@@ -23,10 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 
 // Static Files
-app.use(express.static('public'));
-// app.use('/css', express.static(__dirname + 'public/css'))
-// app.use('/js', express.static(__dirname + 'public/js'))
-// app.use('/img', express.static(__dirname + 'public/img'))
+app.use(express.static('public')); // 이후로 어디서든 파일 참조시, href="css/styles.css" | "js/api.js" | "img/bread.jpg"
 
 // 4. 소켓 연결 이벤트 핸들링
 // io.on("connection", (sock) => {

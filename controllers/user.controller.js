@@ -54,7 +54,7 @@ class UserController {
         const accessToken = jwt.sign(
           payload,
           process.env.ACCESSTOKEN_SECRET_KEY,
-          { expiresIn: '3600s' }
+          { expiresIn: '36000s' }
         );
         const refreshToken = jwt.sign(
           payload,
@@ -97,19 +97,22 @@ class UserController {
           const accessToken = jwt.sign(
             payload,
             process.env.ACCESSTOKEN_SECRET_KEY,
-            { expiresIn: '3600s' }
+            { expiresIn: '36000s' }
           );
           res.status(200).send({ accessToken });
         }
       }
     );
   };
+  me = async (req, res) => {
+    res.send(res.locals.user);
+  };
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
     try {
       // 서비스 계층에 구현된 userlistget 함수를 실행한다.
       const userlistResult = await this.UserService.userlistget();
-      return res.status(200).json({
+      return res.status(200).render('managermain', {
         success: true,
         message: '회원목록을 불러왔습니다.',
         userlistResult: userlistResult,
@@ -122,6 +125,31 @@ class UserController {
       return res
         .status(error.status)
         .json({ success: error.success, message: error.message });
+    }
+  };
+
+  // 유저ID로 해당 유저 정보 수정
+  modifyUser = async (req, res) => {
+    const userId = res.locals.user.user_id;
+    const { email, phone, password, address } = req.body;
+    try {
+      const dupCheck = await this.userService.findUser(email);
+      if (!dupCheck) {
+        const salt = crypto.randomBytes(64).toString('base64');
+        const hashedPwd = crypto
+          .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+          .toString('base64');
+        const usermodify = await this.userService.modifyUser(
+          userId,
+          email,
+          phone,
+          hashedPwd,
+          address
+        );
+      }
+      res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
+    } catch (err) {
+      res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
     }
   };
 }

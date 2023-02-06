@@ -1,3 +1,5 @@
+const { Order_item, Order, User } = require('../models');
+
 class OrderRepository {
   constructor(OrderModel) {
     this.orderModel = OrderModel;
@@ -13,6 +15,29 @@ class OrderRepository {
       error.name = 'Database Error';
       error.message = '요청을 처리하지 못하였습니다.';
       error.status = 500;
+      throw error;
+    }
+  };
+
+  // 주문 목록 조회 (사용자)
+  getOrdersByUserId = async (user_id) => {
+    try {
+      const orders = await this.orderModel.findAll({
+        include: [
+          {
+            model: Order_item,
+            as: 'order_item',
+            attributes: ['product_id', 'item_quantity'],
+          },
+        ],
+        where: { user_id },
+      });
+
+      return orders;
+    } catch (error) {
+      error.name = 'Database Error';
+      error.message = '요청을 처리하지 못하였습니다.';
+      error.status = 400;
       throw error;
     }
   };

@@ -10,4 +10,7 @@ router.get('/admin', orderController.getOrderList);
 //주문(cart_items들)
 router.post('/',orderController.postOrder)
 
+// 주문 목록 조회(사용자)
+// router.get('/orders/:id', orderController.getUserById);
+
 module.exports = router;
