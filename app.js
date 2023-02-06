@@ -27,8 +27,6 @@ app.use(express.static('public'));
 // app.set('views', __dirname + '/views');
 // app.use(express.static(path.join(__dirname + '/views')));
 
-app.use('/', routes);
-
 app.get('/mypage', (req, res) => {
   res.render('mypage', { title: '마이페이지' });
 });
