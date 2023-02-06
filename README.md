@@ -1,5 +1,6 @@
 ### 개발을 진행하며
 - **커밋 전에 항상**: ```npm run prettify``` (리포맷 해주기)
+- **develop 브랜치에서 pull 받기 전에 항상**: ```git remote update``` (깃헙에 생긴 변경 사항을 동기화)
 - **API 테스트 편리하게 하기**: ```npm run start``` (nodemon으로 서버 자동 재실행)
 - **develop 브랜치에서 pull 받고 정상적으로 실행이 안 되는 경우**: ```npm install``` (패키지 설치 한 번 해주기)
 

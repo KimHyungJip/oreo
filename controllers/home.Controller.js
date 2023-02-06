@@ -16,8 +16,8 @@ exports.signuppage = async (req, res) => {
 
 // 관리자 - 인트로 페이지
 exports.adminIndex = async (req, res) => {
-  res.render('managermain', { title: '관리자메인' })
-}
+  res.render('managermain', { title: '관리자메인' });
+};
 
 // 관리자 - 상품 관리 페이지
 exports.adminProducts = async (req, res) => {
@@ -99,13 +99,12 @@ exports.adminProductRegister = (req, res) => {
 exports.adminUserModify = async (req, res) => {
   const { email } = req.query;
   // const { email } = res.locals.user;
-  const user = await userService.findUser(email)
+  const user = await userService.findUser(email);
   // const user = res.locals;
 
   // res.render('user_modify', {
   res.render('managerpost', {
     title: '회원 정보 수정',
     ...user,
-  })
-}
-
+  });
+};
