@@ -49,7 +49,7 @@
                     onclick="applyProduct()"
                     class="btn btn-primary">등록하기
             </button>
-            <button type="button" onclick="location.href='/admin_products'" class="btn btn-secondary">취소</button>
+            <button type="button" onclick="history.back()" class="btn btn-secondary">취소</button>
         </form>
     </div>
 </div>
@@ -59,11 +59,9 @@
 
     function loadFile(input) {
         let file = input.files[0];
-        // console.log("input.files[0]: ", file)
-        // console.log("the file name: ", file.name)
         let newImage = document.getElementById('image');
         // newImage.src = URL.createObjectURL(file);
-        newImage.src = '/img/' + file.name;
+        newImage.src = 'img/' + file.name;
 
         newImage.style.width = '100%';
         newImage.style.height = '100%';
