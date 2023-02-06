@@ -54,7 +54,7 @@ class UserController {
         const accessToken = jwt.sign(
           payload,
           process.env.ACCESSTOKEN_SECRET_KEY,
-          { expiresIn: '3600s' }
+          { expiresIn: '36000s' }
         );
         const refreshToken = jwt.sign(
           payload,
@@ -97,12 +97,15 @@ class UserController {
           const accessToken = jwt.sign(
             payload,
             process.env.ACCESSTOKEN_SECRET_KEY,
-            { expiresIn: '3600s' }
+            { expiresIn: '36000s' }
           );
           res.status(200).send({ accessToken });
         }
       }
     );
+  };
+  me = async (req, res) => {
+    res.send(res.locals.user);
   };
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
@@ -126,6 +129,28 @@ class UserController {
   };
 
   // 유저ID로 해당 유저 정보 수정
-  modifyUser = async (req, res) => {};
+  modifyUser = async (req, res) => {
+    const userId = res.locals.user.user_id;
+    const { email, phone, password, address } = req.body;
+    try {
+      const dupCheck = await this.userService.findUser(email);
+      if (!dupCheck) {
+        const salt = crypto.randomBytes(64).toString('base64');
+        const hashedPwd = crypto
+          .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+          .toString('base64');
+        const usermodify = await this.userService.modifyUser(
+          userId,
+          email,
+          phone,
+          hashedPwd,
+          address
+        );
+      }
+      res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
+    } catch (err) {
+      res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
+    }
+  };
 }
 module.exports = UserController;

@@ -32,5 +32,18 @@ class UserRepository {
       throw error;
     }
   };
+  modifyUser = async (userId, email, phone, password, address) => {
+    const usermodify = await this.userModel.update(
+      {
+        email: email,
+        phone: phone,
+        password: password,
+        address: address,
+        updatedAt: new Date(),
+      },
+      { where: { user_id: userId } }
+    );
+    return usermodify;
+  };
 }
 module.exports = UserRepository;

@@ -4,7 +4,10 @@ class CartRepository {
     this.cart_item = cart_item;
   }
   //user_id로 장바구니 검색
+  //조인해서 상품명 판매가 상세설명 상품이미지 수량 확인
+  
   findCart = async (user_id) => {
+    console.log("장바구니검색 repo ")
     const getCartdata = await this.cart_item.findAll({
       where: { user_id },
     });
@@ -37,7 +40,15 @@ class CartRepository {
       where: { cart_item_id },
     });
     return deleteCartdata;
-  };
+  }
+  //주문에의한 장바구니 삭제
+  deleteAllCart = async(orderTableInfo)=>{
+    for(let i =0;i<orderTableInfo.length;i++){
+      const cart_item_id = orderTableInfo[i].cart_item_id
+      await this.cart_item.destroy({where : {cart_item_id}});
+    }
+    return 1;
+  }
 }
 
 module.exports = CartRepository;
