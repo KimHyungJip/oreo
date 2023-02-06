@@ -24,6 +24,13 @@ app.use(express.static('public'));
 // app.use('/js', express.static(__dirname + 'public/js'))
 // app.use('/img', express.static(__dirname + 'public/img'))
 
+// app.set('views', __dirname + '/views');
+// app.use(express.static(path.join(__dirname + '/views')));
+
+app.get('/mypage', (req, res) => {
+  res.render('mypage', { title: '마이페이지' });
+});
+
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
