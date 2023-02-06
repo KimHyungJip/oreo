@@ -5,10 +5,10 @@ class OrderController {
   OrderService = new OrderService();
 
   // 주문 목록 조회(관리자)
-  getorderlist = async (req, res, next) => {
+  getOrderList = async (req, res, next) => {
     try {
-      // 서비스 계층에 구현된 getorderlist 로직을 실행한다.
-      const orderlistResult = await this.OrderService.getorderlist();
+      // 서비스 계층에 구현된 getOrderList 로직을 실행한다.
+      const orderlistResult = await this.OrderService.getOrderList();
 
       return res.status(200).json({
         success: true,

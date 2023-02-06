@@ -1,0 +1,116 @@
+<div class="main-section-container" style="margin:30px auto; width: 70%">
+    <h1>상품 등록 페이지</h1>
+    <br>
+    <div id="product-register-form">
+        <form>
+            <br>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">상품명</label>
+                <div class="col-sm-10">
+                    <input id="inputTitle"
+                           type="text"
+                           placeholder="상품명을 입력하세요"
+                           required
+                           class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">가격</label>
+                <div class="col-sm-10">
+                    <input
+                            id="inputPrice"
+                            type="text"
+                            placeholder="판매가를 입력하세요"
+                            required
+                            class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">상세설명</label>
+                <div class="col-sm-10">
+          <textarea
+                  id="inputDetail"
+                  placeholder="제품 상세설명을 입력하세요"
+                  class="form-control"
+                  value="원래 상품명"
+                  style="height: 100px"></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div id="image-show">
+                    <img id="image"/>
+                </div>
+                <label for="formFile" class="col-sm-2 col-form-label">이미지</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" onchange="loadFile(this)" name="userfile" id="formFile">
+                </div>
+            </div>
+            <button type="button"
+                    onclick="applyProduct()"
+                    class="btn btn-primary">등록하기
+            </button>
+            <button type="button" onclick="location.href='/admin_products'" class="btn btn-secondary">취소</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let imageSrc = '';
+
+    function loadFile(input) {
+        let file = input.files[0];
+        // console.log("input.files[0]: ", file)
+        // console.log("the file name: ", file.name)
+        let newImage = document.getElementById('image');
+        // newImage.src = URL.createObjectURL(file);
+        newImage.src = '/img/' + file.name;
+
+        newImage.style.width = '100%';
+        newImage.style.height = '100%';
+        newImage.style.objectFit = 'contain';
+    }
+
+    // 상품 등록
+    function applyProduct() {
+        const product_name = document.getElementById('inputTitle').value;
+        const product_price = document.getElementById('inputPrice').value;
+        const product_detail = document.getElementById('inputDetail').value;
+        const imageSrc = document.getElementById('image').src;
+        const product_image = imageSrc || ' ';
+        // const image = `./uploadImages/${imageSrc.name}`;
+
+        if (!product_name) {
+            alert('상품명을 입력하세요.')
+        } else if (!product_price) {
+            alert('판매가를 입력하세요.')
+        } else if (!product_detail) {
+            alert('제품 상세설명을 입력하세요.')
+        } else {
+            axios
+                .post(
+                    'products/admin',
+                    {
+                        product_name,
+                        product_price,
+                        product_detail,
+                        product_image,
+                    },
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    // customAlert2(response.data.message);
+                    alert(response.data.message);
+                    location.href = '/admin_products';
+                })
+                .catch((error) => {
+                    alert(error.response.data.errorMessage);
+                });
+        }
+
+    }
+
+</script>
