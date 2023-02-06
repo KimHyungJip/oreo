@@ -3,11 +3,13 @@ const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이
 // const Orders = require('./models/orders')
 // const Users = require('./models/users')
 const app = express();
+const path = require('path');
 
 const dotenv = require('dotenv');
 require('dotenv').config();
 
 const router = require('./routes');
+
 app.use('/', router);
 
 app.use(express.json());
@@ -25,8 +27,10 @@ app.use(expressLayouts);
 app.set('layout', './layouts/main'); // express-ejs-layouts 사용중, default 파일의 경로 설정
 
 // Set views
-app.set('views', './views');
+// app.set('views', './views');
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.use(express.static(path.join(__dirname + '/views')));
 
 const routes = require('./routes/home.Routes.js');
 app.use('/', routes);

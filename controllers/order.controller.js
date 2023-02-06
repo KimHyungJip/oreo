@@ -1,4 +1,4 @@
-const OrderService = require("../services/order.service");
+const OrderService = require('../services/order.service');
 
 class OrderController {
   // Service
@@ -9,17 +9,17 @@ class OrderController {
     try {
       // 서비스 계층에 구현된 getorderlist 로직을 실행한다.
       const orderlistResult = await this.OrderService.getorderlist();
-
-      return res.status(200).json({
+      console.log(orderlistResult);
+      return res.status(200).render('managerpost', {
         success: true,
-        message: "주문목록을 불러왔습니다.",
+        message: '주문목록을 불러왔습니다.',
         orderlistResult: orderlistResult,
       });
     } catch (error) {
-      error.name === "ValidationError";
+      error.name === 'ValidationError';
       error.status = 412;
       error.success = false;
-      error.message = "주문 목록을 불러오지 못했습니다.";
+      error.message = '주문 목록을 불러오지 못했습니다.';
       return res
         .status(error.status)
         .json({ success: error.success, message: error.message });
