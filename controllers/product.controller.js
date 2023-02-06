@@ -23,10 +23,6 @@ class ProductController {
       });
     }
   };
-  // 상품 이미지 등록
-  uploadImage = async (req, res) => {
-    return res.json({ url: req.file.location });
-  };
   // 상품 등록
   registerProduct = async (req, res) => {
     const { product_name, product_price, product_detail, product_image } =
