@@ -1,50 +1,40 @@
-<h1>상품 등록 페이지</h1>
-
-<div class="container">
-    <div class="forms">
-      <div class="form signup">
-        <span class="title">상품 등록</span>
-
-        <form
-          action="/products/upload"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          <div class="form-group">
-<!--            <div class="input-field">-->
-<!--              상품번호: -->
-<!--              <div>33</div>-->
-<!--              <i class="uil uil-comment-dots"></i>-->
-<!--            </div>-->
-            <div class="input-field">
-              상품명:
-              <input
-                id="inputTitle"
-                type="text"
-                placeholder="상품명을 입력하세요"
-                required
-              />
-              <i class="uil uil-user"></i>
+<div class="main-section-container" style="margin:30px auto; width: 70%">
+    <h1>상품 등록 페이지</h1>
+    <br>
+    <div id="product-register-form">
+        <form>
+            <br>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">상품명</label>
+                <div class="col-sm-10">
+                    <input id="inputTitle"
+                           type="text"
+                           placeholder="상품명을 입력하세요"
+                           required
+                           class="form-control">
+                </div>
             </div>
-            <div class="input-field">
-              판매가:
-              <input
-                id="inputPrice"
-                type="text"
-                placeholder="판매가를 입력하세요"
-                required
-              />
-              <i class="uil uil-phone icon"></i>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">가격</label>
+                <div class="col-sm-10">
+                    <input
+                            id="inputPrice"
+                            type="text"
+                            placeholder="판매가를 입력하세요"
+                            required
+                            class="form-control">
+                </div>
             </div>
-            <div class="input-field">
-              상세설명:
-              <input
-                id="inputDetail"
-                type="text"
-                placeholder="제품 상세설명을 입력하세요"
-                required
-              />
-              <i class="uil uil-home icon"></i>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">상세설명</label>
+                <div class="col-sm-10">
+          <textarea
+                  id="inputDetail"
+                  placeholder="제품 상세설명을 입력하세요"
+                  class="form-control"
+                  value="원래 상품명"
+                  style="height: 100px"></textarea>
+                </div>
             </div>
 
             <div class="input-image-field">

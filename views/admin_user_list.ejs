@@ -1,7 +1,7 @@
 <body>
     <div class="d-flex justify-content-between align-items-end" style="margin-bottom: 10px">
         <h2>회원 관리</h2>
-        <a class="btn btn-outline-dark" href="#" role="button">회원 등록하기</a>
+<!--        <a class="btn btn-outline-dark" href="#" role="button">회원 등록하기</a>-->
     </div>
     <section>
         <div id="user-table">
@@ -21,7 +21,8 @@
                 <% users.forEach(user => { %>
                 <tr>
                   <td><a class="btn btn-outline-danger" href="#" role="button">삭제</a></td>
-                  <td><a class="btn btn-outline-secondary" href="#" role="button">수정</a></td>
+                  <td><a class="btn btn-outline-secondary" href="/admin_user_modify?email=<%= user.email%>"
+                         role="button">수정</a></td>
                   <th scope="row"><%= user.user_id %></th>
                   <td><%= user.email %></td>
                   <td><%= user.phone %></td>

@@ -109,7 +109,7 @@ class UserController {
     try {
       // 서비스 계층에 구현된 userlistget 함수를 실행한다.
       const userlistResult = await this.UserService.userlistget();
-      return res.status(200).json({
+      return res.status(200).render('managermain', {
         success: true,
         message: '회원목록을 불러왔습니다.',
         userlistResult: userlistResult,
@@ -124,5 +124,8 @@ class UserController {
         .json({ success: error.success, message: error.message });
     }
   };
+
+  // 유저ID로 해당 유저 정보 수정
+  modifyUser = async (req, res) => {};
 }
 module.exports = UserController;
