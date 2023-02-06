@@ -83,7 +83,7 @@ exports.adminProductModify = async (req, res) => {
   });
 };
 
-// 상품 등로 페이지로 이동
+// 상품 등록 페이지로 이동
 exports.adminProductRegister = (req, res) => {
   res.render('product_register', {
     title: '상품 등록',
