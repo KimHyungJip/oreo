@@ -33,7 +33,7 @@ class OrderService {
     //   }
     // }); // 어딘가의 map에서 자꾸 꼬인다.
     return orders;
-  }
+  };
 }
 
 module.exports = OrderService;

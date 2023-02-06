@@ -21,22 +21,22 @@ class OrderRepository {
 
   // 주문 목록 조회 (사용자)
   getOrdersByUserId = async (user_id) => {
-      const orders = await this.orderModel.findAll({
-        include: [
-          {
-            model: Order_item,
-            as: 'order_item',
-            // attributes: { include: ['product_id', 'item_quantity'] },
-            attributes: ['product_id', 'item_quantity'],
-          },
-        ],
-        where: { user_id },
-        // raw: true,
-        order: [['createdAt', 'DESC']],
-        attributes: ['order_id', 'user_id'],
-      });
+    const orders = await this.orderModel.findAll({
+      include: [
+        {
+          model: Order_item,
+          as: 'order_item',
+          // attributes: { include: ['product_id', 'item_quantity'] },
+          attributes: ['product_id', 'item_quantity'],
+        },
+      ],
+      where: { user_id },
+      // raw: true,
+      order: [['createdAt', 'DESC']],
+      attributes: ['order_id', 'user_id'],
+    });
 
-      return orders;
+    return orders;
   };
 }
 

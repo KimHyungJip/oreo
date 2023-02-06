@@ -33,8 +33,8 @@ class OrderController {
       const userOrders = await this.orderService.getOrdersByUserId(user_id);
       return res.status(200).json({ userOrders });
     } catch (error) {
-      console.log(error)
-      return res.status(500).json({ error: error.message })
+      console.log(error);
+      return res.status(500).json({ error: error.message });
     }
   };
 }
