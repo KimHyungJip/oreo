@@ -39,5 +39,15 @@ class UserService {
       throw error;
     }
   };
+  modifyUser = async (userId, email, phone, password, address) => {
+    const usermodify = await this.userRepository.modifyUser(
+      userId,
+      email,
+      phone,
+      password,
+      address
+    );
+    return usermodify;
+  };
 }
 module.exports = UserService;
