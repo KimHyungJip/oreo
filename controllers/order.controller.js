@@ -2,13 +2,13 @@ const OrderService = require('../services/order.service');
 
 class OrderController {
   // Service
-  OrderService = new OrderService();
+  orderService = new OrderService();
 
   // 주문 목록 조회(관리자)
   getOrderList = async (req, res, next) => {
     try {
       // 서비스 계층에 구현된 getorderlist 로직을 실행한다.
-      const orderlistResult = await this.OrderService.getorderlist();
+      const orderlistResult = await this.orderService.getorderlist();
       console.log(orderlistResult);
       return res.status(200).render('managerpost', {
         success: true,
@@ -20,6 +20,20 @@ class OrderController {
       error.status = 412;
       error.success = false;
       error.message = '주문 목록을 불러오지 못했습니다.';
+      return res
+        .status(error.status)
+        .json({ success: error.success, message: error.message });
+    }
+  };
+
+  // 주문 목록 조회(사용자)
+  getOrdersByUserId = async (req, res, next) => {
+    const { user_id } = res.locals.user;
+    try {
+      const useUser = await this.orderService.getOrdersByUserId(user_id);
+
+      return res.status(200).send(useUser);
+    } catch (error) {
       return res
         .status(error.status)
         .json({ success: error.success, message: error.message });
