@@ -9,7 +9,7 @@ class OrderService {
   getOrderList = async () => {
     try {
       // OrderRepository에서 실행한 orderslistget 함수를 getorderslist 변수에 담는다.
-      const getorderslist = await this.OrderRepository.orderslistget();
+      const getorderslist = await this.OrderRepository.getorderlist();
 
       return getorderslist;
     } catch (error) {

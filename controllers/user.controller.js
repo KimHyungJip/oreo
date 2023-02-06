@@ -109,7 +109,7 @@ class UserController {
     try {
       // 서비스 계층에 구현된 userlistget 함수를 실행한다.
       const userlistResult = await this.UserService.userlistget();
-      return res.status(200).json({
+      return res.status(200).render('managermain', {
         success: true,
         message: '회원목록을 불러왔습니다.',
         userlistResult: userlistResult,
@@ -128,7 +128,8 @@ class UserController {
   // 회원 정보 조회(개인별)
   GetUserInfo = async (req, res) => {
     // const {user_id} = req.locals.user;
-    const user_id = 4;
+    // const user_id = 4;
+    const { id } = req.params;
     try {
       const user = await this.UserService.FindUserInfo(user_id);
       return res.status(200).json({
@@ -136,7 +137,7 @@ class UserController {
       })
     } catch (err) {;
         return res.status(500).json({
-          errorMessage: err
+          errorMessage: err.message
         })
       }
           }

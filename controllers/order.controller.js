@@ -7,10 +7,10 @@ class OrderController {
   // 주문 목록 조회(관리자)
   getOrderList = async (req, res, next) => {
     try {
-      // 서비스 계층에 구현된 getOrderList 로직을 실행한다.
-      const orderlistResult = await this.OrderService.getOrderList();
-
-      return res.status(200).json({
+      // 서비스 계층에 구현된 getorderlist 로직을 실행한다.
+      const orderlistResult = await this.OrderService.getorderlist();
+      console.log(orderlistResult);
+      return res.status(200).render('managerpost', {
         success: true,
         message: '주문목록을 불러왔습니다.',
         orderlistResult: orderlistResult,

@@ -24,21 +24,8 @@ app.use(express.static('public'));
 // app.use('/js', express.static(__dirname + 'public/js'))
 // app.use('/img', express.static(__dirname + 'public/img'))
 
-// Set Temlplating Engine
-app.use(expressLayouts);
-app.set('layout', './layouts/main'); // express-ejs-layouts 사용중, default 파일의 경로 설정
-
-// Set views
-app.set('views', './views');
-app.set('view engine', 'ejs');
-
 const routes = require('./routes/home.routes.js');
 app.use('/', routes);
-
-// app.get('/mypage', (req, res) => {
-//   res.render('mypage', { title: '마이페이지', user_id: '김민수', password: '****', phone:'010-1234-1234', email:'123@123.com', address:'제주시 서귀포읍' });
-// });
-
 
 
 const PORT = process.env.PORT;
