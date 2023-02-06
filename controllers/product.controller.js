@@ -1,5 +1,9 @@
 const ProductService = require('../services/product.service');
+const AWS = require('aws-sdk');
 const jwt = require('jsonwebtoken');
+const multerS3 = require('multer-s3');
+const multer = require('multer');
+require('dotenv').config();
 // joi 스키마 임포트
 
 class ProductController {
@@ -19,19 +23,20 @@ class ProductController {
       });
     }
   };
-
+  // 상품 이미지 등록
+  uploadImage = async (req, res) => {
+    return res.json({ url: req.file.location });
+  };
   // 상품 등록
   registerProduct = async (req, res) => {
     const { product_name, product_price, product_detail, product_image } =
       req.body;
-
     // body 데이터가 제대로 안 들어왔을 때
     if (!product_name || !product_price || !product_detail || !product_image) {
       return res.status(400).json({
         errorMessage: '데이터 형식이 올바르지 않습니다.',
       });
     }
-
     try {
       const product = await this.productService.createProduct(
         product_price,
@@ -58,7 +63,7 @@ class ProductController {
 
     // body 데이터가 제대로 안 들어왔을 때
     if (!product_name || !product_price || !product_detail || !product_image) {
-      return res.status(400).json({
+      return res.status(400).send({
         errorMessage: '데이터 형식이 올바르지 않습니다.',
       });
     }
