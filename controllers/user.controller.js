@@ -121,27 +121,36 @@ class UserController {
       error.message = '회원 목록을 불러오지 못했습니다.';
       return res
         .status(error.status)
-        .json({ success: error.success, message: error.message });
+        .json({ sucwcess: error.success, message: error.message });
     }
   };
 
   // 회원 정보 조회(개인별)
-  GetUserInfo = async (req, res) => {
-    // const {user_id} = req.locals.user;
+  getUserInfo = async (req, res) => {
+    const {user_id} = res.query;
     // const user_id = 4;
-    const { id } = req.params;
+    // const { user_id } = req.params;
+    // const user_id = res.locals.user.user_id;
     try {
-      const user = await this.UserService.FindUserInfo(user_id);
+      const userinfo = await this.userService.findUserInfo(user_id);
+      console.log('at controlloer.js 개인정보');
       return res.status(200).json({
-        user
-      })
-    } catch (err) {;
-        return res.status(500).json({
-          errorMessage: err.message
-        })
-      }
-          }
-  }
+        userinfo
+      });
+    } catch (err) {
+      return res.status(500).json({
+        errorMessage: err.message,
+      });
+    }
+  };
 
+    // const {user_id} = req.query;
+  // const userinfo = await userService.findUserInfo(user_id);
+  // console.log('홈 컨트롤러 작동')
 
+  // 유저ID로 해당 유저 정보 수정
+  modifyUser = async (req, res) => {};
+}
 module.exports = UserController;
+
+

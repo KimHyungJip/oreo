@@ -3,8 +3,6 @@ const express = require('express');
 const router = express.Router();
 const userController = new UserController();
 
-
-
 router.post('/signup', userController.signup);
 
 router.post('/login', userController.login);
@@ -15,8 +13,8 @@ router.post('/refresh', userController.tokenRefresh);
 
 router.get('/admin', userController.userlistget);
 
-// 회원 정보 조회(개인)
-router.get('/', userController.GetUserInfo);
+router.put('/admin/:id', userController.modifyUser);
 
+router.get('/mypage/:id', userController.getUserInfo)
 
 module.exports = router;

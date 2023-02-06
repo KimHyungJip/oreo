@@ -3,7 +3,11 @@ exports.homepage = async (req, res) => {
 };
 
 exports.mypage = async (req, res) => {
-  res.render('mypage', { title: '마이페이지',user_id: '김민수', password: '****', phone:'010-1234-1234', email:'123@123.com', address:'제주시 서귀포읍'  });
+  console.log('\n\nreached to 마이페이지 진입시도. => ');
+  // const {user_id} = req.query;
+  // const userinfo = await userService.findUserInfo(user_id);
+  // console.log('홈 컨트롤러 작동')
+  res.render('mypage', { title: '마이페이지'});
 };
 
 exports.loginpage = async (req, res) => {
@@ -12,6 +16,12 @@ exports.loginpage = async (req, res) => {
 
 exports.signuppage = async (req, res) => {
   res.render('signuppage', { title: '회원가입페이지' });
+};
+
+
+// 관리자 - 인트로 페이지
+exports.adminIndex = async (req, res) => {
+  res.render('managermain', { title: '관리자메인' });
 };
 
 // 관리자 - 상품 관리 페이지
@@ -38,6 +48,7 @@ exports.adminUsers = async (req, res) => {
   });
 };
 
+const { use } = require('../routes');
 const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');
 const productService = new ProductService();
@@ -71,7 +82,7 @@ async function _get_items(page = 1, category) {
   };
 }
 
-// 상품 수정 페이지로 이동
+// 관리자 - 상품 수정 페이지
 exports.adminProductModify = async (req, res) => {
   const { id } = req.query;
   const product = await productService.findProductById(id);
@@ -83,9 +94,23 @@ exports.adminProductModify = async (req, res) => {
   });
 };
 
-// 상품 등로 페이지로 이동
+// 관리자 - 상품 등록 페이지
 exports.adminProductRegister = (req, res) => {
   res.render('product_register', {
     title: '상품 등록',
+  });
+};
+
+// 관리자 - 회원 정보 수정 페이지
+exports.adminUserModify = async (req, res) => {
+  const { email } = req.query;
+  // const { email } = res.locals.user;
+  const user = await userService.findUser(email);
+  // const user = res.locals;
+
+  // res.render('user_modify', {
+  res.render('managerpost', {
+    title: '회원 정보 수정',
+    ...user,
   });
 };

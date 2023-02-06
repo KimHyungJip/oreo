@@ -40,21 +40,20 @@ class UserService {
     }
   };
 
-  FindUserInfo = async (user_id) => {
+  // 회원 개인 정보 조회
+  findUserInfo = async (user_id) => {
     try {
-      const user =await this.UserRepository.FindUserInfo(user_id);
-      return user;
+      const userinfo = await this.userRepository.findUserInfo(user_id);
+      console.log('at service.js');
+      return userinfo;
     } catch (err) {
       console.log(err);
-      err.name = 'Database Error';
+      err.name = 'database error';
       err.message = '요청을 처리하지 못하였습니다.';
       err.status = 400;
       throw err;
     }
   }
-
-
-
 
 }
 module.exports = UserService;
