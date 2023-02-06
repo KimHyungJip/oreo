@@ -20,6 +20,57 @@ function button_action() {
     // }
   }
 }
+function modifybutton() {
+  $('#modifyinfo').show();
+  $('#myinfo').hide();
+  $('#modifyinfobutton').hide();
+}
+function myinfobutton() {
+  $('#modifyinfo').hide();
+  $('#myinfo').show();
+  $('#modifyinfobutton').show();
+}
+function modifyinfo() {
+  const emailId = $('#emailId').val();
+  const emailDomain = $('#emailDomain').val();
+  const email = emailId + '@' + emailDomain;
+  const phone = $('#phone').val();
+  const address = $('#address').val();
+  const password1 = $('#password1').val();
+  const password2 = $('#password2').val();
+  if (
+    !emailId ||
+    !emailDomain ||
+    !phone ||
+    !address ||
+    !password1 ||
+    !password2
+  ) {
+    alert('회원가입 양식에 맞지 않습니다.');
+  } else {
+    if (password1 !== password2) {
+      alert('비밀번호가 서로 맞지 않습니다.');
+    } else {
+      $.ajax({
+        type: 'PUT',
+        url: '/users/modifyinfo',
+        data: {
+          email: email,
+          password: password1,
+          phone: phone,
+          address: address,
+        },
+        success: function (response) {
+          alert(response.message);
+          window.location.href = '/';
+        },
+        error: function (err) {
+          alert(err.responseJSON.message);
+        },
+      });
+    }
+  }
+}
 function dupCheck() {
   const emailId = $('#emailId').val();
   const emailDomain = $('#emailDomain').val();
@@ -168,6 +219,26 @@ function upload() {
     },
     error: function (err) {
       alert(err.errorMessage);
+    },
+  });
+}
+function me() {
+  $.ajax({
+    type: 'GET',
+    url: '/users/me',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {},
+    success: function (response) {
+      const email = response.email;
+      const phone = response.phone;
+      const address = response.address;
+      const temp = `<div>${email}</div><div>${phone}</div><div>${address}</div>`;
+      $('#me').append(temp);
+    },
+    error: function (err) {
+      alert(err.responseJSON.errorMessage);
     },
   });
 }
