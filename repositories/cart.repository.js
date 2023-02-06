@@ -4,6 +4,8 @@ class CartRepository {
     this.cart_item = cart_item;
   }
   //user_id로 장바구니 검색
+  //조인해서 상품명 판매가 상세설명 상품이미지 수량 확인
+  
   findCart = async (user_id) => {
     console.log("장바구니검색 repo ")
     const getCartdata = await this.cart_item.findAll({

@@ -10,20 +10,16 @@ class CartController {
     //장바구니조회
     getCart = async(req,res,next)=>{
         console.log("장바구니조회controller")
-
-        //const user_id = res.locals.user.user_id;
-        const user_id = 3
+        const user_id = res.locals.user.user_id;
         const cart = await this.cartService.findAllCart(user_id);
-        console.log(cart)
-        //console.log("컨트롤러확인",cart,jwt.sign);
         res.status(200).json({data:cart});
     };
 
     //장바구니 등록
     postCart = async(req,res,next)=>{
         console.log("장바구니등록controller")
-        //const user_id = res.locals.user.user_id;
-        const user_id = 3
+        const user_id = res.locals.user.user_id;
+        
         const { product_id, item_quantity } = req.body;
         await this.cartService.productToCart(user_id,product_id, item_quantity);
 
@@ -33,10 +29,9 @@ class CartController {
     //장바구니 수정
     updateCart = async(req,res,next)=>{
         console.log("장바구니수정controller")
-        //const user_id = res.locals.user.user_id;
-        const user_id = 3
-        const product_id = 5
-        const {  item_quantity } = req.body;
+        const user_id = res.locals.user.user_id;
+        
+        const {  item_quantity ,product_id} = req.body;
         await this.cartService.updateCart(user_id,product_id, item_quantity);
 
     res.status(200).json({ message: '장바구니수정완료' });
