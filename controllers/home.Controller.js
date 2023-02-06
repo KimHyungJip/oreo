@@ -3,8 +3,18 @@ exports.homepage = async (req, res) => {
 };
 
 exports.mypage = async (req, res) => {
-  res.render('mypage', { title: '마이페이지' });
-};
+  const user = res.locals;
+  // const user = {
+  //   user_id: 55,
+  //   email: 'hwang@baker.com',
+  //   phone: '01011112222',
+  //   address: '공란',
+  // }
+  res.render('mypage', {
+    title: '마이페이지',
+    ...user,
+  });
+}; // 마이페이지.ejs 파일에서는 이제 <%= user_id %>, <%= email %>
 
 exports.loginpage = async (req, res) => {
   res.render('loginpage', { title: '로그인페이지' });

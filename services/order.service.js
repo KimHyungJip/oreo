@@ -9,9 +9,8 @@ class OrderService {
   getOrderList = async () => {
     try {
       // OrderRepository에서 실행한 orderslistget 함수를 getorderslist 변수에 담는다.
-      const getorderslist = await this.orderRepository.getorderlist();
-
-      return getorderslist;
+      const ordersList = await this.orderRepository.getOrderList();
+      return ordersList;
     } catch (error) {
       throw error;
     }
@@ -19,13 +18,22 @@ class OrderService {
 
   // 주문 목록 조회(사용자)
   getOrdersByUserId = async (user_id) => {
-    try {
-      const userId = await this.orderRepository.getOrdersByUserId(user_id);
-      return userId[0];
-    } catch (error) {
-      throw error;
-    }
-  };
+    const orders = await this.orderRepository.getOrdersByUserId(user_id);
+    // return orders.map((order) => {
+    //   return {
+    //     order_id: order.order_id,
+    //     user_id: order.user_id,
+    //     order_items: order.order_item
+    //     //     .map((item) => {
+    //     //   return {
+    //     //     product_id: item.product_id,
+    //     //     item_quantity: item.item_quantity,
+    //     //   }
+    //     // }),
+    //   }
+    // }); // 어딘가의 map에서 자꾸 꼬인다.
+    return orders;
+  }
 }
 
 module.exports = OrderService;

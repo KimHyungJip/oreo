@@ -1,4 +1,4 @@
-const { Order_item, Order, User } = require('../models');
+const { Order_item, Order, User, Sequelize } = require('../models');
 
 class OrderRepository {
   constructor(OrderModel) {
@@ -8,7 +8,7 @@ class OrderRepository {
   // 주문 목록 조회(관리자)
   getOrderList = async () => {
     try {
-      const orderlist = await this.orderModel.findAll();
+      const orderlist = await this.orderModel.findAll({ raw: true });
       return orderlist;
     } catch (error) {
       console.log(error);
@@ -21,25 +21,22 @@ class OrderRepository {
 
   // 주문 목록 조회 (사용자)
   getOrdersByUserId = async (user_id) => {
-    try {
       const orders = await this.orderModel.findAll({
         include: [
           {
             model: Order_item,
             as: 'order_item',
+            // attributes: { include: ['product_id', 'item_quantity'] },
             attributes: ['product_id', 'item_quantity'],
           },
         ],
         where: { user_id },
+        // raw: true,
+        order: [['createdAt', 'DESC']],
+        attributes: ['order_id', 'user_id'],
       });
 
       return orders;
-    } catch (error) {
-      error.name = 'Database Error';
-      error.message = '요청을 처리하지 못하였습니다.';
-      error.status = 400;
-      throw error;
-    }
   };
 }
 

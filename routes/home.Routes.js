@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/home.Controller.js');
+const authMiddleware = require('../middlewares/auth-middleware');
+const adminCheck = require('../middlewares/admin');
 
 // App Routes
 
 router.get('/', homeController.homepage);
-router.get('/mypage', homeController.mypage);
+router.get('/mypage', authMiddleware, homeController.mypage);
 
 // 관리자 관련 페이지
 router.get('/admin_index', homeController.adminIndex);

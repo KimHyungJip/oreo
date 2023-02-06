@@ -8,9 +8,9 @@ class OrderController {
   getOrderList = async (req, res, next) => {
     try {
       // 서비스 계층에 구현된 getorderlist 로직을 실행한다.
-      const orderlistResult = await this.orderService.getorderlist();
+      const orderlistResult = await this.orderService.getOrderList();
       console.log(orderlistResult);
-      return res.status(200).render('managerpost', {
+      return res.status(200).json({
         success: true,
         message: '주문목록을 불러왔습니다.',
         orderlistResult: orderlistResult,
@@ -30,13 +30,11 @@ class OrderController {
   getOrdersByUserId = async (req, res, next) => {
     const { user_id } = res.locals.user;
     try {
-      const useUser = await this.orderService.getOrdersByUserId(user_id);
-
-      return res.status(200).send(useUser);
+      const userOrders = await this.orderService.getOrdersByUserId(user_id);
+      return res.status(200).json({ userOrders });
     } catch (error) {
-      return res
-        .status(error.status)
-        .json({ success: error.success, message: error.message });
+      console.log(error)
+      return res.status(500).json({ error: error.message })
     }
   };
 }

@@ -30,7 +30,7 @@ DELETE http://localhost:7000/products/admin/55
 
 ###
 
-POST http://localhost:7000/signup
+POST http://localhost:7000/users/signup
 Content-Type: application/json
 
 {
@@ -40,8 +40,8 @@ Content-Type: application/json
 }
 
 ###
-
-POST http://localhost:7000/login
+# 일반 회원 로그인
+POST http://localhost:7000/users/login
 Content-Type: application/json
 
 {
@@ -50,10 +50,27 @@ Content-Type: application/json
 }
 
 ###
+# 관리자 로그인
+POST http://localhost:7000/users/login
+Content-Type: application/json
 
+{
+    "email": "edvocao74@gmail.com",
+    "password": "1234"
+}
+
+###
 
 GET http://localhost:7000/orders/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE2NzU2NzA1MjcsImV4cCI6MTY3NTY3NDEyN30._IE6CljsbSYev_J47bpLRpimqITqOApkUOr2_-_7yrY
 
 
 ###
 GET http://localhost:7000/users/admin
+
+###
+
+GET http://localhost:7000/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE2NzU2Nzc5NjAsImV4cCI6MTY3NTY4MTU2MH0.K3RjsEttDlt1wgfGeNx2tcR_iv957lpEm-Ev5qaOVRY
+
+###
