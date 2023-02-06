@@ -127,7 +127,7 @@ class UserController {
 
   // 회원 정보 조회(개인별)
   getUserInfo = async (req, res) => {
-    const {user_id} = res.query;
+    const { user_id } = res.query;
     // const user_id = 4;
     // const { user_id } = req.params;
     // const user_id = res.locals.user.user_id;
@@ -135,7 +135,7 @@ class UserController {
       const userinfo = await this.userService.findUserInfo(user_id);
       console.log('at controlloer.js 개인정보');
       return res.status(200).json({
-        userinfo
+        userinfo,
       });
     } catch (err) {
       return res.status(500).json({
@@ -144,7 +144,7 @@ class UserController {
     }
   };
 
-    // const {user_id} = req.query;
+  // const {user_id} = req.query;
   // const userinfo = await userService.findUserInfo(user_id);
   // console.log('홈 컨트롤러 작동')
 
@@ -152,5 +152,3 @@ class UserController {
   modifyUser = async (req, res) => {};
 }
 module.exports = UserController;
-
-

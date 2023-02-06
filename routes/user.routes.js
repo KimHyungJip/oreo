@@ -1,5 +1,6 @@
 const UserController = require('../controllers/user.controller.js');
 const express = require('express');
+const authMiddleware = require('../middlewares/auth-middleware.js');
 const router = express.Router();
 const userController = new UserController();
 
@@ -15,6 +16,8 @@ router.get('/admin', userController.userlistget);
 
 router.put('/admin/:id', userController.modifyUser);
 
-router.get('/mypage/:id', userController.getUserInfo)
+// router.get('/userinfo', authMiddleware, userController.getUserInfo);
+
+// router.get('/usermodify', authMiddleware, userController.modifyUserInfo);
 
 module.exports = router;

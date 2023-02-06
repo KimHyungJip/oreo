@@ -9,6 +9,6 @@ const orderController = new OrderController();
 router.get('/admin', orderController.getOrderList);
 
 // 주문 목록 조회(사용자)
-router.get('/orders/:id', orderController.getUserById);
+// router.get('/orders/:id', orderController.getUserById);
 
 module.exports = router;

@@ -4,11 +4,24 @@ exports.homepage = async (req, res) => {
 
 exports.mypage = async (req, res) => {
   console.log('\n\nreached to 마이페이지 진입시도. => ');
-  // const {user_id} = req.query;
-  // const userinfo = await userService.findUserInfo(user_id);
-  // console.log('홈 컨트롤러 작동')
-  res.render('mypage', { title: '마이페이지'});
-};
+  const user = res.locals.user;
+  // const user = {
+  //   user_id : 55,
+  //   email : 12312,
+  //   phone : 1123
+  // }
+  res.render('mypage', {
+    title: '마이페이지',
+    user,
+
+    // ...user,
+  });
+}; //
+
+//   console.log('\n\nreached to 마이페이지 진입시도. => ');
+//   console.log('홈 컨트롤러 작동')
+//   res.render('mypage', { title: '마이페이지', userinfo : '1w'});
+// };
 
 exports.loginpage = async (req, res) => {
   res.render('loginpage', { title: '로그인페이지' });
@@ -17,7 +30,6 @@ exports.loginpage = async (req, res) => {
 exports.signuppage = async (req, res) => {
   res.render('signuppage', { title: '회원가입페이지' });
 };
-
 
 // 관리자 - 인트로 페이지
 exports.adminIndex = async (req, res) => {

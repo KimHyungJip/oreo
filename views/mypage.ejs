@@ -2,10 +2,14 @@
 <p></p>
 <h1>회원 정보</h1>
 <span class="userinfo">
-    <h1>이메일 : <%- title %> </h1>
+    <h1>제목 : <%- title %> </h1>
+    <h1>아이디 : <%- user.user_id %> </h1>
+    <h1>이메일 : <%- user.email %> </h1>
+    <h1>주소 : <%- user.address %> </h1>
+    <h1>연락처 : <%- user.phone %> </h1>
 </span>
 
-<div class="actions">
-    <a onclick="getUserInfo()" class="btn btn-outline-secondary" type="button">개인정보조회</a>
-</div>
 
+$(document).ready(function) () {
+    me();
+}

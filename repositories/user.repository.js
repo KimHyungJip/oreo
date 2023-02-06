@@ -33,11 +33,10 @@ class UserRepository {
     }
   };
 
-  
   // 회원 정보 조회(개인)
   findUserInfo = async (user_id) => {
     try {
-      const userinfo = await this.userModel.findByPk(user_id);
+      const userinfo = await this.userModel.findByPk(user_id, { raw: true });
       console.log('at repository.js');
       return userinfo;
     } catch (err) {
@@ -48,6 +47,5 @@ class UserRepository {
       throw err;
     }
   };
-
 }
 module.exports = UserRepository;

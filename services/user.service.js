@@ -53,7 +53,6 @@ class UserService {
       err.status = 400;
       throw err;
     }
-  }
-
+  };
 }
 module.exports = UserService;
