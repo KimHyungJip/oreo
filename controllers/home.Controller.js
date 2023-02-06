@@ -6,6 +6,10 @@ exports.mypage = async (req, res) => {
   res.render('mypage', { title: '마이페이지' });
 };
 
+exports.cart = async (req, res) => {
+  res.render('cart', { title: '장바구니' });
+};
+
 exports.loginpage = async (req, res) => {
   res.render('loginpage', { title: '로그인페이지' });
 };
@@ -42,6 +46,8 @@ exports.adminUsers = async (req, res) => {
     users: params.items,
   });
 };
+
+
 
 const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');
