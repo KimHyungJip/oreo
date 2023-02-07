@@ -112,7 +112,7 @@ function login() {
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.setItem('is_admin', response.is_admin);
-        document.getElementById('loginbutton').style.display = 'none';
+        document.getElementById('loginpagebutton').style.display = 'none';
         document.getElementById('logoutbutton').style.display = 'block';
         window.location.href = '/';
       },
