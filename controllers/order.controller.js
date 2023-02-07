@@ -7,22 +7,17 @@ class OrderController {
   // 주문 목록 조회(관리자)
   getOrderList = async (req, res, next) => {
     try {
-      // 서비스 계층에 구현된 getorderlist 로직을 실행한다.
-      const orderlistResult = await this.orderService.getOrderList();
-      console.log(orderlistResult);
+      const orderList = await this.orderService.getOrderList();
       return res.status(200).json({
         success: true,
         message: '주문목록을 불러왔습니다.',
-        orderlistResult: orderlistResult,
+        orderList,
       });
     } catch (error) {
-      error.name === 'ValidationError';
-      error.status = 412;
-      error.success = false;
-      error.message = '주문 목록을 불러오지 못했습니다.';
-      return res
-        .status(error.status)
-        .json({ success: error.success, message: error.message });
+      return res.status(500).json({
+        errorMessage: error.message,
+        error: error,
+      });
     }
   };
 
