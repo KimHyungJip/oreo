@@ -15,6 +15,6 @@ router.get('/admin_product_modify', homeController.adminProductModify);
 router.get('/admin_product_register', homeController.adminProductRegister);
 router.get('/admin_user_modify', homeController.adminUserModify);
 
-router.get('/loginpage', homeController.loginpage);
-router.get('/signuppage', homeController.signuppage);
+router.get('/login', homeController.loginpage);
+router.get('/signup', homeController.signuppage);
 module.exports = router;

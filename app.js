@@ -1,6 +1,6 @@
 const express = require('express');
-const { Server } = require("http"); // 1. 모듈 불러오기
-const socketIo = require("socket.io"); // 1. 모듈 불러오기
+const { Server } = require('http'); // 1. 모듈 불러오기
+const socketIo = require('socket.io'); // 1. 모듈 불러오기
 const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
 
 const app = express();
