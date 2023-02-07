@@ -41,19 +41,17 @@ class OrderService {
   };
 
   postOrder = async (user_id) => {
-    //user_id로 카트정보가져와(cart_item_id,user_id,product_id,item_quantity)
     const allCart = await this.cartRepository.findCart(user_id);
     const orderTableInfo = allCart.map((cart) => cart.dataValues);
     //오더 테이블 (주문은 1개)
     const createorder = await this.orderRepository.orderCreate(user_id);
     //오더 아이템 테이블//order_items table product_id order_id item_quantity
-    const createorderitems = await this.orderItemRepository.orderItemCreate(
+    await this.orderItemRepository.orderItemCreate(
       orderTableInfo,
       createorder
     );
     //카트아이템 삭제
-    console.log('카트아이디찾기', orderTableInfo);
-    const deleteCart = await this.cartRepository.deleteAllCart(orderTableInfo);
+    await this.cartRepository.deleteAllCart(orderTableInfo);
     return createorder;
   };
 }
