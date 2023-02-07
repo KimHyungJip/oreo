@@ -71,6 +71,6 @@ GET http://localhost:7000/users/admin
 ###
 
 GET http://localhost:7000/orders
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE2NzU2Nzc5NjAsImV4cCI6MTY3NTY4MTU2MH0.K3RjsEttDlt1wgfGeNx2tcR_iv957lpEm-Ev5qaOVRY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE2NzU2OTExODYsImV4cCI6MTY3NTcyNzE4Nn0.juTn_7WnmDTxtQTvDkB5_yTPiBNjgvkGHKYwJFSIaZA
 
 ###

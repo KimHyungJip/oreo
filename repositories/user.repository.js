@@ -45,5 +45,12 @@ class UserRepository {
     );
     return usermodify;
   };
+
+  deleteUserByAdmin = async (email) => {
+    const deletedUser = await this.userModel.destroy({
+      where: { email },
+    })
+    return deletedUser;
+  }
 }
 module.exports = UserRepository;

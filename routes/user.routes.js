@@ -21,4 +21,6 @@ router.put('/admin/:id', userController.modifyUser);
 
 router.put('/modifyinfo', authMiddleware, userController.modifyUser);
 
+router.delete('/admin', authMiddleware, adminCheck, userController.deleteUserByAdmin);
+
 module.exports = router;

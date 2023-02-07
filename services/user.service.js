@@ -49,5 +49,13 @@ class UserService {
     );
     return usermodify;
   };
+
+  deleteUserByAdmin = async (email) => {
+    let targetUser = await this.userRepository.findUser(email);
+    if (!targetUser) {
+      throw new Error('해당하는 유저가 존재하지 않습니다.')
+    }
+    return await this.userRepository.deleteUserByAdmin(email);
+  }
 }
 module.exports = UserService;
