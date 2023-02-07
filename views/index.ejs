@@ -27,37 +27,36 @@
       <% }) %>
     </div>
   </div>
-
-  <!-- 페이징 -->
-  <div id="pagination">
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center" style="margin-top: 20px">
-        <% if (chunk_start - 1 > 0) { %>
-        <li class="page-item">
-          <a
-            class="page-link"
-            href="/?page=<%= chunk_start - 1 %>"
-            tabindex="-1"
-            aria-disabled="true"
-            >Previous</a
-          >
-        </li>
-        <% } %> <% for (let i = chunk_start; i <= chunk_end; i++) { %>
-        <!-- 무조건 5페이지씩 버튼 다는 게 아니라 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
-        <% if (i <= last_page_num) { %> <% if (i == page) { %>
-        <li class="page-item active" aria-current="page">
-          <span class="page-link"><%= i %></span>
-        </li>
-        <% } else { %>
-        <li class="page-item">
-          <a class="page-link" href="/?page=<%= i %>"><%= i %></a>
-        </li>
-        <% } %> <% } %> <% } %> <% if (chunk_end < last_page_num) { %>
-        <li class="page-item">
-          <a class="page-link" href="/?page=<%= chunk_end + 1 %>">Next</a>
-        </li>
-        <% } %>
-      </ul>
-    </nav>
-  </div>
+  
+    <!-- 페이징 -->
+    <div id="pagination">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center" style="margin-top: 20px" >
+            <% if (chunk_start - 1 > 0) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/?page=<%= chunk_start - 1 %>" tabindex="-1"
+                       aria-disabled="true">Previous</a>
+                </li>
+            <% } %>
+            <% for (let i = chunk_start; i <= chunk_end; i++) { %>
+                <!-- 무조건 5페이지씩 버튼 다는 게 아니라 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
+                <% if (i <= last_page_num) { %>
+                    <% if (i == page) { %>
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link"><%= i %></span>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link"
+                             href="/?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                <% } %>
+            <% } %>
+            <% if (chunk_end < last_page_num) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/?page=<%= chunk_end + 1 %>">Next</a>
+                </li>
+            <% } %>
+          </ul>
+        </nav>
+    </div>
 </section>
