@@ -2,7 +2,9 @@
   --bs-font-sans-serif: 'Rubik', sans-serif;
 }
 
-.container-xxl { max-width: 1530px; }
+.container-xxl { 
+  max-width: 1530px; 
+}
 
 body {
   background-image: url("../img/foods.svg");
@@ -24,6 +26,38 @@ footer {
     font-size: large;
 }
 
-
-
 a { color: var(--bs-dark); }
+
+
+/* 마이페이지 */
+.userinfo {
+    text-align: center;
+    font-size: large;
+    color: rgb(47, 26, 182);
+}
+
+/* 주문정보 */
+.orderinfo {
+    text-align: center;
+    font-size: large;
+    color: rgb(41, 75, 76);
+} 
+
+.mainimg {
+  display: block; 
+  text-align: center;
+  max-width: 100%;
+  height: auto !important;
+  
+}
+
+.todayitemstitle {
+  display: block; 
+  text-align: center;
+  font-size: 150%;
+  color: #683b28;
+  line-height: 45px; 
+  font-weight: 500;
+  padding-top: 5%; 
+  padding-bottom: 2%; 
+}
