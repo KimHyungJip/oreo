@@ -39,23 +39,34 @@ class UserService {
       throw error;
     }
   };
-  modifyUser = async (userId, email, phone, password, address) => {
-    const usermodify = await this.userRepository.modifyUser(
+  destroyaccout = async (userId) => {
+    const accountdestroy = await this.userRepository.destroyaccount(userId);
+    return accountdestroy;
+  };
+  modifyinfo = async (userId, email, phone, address) => {
+    const infomodify = await this.userRepository.modifyinfo(
       userId,
       email,
       phone,
-      password,
       address
     );
-    return usermodify;
+    return infomodify;
+  };
+  modifypwd = async (userId, hashedPwd, salt) => {
+    const pwdmodify = await this.userRepository.modifypwd(
+      userId,
+      hashedPwd,
+      salt
+    );
+    return pwdmodify;
   };
 
   deleteUserByAdmin = async (email) => {
     let targetUser = await this.userRepository.findUser(email);
     if (!targetUser) {
-      throw new Error('해당하는 유저가 존재하지 않습니다.')
+      throw new Error('해당하는 유저가 존재하지 않습니다.');
     }
     return await this.userRepository.deleteUserByAdmin(email);
-  }
+  };
 }
 module.exports = UserService;

@@ -1,0 +1,111 @@
+<body>
+    <div class="d-flex justify-content-between align-items-end" style="margin-bottom: 10px">
+        <h2>오늘의 상품</h2>
+<!--        <a class="btn btn-outline-dark" href="#" role="button">회원 등록하기</a>-->
+    </div>
+    <section>
+        <div id="main-products">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a short card.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div id="user-table">
+            <table class="table table-hover align-middle text-center">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">삭제</th>
+                  <th scope="col">수정</th>
+                  <th scope="col">고유ID</th>
+                  <th scope="col">이메일</th>
+                  <th scope="col">핸드폰 번호</th>
+                  <th scope="col">주소</th>
+                  <th scope="col">관리자 여부(1=관리자)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach(user => { %>
+                <tr>
+                  <td><a class="btn btn-outline-danger" href="#" role="button">삭제</a></td>
+                  <td><a class="btn btn-outline-secondary" href="/admin_user_modify?email=<%= user.email%>"
+                         role="button">수정</a></td>
+                  <th scope="row"><%= user.user_id %></th>
+                  <td><%= user.email %></td>
+                  <td><%= user.phone %></td>
+                  <td><%= user.address %></td>
+                  <td><%= user.is_admin %></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+        </div>
+
+        <!-- 페이징 -->
+        <div id="pagination">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <% if (chunk_start - 1 > 0) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/admin_users?page=<%= chunk_start - 1 %>" tabindex="-1"
+                           aria-disabled="true">Previous</a>
+                    </li>
+                <% } %>
+                <% for (let i = chunk_start; i <= chunk_end; i++) { %>
+                    <!-- 무조건 5페이지씩 버튼 다는 게 아니라 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
+                    <% if (i <= last_page_num) { %>
+                        <% if (i == page) { %>
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link"><%= i %></span>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item"><a class="page-link"
+                                 href="/admin_users?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                    <% } %>
+                <% } %>
+                <% if (chunk_end < last_page_num) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/admin_users?page=<%= chunk_end + i %>">Next</a>
+                    </li>
+                <% } %>
+              </ul>
+            </nav>
+        </div>
+    </section>
+</body>

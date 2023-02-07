@@ -17,10 +17,21 @@ router.post('/refresh', userController.tokenRefresh);
 
 router.get('/admin', userController.userlistget);
 
-router.put('/admin/:id', userController.modifyUser);
+// router.put('/admin/:id', userController.modifyUser);
 
-router.put('/modifyinfo', authMiddleware, userController.modifyUser);
+router.post('/istrue', authMiddleware, userController.istrue);
 
-router.delete('/admin', authMiddleware, adminCheck, userController.deleteUserByAdmin);
+router.delete('/accoutdestroy', authMiddleware, userController.accoutdestroy);
+
+router.put('/modifyinfo', authMiddleware, userController.modifyinfo);
+
+router.put('/modifypwd', authMiddleware, userController.modifypwd);
+
+router.delete(
+  '/admin',
+  authMiddleware,
+  adminCheck,
+  userController.deleteUserByAdmin
+);
 
 module.exports = router;

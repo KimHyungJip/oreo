@@ -14,6 +14,6 @@ router.get('/admin', authMiddleware, orderController.getOrderList);
 router.get('/', authMiddleware, orderController.getOrdersByUserId);
 
 //주문(cart_items들)
-router.post('/',orderController.postOrder)
+router.post('/', orderController.postOrder);
 
 module.exports = router;

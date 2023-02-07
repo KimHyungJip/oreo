@@ -42,10 +42,10 @@ class OrderRepository {
   //order table에 넣음
   orderCreate = async (user_id) => {
     const createOrder = await this.orderModel.create({
-      user_id
+      user_id,
     });
     return createOrder;
-  }
+  };
 }
 
 module.exports = OrderRepository;
