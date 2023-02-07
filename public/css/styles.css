@@ -79,7 +79,7 @@ a { color: var(--bs-dark); }
 
 .card_thumbnail_wrapper {
   max-height: 100%; 
-  max-width: 700px;
+  max-width: 400px;
 
 }
 
