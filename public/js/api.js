@@ -242,3 +242,10 @@ function me() {
     },
   });
 }
+
+
+const socket = io("ws://localhost:7000")
+
+socket.on("connect",()=>{
+  socket.send("접속")
+})

@@ -15,7 +15,7 @@ class CartController {
         res.status(200).json({data:cart});
     };
 
-    //장바구니 등록
+    //cart_item 등록
     postCart = async(req,res,next)=>{
         console.log("장바구니등록controller")
         const user_id = res.locals.user.user_id;
@@ -26,7 +26,7 @@ class CartController {
     res.status(200).json({ message: '장바구니등록완료' });
   };
 
-    //장바구니 수정
+    //cart_item 수정
     updateCart = async(req,res,next)=>{
         console.log("장바구니수정controller")
         const user_id = res.locals.user.user_id;
@@ -43,7 +43,6 @@ class CartController {
         await this.cartService.deleteCart(cart_item_id);
         res.status(200).json({ message: '장바구니등록완료' });
     } 
-    //장바구니 주문
 
 }
 
