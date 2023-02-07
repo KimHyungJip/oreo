@@ -4,11 +4,7 @@ require('dotenv').config();
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
-  console.log('authorization :', authorization);
   const [authType, authToken] = (authorization || '').split(' ');
-  console.log('authType : ', authType);
-  console.log('authToken : ', authToken);
-
   if (!authToken || authType !== 'Bearer') {
     res.status(401).send({
       errorMessage: '로그인이 필요한 기능입니다.',
