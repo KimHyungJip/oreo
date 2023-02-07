@@ -13,7 +13,7 @@
 
 <div class="row align-items-center">
   <div class="col"></div>
-  <div class="col">
+  <div class="col" style="margin-bottom: 50px">
     <h1>회원 정보 수정</h1>
     <form class="row g-3">
       <div class="col-12">
@@ -63,7 +63,13 @@
 
       <div class="col-12">
         <button type="submit" class="btn btn-outline-info">변경 완료</button>
-        <button type="button" onclick="location.href='/admin_users'" class="btn btn-outline-secondary">취소</button>
+        <button
+          type="button"
+          onclick="location.href='/admin_users'"
+          class="btn btn-outline-secondary"
+        >
+          취소
+        </button>
       </div>
     </form>
   </div>
@@ -80,11 +86,11 @@
     // const usergrade = $('#usergrade').val();
 
     if (!email) {
-        alert('핸드폰 번호를 입력하세요.')
+      alert('핸드폰 번호를 입력하세요.');
     } else if (!phone) {
-        alert('이메일을 입력하세요.')
+      alert('이메일을 입력하세요.');
     } else if (!address) {
-        alert('주소를 입력하세요.')
+      alert('주소를 입력하세요.');
     } else {
       $.ajax({
         type: 'PUT',
