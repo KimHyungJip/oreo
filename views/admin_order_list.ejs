@@ -25,7 +25,6 @@
                 },
                 success: function (response) {
                     const orders = response.orderList;
-                    console.log(response);
                     for (let i = 0; i < orders.length; i++) {
                         if (orders[i].order_item.length !== 0) {
                             let tempHtml = `<table class="table table-hover align-middle"

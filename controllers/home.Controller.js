@@ -43,7 +43,6 @@ exports.adminIndex = async (req, res) => {
 // 관리자 - 상품 관리 페이지
 exports.adminProducts = async (req, res) => {
   let { page } = req.query; // 왜 '문자'그대로 놔둬야 제대로 동작하는 거지?
-  console.log('page: ', page);
   if (!page) {
     // undefined일시
     page = 1;
@@ -118,7 +117,6 @@ async function _get_items(page = 1, category, limit = 5) {
 exports.adminProductModify = async (req, res) => {
   const { id } = req.query;
   const product = await productService.findProductById(id);
-  console.log('\n\nreached to edit page. => ', product);
 
   res.render('product_modify', {
     title: '상품 수정',
