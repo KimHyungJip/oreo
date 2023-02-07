@@ -1,0 +1,82 @@
+<section style="width: 80%; margin: 30px auto;">
+    <h1><%= title %></h1>
+    <br/>
+    <div id="order-tables-container"></div>
+</section>
+
+<script>
+    // 페이지 로딩 완료 시
+    $(document).ready(function () {
+        me()
+        showOrderTables();
+    });
+
+    const colors = ['#AD8B73', '#CEAB93', '#E3CAA5', '#FFFBE9', '#E3CAA5', '#CEAB93']
+
+    function showOrderTables() {
+        // 주문 테이블들을 담을 element
+        const tableContainer = document.getElementById('order-tables-container')
+        $.ajax({
+            type: 'GET',
+            url: `/orders`,
+            // async: false,
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+            success: function (response) {
+                const orders = response.userOrders;
+                console.log(response);
+                for (let i = 0; i < orders.length; i++) {
+                    if (orders[i].order_item.length !== 0) {
+                        let tempHtml = `<table class="table table-hover align-middle"
+                        style="background-color: ${colors[i % colors.length]}; border-radius: 8px;">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">주문 번호 #</th>
+                                      <th scope="col">이미지</th>
+                                      <th scope="col">상품명</th>
+                                      <th scope="col">가격</th>
+                                      <th scope="col">수량</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">${orders[i].order_id}</th>
+                                      <td><img src="${orders[i].order_item[0].product.product_image}" class="img-fluid"
+                                          style="height:50px"></td>
+                                      <td>${orders[i].order_item[0].product.product_name}</td>
+                                      <td>${orders[i].order_item[0].product.product_price} 원</td>
+                                      <td>${orders[i].order_item[0].item_quantity} 개</td>
+                                    </tr>`
+                        let priceSum = orders[i].order_item[0].product.product_price * orders[i].order_item[0].item_quantity
+                        const items = orders[i].order_item;
+                        for (let j = 1; j < items.length; j++) {
+                            tempHtml += `<tr class="">
+                                          <th scope="row"></th>
+                                          <td><img src="${items[j].product.product_image}" class="img-fluid"
+                                          style="height:50px"></td>
+                                          <td>${items[j].product.product_name}</td>
+                                          <td>${items[j].product.product_price} 원</td>
+                                          <td>${items[j].item_quantity} 개</td>
+                                        </tr>`
+                            priceSum += (items[j].product.product_price * items[j].item_quantity);
+                        }
+                        tempHtml += `<tr class="">
+                                          <th scope="row"></th>
+                                          <td></td>
+                                          <td></td>
+                                          <td>합계: </td>
+                                          <td>${priceSum} 원</td>
+                                    </tr>
+                                </tbody>
+                            </table>`
+                        tableContainer.innerHTML += tempHtml;
+                    }
+                }
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+            },
+        });
+    }
+</script>
