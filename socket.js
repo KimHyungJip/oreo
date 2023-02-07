@@ -1,23 +1,23 @@
-const socketIo = require("socket.io");//1모듈불러오기
-const httpServer = require("./app");
+const socketIo = require('socket.io'); //1모듈불러오기
+const httpServer = require('./app');
 
-const io = socketIo(httpServer);//모듈에 http서버 객체를 넘겨주면
+const io = socketIo(httpServer); //모듈에 http서버 객체를 넘겨주면
 
 //'connection'사용자가 웹사이트에 접속하면 자동으로 발생하는 이벤트
 io.on('connection', (sock) => {
-    console.log('님이 연결 되었습니다.');
-    sock.send("hello");
-  
-    // sock.on('disconnect', () => {
-    //   console.log(sock.id, '님의 연결이 끊어졌습니다.');
-    // })
+  console.log('님이 연결 되었습니다.');
+  sock.send('hello');
+
+  // sock.on('disconnect', () => {
+  //   console.log(sock.id, '님의 연결이 끊어졌습니다.');
+  // })
 });
 // //4. 소켓 연결 이벤트 핸들링
 // io.on("connection", (sock) => {
 //     const { watchBuying, watchByeBye } = initSocket(sock);
-  
+
 //     watchBuying();
-  
+
 //     watchByeBye();
 //   });
 
@@ -31,7 +31,7 @@ io.on('connection', (sock) => {
 //     function sendMessageAll(eventName, data) {
 //       io.emit(eventName, data);
 //     }
-  
+
 //     return {
 //       watchBuying: () => {
 //         watchEvent("BUY", (data) => {
@@ -39,7 +39,7 @@ io.on('connection', (sock) => {
 //             ...data,
 //             date: new Date().toISOString(),
 //           };
-  
+
 //           sendMessageAll("BUY_GOODS", emitData);
 //         });
 //       },

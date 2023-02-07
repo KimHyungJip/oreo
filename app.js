@@ -1,5 +1,5 @@
 const express = require('express');
-const { Server } = require("http"); // 1. 모듈 불러오기
+const { Server } = require('http'); // 1. 모듈 불러오기
 
 const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
 
@@ -23,7 +23,6 @@ app.use('/', router);
 
 // Static Files
 app.use(express.static('public')); // 이후로 어디서든 파일 참조시, href="css/styles.css" | "js/api.js" | "img/bread.jpg"
-
 
 // module.exports = http;
 const PORT = process.env.PORT;

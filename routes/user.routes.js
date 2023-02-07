@@ -27,4 +27,11 @@ router.put('/modifyinfo', authMiddleware, userController.modifyinfo);
 
 router.put('/modifypwd', authMiddleware, userController.modifypwd);
 
+router.delete(
+  '/admin',
+  authMiddleware,
+  adminCheck,
+  userController.deleteUserByAdmin
+);
+
 module.exports = router;

@@ -80,7 +80,7 @@
                 type: 'DELETE',
                 url: `/products/admin/${id}`,
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('accesstoken')}`,
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 },
                 success: function (response) {
                     alert(response.message);

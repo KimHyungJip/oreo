@@ -258,13 +258,15 @@ function modifyinfo() {
   const email = emailId + '@' + emailDomain;
   const phone = $('#phone').val();
   const address = $('#address').val();
-  if (!emailId || !emailId){
-    alert('수정 양식에 맞지 않습니다.')
-  }else{
+  if (!emailId || !emailId) {
+    alert('수정 양식에 맞지 않습니다.');
+  } else {
     $.ajax({
       type: 'PUT',
       url: '/users/modifyinfo',
-      headers: { authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
       data: {
         email: email,
         phone: phone,
@@ -347,9 +349,8 @@ function me() {
   });
 }
 
+const socket = io('ws://localhost:7000');
 
-const socket = io("ws://localhost:7000")
-
-socket.on("connect",()=>{
-  socket.send("접속")
-})
+socket.on('connect', () => {
+  socket.send('접속');
+});
