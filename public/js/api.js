@@ -3,23 +3,31 @@ $(document).ready(function () {
   button_action();
 });
 function button_action() {
-  if (localStorage.getItem('accessToken')) {
-    $('#loginpagebutton').hide();
-    $('#logoutbutton').show();
-    $('#signuppagebutton').hide();
-    //login 되었을 때 localstorage에 is_admin이 저장되어있음
-    //활용해서 header가 보이는것을 컨트롤 해주면 될 것 같음
-  }
-  if (localStorage.getItem('is_admin')) {
-    if (localStorage.getItem('is_admin') === '1') {
-      $('#admin_indexbutton').show();
-      $('#cartpagebutton').hide();
-      $('#orderpagebutton').hide();
-      $('#mypagebutton').hide();
-    } else if (localStorage.getItem('is_admin') === '0')
-      $('#admin_indexbutton').hide();
-  } else {
-    $('#admin_indexbutton').hide();
+  if(localStorage.getItem('is_admin')){
+    if(localStorage.getItem('is_admin')==='1'){
+      $('#admin_indexbutton').show()
+      $('#logoutbutton').show()
+      $('#orderpagebutton').hide()
+      $('#cartpagebutton').hide()
+      $('#loginpagebutton').hide()
+      $('#logoutbutton').show()
+      $('#signuppagebutton').hide()
+      $('#mypagebutton').hide()
+    }else if(localStorage.getItem('is_admin')==='0'){
+      $('#loginpagebutton').hide()
+      $('#signuppagebutton').hide()
+      $('#mypagebutton').show()
+      $('#logoutbutton').show()
+      $('#admin_indexbutton').hide()
+      $('#orderpagebutton').show()
+      $('#cartpagebutton').show()
+    }
+  }else{
+    $('#orderpagebutton').hide()
+    $('#cartpagebutton').hide()
+    $('#logoutbutton').hide()
+    $('#mypagebutton').hide()
+    $('#admin_indexbutton').hide()
   }
 }
 function logout() {
