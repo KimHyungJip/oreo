@@ -1,6 +1,4 @@
-// const dotenv = require('dotenv');
-// dotenv.config()
-
+//header
 $(document).ready(function () {
   button_action();
 });
@@ -20,57 +18,12 @@ function button_action() {
     // }
   }
 }
-function modifybutton() {
-  $('#modifyinfo').show();
-  $('#myinfo').hide();
-  $('#modifyinfobutton').hide();
+function logout() {
+  localStorage.clear();
+  alert('로그아웃 되었습니다.');
+  window.location.href = '/';
 }
-function myinfobutton() {
-  $('#modifyinfo').hide();
-  $('#myinfo').show();
-  $('#modifyinfobutton').show();
-}
-function modifyinfo() {
-  const emailId = $('#emailId').val();
-  const emailDomain = $('#emailDomain').val();
-  const email = emailId + '@' + emailDomain;
-  const phone = $('#phone').val();
-  const address = $('#address').val();
-  const password1 = $('#password1').val();
-  const password2 = $('#password2').val();
-  if (
-    !emailId ||
-    !emailDomain ||
-    !phone ||
-    !address ||
-    !password1 ||
-    !password2
-  ) {
-    alert('회원가입 양식에 맞지 않습니다.');
-  } else {
-    if (password1 !== password2) {
-      alert('비밀번호가 서로 맞지 않습니다.');
-    } else {
-      $.ajax({
-        type: 'PUT',
-        url: '/users/modifyinfo',
-        data: {
-          email: email,
-          password: password1,
-          phone: phone,
-          address: address,
-        },
-        success: function (response) {
-          alert(response.message);
-          window.location.href = '/';
-        },
-        error: function (err) {
-          alert(err.responseJSON.message);
-        },
-      });
-    }
-  }
-}
+//signup page
 function dupCheck() {
   const emailId = $('#emailId').val();
   const emailDomain = $('#emailDomain').val();
@@ -134,8 +87,7 @@ function signup() {
     }
   }
 }
-//로그인을 했을때 로그인 버튼이 마이페이지 버튼으로 바뀌는 식으로 해봐야 될듯
-//로그인을 했을때 is_admin을 체크해서 버튼이 바뀌는 형식으로
+//login page
 function login() {
   const loginEmail = $('#loginEmail').val();
   const loginPassword = $('#loginPassword').val();
@@ -166,13 +118,7 @@ function login() {
     });
   }
 }
-//로그아웃기능은 로그인했을때만 뜨게 해줘야 할것같다.
-function logout() {
-  localStorage.clear();
-  alert('로그아웃 되었습니다.');
-  window.location.href = '/';
-}
-//희서님이 작성해주신 loadFile의 기능(미리보기)를 여기서 해줘도 될 것 같다.
+//product_register page
 function upload_image() {
   const imageInput = $('#image_file')[0];
   if (imageInput.files.length === 0) {
@@ -198,7 +144,6 @@ function upload_image() {
     },
   });
 }
-//위의 function의 기능으로 인해 지금 src가 bucket에 저장되어있는 url이 있으니 그것을 db에 저장해주면 될 것 같다.
 function upload() {
   const product_image = $('#image').attr('src');
   const product_name = $('#inputTitle').val();
@@ -222,6 +167,167 @@ function upload() {
     },
   });
 }
+//cart page
+function get_cart() {
+  $.ajax({
+    type: 'GET',
+    url: '/cart/cart_items',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {},
+    success: function (response) {
+      let rows = response.cart;
+      for (let i = 0; i < rows.length; i++) {
+        let product_id = rows[i]['product_id'];
+        let product_name = rows[i]['product_name'];
+        let product_price = rows[i]['product_price'];
+        let product_detail = rows[i]['product_detail'];
+        let product_image = rows[i]['product_image'];
+        let item_quantity = rows[i]['item_quantity'];
+        let temp = `                    <tr>
+              <td>${product_name}</td>
+              <td>${product_price}</td>
+              <td>${product_detail}</td>
+              <td><img src="${product_image}" class="img-fluid" style="height:50px" alt="..."></td>
+              <td><input id = "product_id${product_id}" type='number' min='1' value="${item_quantity}"></td>
+              <td><a class="btn btn-outline-secondary" onclick="cartmodify('${product_id}')" role="button">수정</a></td>
+          </tr>`;
+        $('#cart_item').append(temp);
+      }
+    },
+  });
+}
+function cartmodify(product_id) {
+  const product = 'product_id' + product_id;
+  const item_quantity = document.getElementById(product).value;
+  $.ajax({
+    type: 'PUT',
+    url: '/cart/modifyquantity',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: { product_id: product_id, item_quantity: item_quantity },
+    success: function (response) {
+      alert(response.message);
+      window.location.href = '/';
+    },
+    error: function (err) {
+      alert(err.responseJSON.message);
+    },
+  });
+}
+//mypage
+function cancel() {
+  window.location.href = '/mypage';
+}
+function popbutton() {
+  $('#myinfo').hide();
+  $('#popbutton').hide();
+  $('#istrue').show();
+}
+function istrue() {
+  const password = $('#istruepwd').val();
+  $.ajax({
+    type: 'POST',
+    url: '/users/istrue',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: { password: password },
+    success: function (response) {
+      if (response.boolean) {
+        $('#mypageButton').show();
+        $('#istrue').hide();
+      } else {
+        alert('비밀번호를 확인해주세요.');
+        cancel();
+      }
+    },
+  });
+}
+function modifyinfobutton() {
+  $('#popbutton').hide();
+  $('#istrue').hide();
+  $('#mypageButton').hide();
+  $('#modifyinfoinput').show();
+}
+function modifyinfo() {
+  const emailId = $('#emailId').val();
+  const emailDomain = $('#emailDomain').val();
+  const email = emailId + '@' + emailDomain;
+  const phone = $('#phone').val();
+  const address = $('#address').val();
+  if (!emailId || !emailId) {
+    alert('수정 양식에 맞지 않습니다.');
+  } else {
+    $.ajax({
+      type: 'PUT',
+      url: '/users/modifyinfo',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: {
+        email: email,
+        phone: phone,
+        address: address,
+      },
+      success: function (response) {
+        alert(response.message);
+        alert('다시 로그인 해주세요');
+        logout();
+      },
+      error: function (err) {
+        alert(err.responseJSON.message);
+      },
+    });
+  }
+}
+function modifypwdbutton() {
+  $('#mypageButton').hide();
+  $('#modifypwdinput').show();
+}
+function modifypwd() {
+  const modifypwd1 = $('#modifypwd1').val();
+  const modifypwd2 = $('#modifypwd2').val();
+  if (modifypwd1 !== modifypwd2) {
+    alert('패스워드가 일치하지 않습니다.');
+  } else {
+    $.ajax({
+      type: 'PUT',
+      url: '/users/modifypwd',
+      data: { password: modifypwd2 },
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      success: function (response) {
+        alert(response.message);
+        alert('다시 로그인 해주세요');
+        logout();
+      },
+      error: function (err) {
+        alert(err.responseJSON.message);
+      },
+    });
+  }
+}
+function accountdestroy() {
+  $.ajax({
+    type: 'DELETE',
+    url: '/users/accoutdestroy',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {},
+    success: function (response) {
+      alert(response.message);
+      logout();
+    },
+    error: function (err) {
+      alert(err.responseJSON.message);
+    },
+  });
+}
 function me() {
   $.ajax({
     type: 'GET',
@@ -242,3 +348,9 @@ function me() {
     },
   });
 }
+
+const socket = io('ws://localhost:7000');
+
+socket.on('connect', () => {
+  socket.send('접속');
+});

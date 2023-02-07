@@ -1,0 +1,34 @@
+.mypageCard {
+    width: 500px;
+    margin: 0 auto;
+    border-radius: 6px;
+    background-color: #f6f5f0;
+    color: #000000;
+}
+.mypageCard form {
+    padding: 30px 22px;
+}
+.mypageCard form input {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.mypageCard form button {
+    /* width: 100%; */
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.mypageCard form span {
+    /* width: 100%; */
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.mypageCard_actions {
+    text-align: center;
+}
+.mypageCard_actions a{
+    margin-left: 10px;
+}
