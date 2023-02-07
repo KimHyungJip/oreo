@@ -167,6 +167,42 @@ class UserController {
       res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
     }
   };
+
+  deleteUserByAdmin = async (req, res) => {
+    const { email } = res.locals.user;
+
+    try {
+      const deleted = await this.userService.deleteUserByAdmin(email);
+      return res.status(200).json({
+        message: '회원 정보 삭제가 완료되었습니다',
+        // deleted,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        errorMessage: error.message,
+        // error: error,
+      });
+    }
+  }
+
+  modifypwd = async (req, res) => {
+    const userId = res.locals.user.user_id;
+    const { password } = req.body;
+    const salt = crypto.randomBytes(64).toString('base64');
+    const hashedPwd = crypto
+      .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+      .toString('base64');
+    try {
+      const userpwdmodify = await this.userService.modifypwd(
+        userId,
+        hashedPwd,
+        salt
+      );
+      res.status(200).send({ message: '비밀번호 수정에 성공하였습니다.' });
+    } catch (err) {
+      res.status(400).send({ message: '비밀번호 수정에 실패하였습니다.' });
+    }
+  };
 }
 
 module.exports = UserController;

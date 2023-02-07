@@ -1,10 +1,10 @@
-
-
 :root {
   --bs-font-sans-serif: 'Rubik', sans-serif;
 }
 
-.container-xxl { max-width: 1530px; }
+.container-xxl { 
+  max-width: 1530px; 
+}
 
 body {
   background-image: url("../img/foods.svg");
@@ -49,4 +49,15 @@ a { color: var(--bs-dark); }
   max-width: 100%;
   height: auto !important;
   
+}
+
+.todayitemstitle {
+  display: block; 
+  text-align: center;
+  font-size: 150%;
+  color: #683b28;
+  line-height: 45px; 
+  font-weight:500;
+  padding-top: 5%; 
+  padding-bottom: 2%; 
 }
