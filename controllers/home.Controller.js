@@ -11,11 +11,11 @@ exports.cart = async (req, res) => {
 };
 
 exports.loginpage = async (req, res) => {
-  res.render('loginpage', { title: '로그인페이지' });
+  res.render('login', { title: '로그인페이지' });
 };
 
 exports.signuppage = async (req, res) => {
-  res.render('signuppage', { title: '회원가입페이지' });
+  res.render('signup', { title: '회원가입페이지' });
 };
 
 // 관리자 - 인트로 페이지
@@ -46,8 +46,6 @@ exports.adminUsers = async (req, res) => {
     users: params.items,
   });
 };
-
-
 
 const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');

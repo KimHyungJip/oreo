@@ -127,29 +127,60 @@ class UserController {
         .json({ success: error.success, message: error.message });
     }
   };
-
-  // 유저ID로 해당 유저 정보 수정
-  modifyUser = async (req, res) => {
+  istrue = async (req, res) => {
+    const salt = res.locals.user.salt;
+    const userpwd = res.locals.user.password;
+    const { password } = req.body;
+    const hashedPwd = crypto
+      .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+      .toString('base64');
+    if (hashedPwd != userpwd) {
+      res.json({ boolean: false });
+    } else {
+      res.json({ boolean: true });
+    }
+  };
+  accoutdestroy = async (req, res) => {
     const userId = res.locals.user.user_id;
-    const { email, phone, password, address } = req.body;
     try {
-      const dupCheck = await this.userService.findUser(email);
-      if (!dupCheck) {
-        const salt = crypto.randomBytes(64).toString('base64');
-        const hashedPwd = crypto
-          .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
-          .toString('base64');
-        const usermodify = await this.userService.modifyUser(
-          userId,
-          email,
-          phone,
-          hashedPwd,
-          address
-        );
-      }
+      const useraccoutdestroy = await this.userService.destroyaccout(userId);
+      res.status(200).send({ message: '회원탈퇴에 성공하였습니다.' });
+    } catch (err) {
+      res.status(403).send({ message: '회원탈퇴에 실패하였습니다.' });
+    }
+  };
+
+  modifyinfo = async (req, res) => {
+    const userId = res.locals.user.user_id;
+    const { email , phone, address } = req.body;
+    try {
+      const userinfomodify = await this.userService.modifyinfo(
+        userId,
+        email,
+        phone,
+        address
+      )
       res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
     } catch (err) {
       res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
+    }
+  };
+  modifypwd = async (req, res) => {
+    const userId = res.locals.user.user_id;
+    const { password } = req.body;
+    const salt = crypto.randomBytes(64).toString('base64');
+    const hashedPwd = crypto
+      .pbkdf2Sync(password, salt, 99999, 64, 'sha512')
+      .toString('base64');
+    try {
+      const userpwdmodify = await this.userService.modifypwd(
+        userId,
+        hashedPwd,
+        salt
+      );
+      res.status(200).send({ message: '비밀번호 수정에 성공하였습니다.' });
+    } catch (err) {
+      res.status(400).send({ message: '비밀번호 수정에 실패하였습니다.' });
     }
   };
 }

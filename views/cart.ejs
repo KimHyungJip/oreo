@@ -16,18 +16,8 @@
                     <th scope="col">수정</th>
                 </tr>
                 </thead>
-                <div id ="cart_item">
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                        </tr>
-                    </tbody>
-                </div>
+                <tbody id = 'cart_item'>
+                </tbody>
             </table>
         </div>
     
@@ -39,26 +29,5 @@
         });
         //받아올거 상품명 판매가 상세설명 상품이미지 수량
         //    product_name,product_price,product_detail,product_image,item_quantity
-        function get_cart(){
-            $.ajax({
-            type: "GET",
-            url: "/cart_items",
-            data: {},
-            success: function (response) {
-                console.log("들어옴?")
-                console.log(response)
-
-                const arr = []
-                
-        
-            }
-        });
-
-
-
-        function put_cart_item(){
-
-        }
-    }
     </script>
     </body>

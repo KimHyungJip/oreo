@@ -32,18 +32,30 @@ class UserRepository {
       throw error;
     }
   };
-  modifyUser = async (userId, email, phone, password, address) => {
-    const usermodify = await this.userModel.update(
+  destroyaccount = async (userId) => {
+    const accoutdestroy = await this.userModel.destroy({
+      where: { user_id: userId },
+    });
+    return accoutdestroy;
+  };
+  modifyinfo = async (userId, email, phone, address) => {
+    const infomodify = await this.userModel.update(
       {
         email: email,
         phone: phone,
-        password: password,
         address: address,
         updatedAt: new Date(),
       },
       { where: { user_id: userId } }
     );
-    return usermodify;
+    return infomodify;
+  };
+  modifypwd = async (userId, hashedPwd, salt) => {
+    const pwdmodify = await this.userModel.update(
+      { password: hashedPwd, salt: salt, updatedAt: new Date() },
+      { where: { user_id: userId } }
+    );
+    return pwdmodify;
   };
 }
 module.exports = UserRepository;
