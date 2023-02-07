@@ -10,7 +10,22 @@ router.get('/', productController.getProducts);
 router.post('/imageupload', upload.single('image'), (req, res) => {
   res.json({ url: req.file.location });
 });
-router.post('/admin', authMiddleware, adminCheck, productController.registerProduct);
-router.put('/admin/:id', authMiddleware, adminCheck, productController.updateProduct);
-router.delete('/admin/:id', authMiddleware, adminCheck, productController.deleteProduct);
+router.post(
+  '/admin',
+  authMiddleware,
+  adminCheck,
+  productController.registerProduct
+);
+router.put(
+  '/admin/:id',
+  authMiddleware,
+  adminCheck,
+  productController.updateProduct
+);
+router.delete(
+  '/admin/:id',
+  authMiddleware,
+  adminCheck,
+  productController.deleteProduct
+);
 module.exports = router;

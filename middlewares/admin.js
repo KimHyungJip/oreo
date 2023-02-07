@@ -1,4 +1,3 @@
-
 module.exports = async (req, res, next) => {
   const { user } = res.locals;
   if (user.is_admin !== 1) {
