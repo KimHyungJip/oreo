@@ -1,3 +1,6 @@
+const { request } = require("express");
+const { func } = require("joi");
+<script src="/socket.js"></script>
 //header
 $(document).ready(function () {
   button_action();
@@ -168,6 +171,22 @@ function upload() {
   });
 }
 //cart page
+function postCart(product_id){
+  console.log("확인",product_id)
+  //<%=request.getParameter("item_quantity") %>
+  console.log(item_quantity)
+  $.ajax({
+    type: 'POST',
+    url: '/cart/cart_items',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {product_id,item_quantity},
+    success: function (response){
+
+    }
+  })
+}
 function get_cart() {
   $.ajax({
     type: 'GET',
@@ -201,6 +220,7 @@ function get_cart() {
 function order(){
   //get으로 페이지 꺼 다 받아와서 post로 다 넘겨줘
   //product_id, item_quantity넘길꺼야
+  
   $.ajax({
     type: 'GET',
     url: '/cart/cart_items',
@@ -209,7 +229,10 @@ function order(){
     },
     data:{},
     success: function (response){
-      console.log("get",response)
+      socketOrderAlert(order_id, receipt_price)
+      customAlert('선택하신 상품을 성공적으로 구매하였습니다.', function () {
+        window.location.href = '/'
+      });
       let rows = response.cart;
       for (let i = 0; i < rows.length; i++) {
         let product_id = rows[i]['product_id'];
@@ -221,7 +244,7 @@ function order(){
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
-          data:{product_id,item_quantity},
+          data:{product_id},
           success: function (response){
             console.log("post",response)
             
@@ -293,13 +316,15 @@ function modifyinfo() {
   const email = emailId + '@' + emailDomain;
   const phone = $('#phone').val();
   const address = $('#address').val();
-  if (!emailId || !emailId){
-    alert('수정 양식에 맞지 않습니다.')
-  }else{
+  if (!emailId || !emailId) {
+    alert('수정 양식에 맞지 않습니다.');
+  } else {
     $.ajax({
       type: 'PUT',
       url: '/users/modifyinfo',
-      headers: { authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
       data: {
         email: email,
         phone: phone,
