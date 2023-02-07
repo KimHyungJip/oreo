@@ -1,33 +1,38 @@
-<div class = "mainimg">
-    <img src="img/desserts.jpg" alt="pastry" width="1430" height="800"/>
-    <p></p>
+<div class="mainimgOuter">
+    <div class="mainimgInner">
+        <img src="img/desserts.jpg" alt="pastry" />
+        <p></p>
+    </div>
 </div>
 
 <div class="todayitemstitle" style="margin-bottom: 1px">
     <h2>오늘의 상품</h2>
 </div>
 <section>
-    <div id="main-products">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <% products.forEach(product => { %>
-          <div class="col">
-            <div class="card h-100">
-              <img src="<%= product.product_image %>" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h3 class="card-title"><%= product.product_name %></h3>
-                <p class="card-text"><%= product.product_detail %></p>
-                <h5 class="card-title"><%= product.product_price %></h5>
-              </div>
-            </div>
+  <div id="main-products">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% products.forEach(product => { %>
+      <div class="col">
+        <div class="card h-100">
+          <img src="<%= product.product_image %>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title" id="<%= product.product_id %>"><%= product.product_name %></h3>
+            <p class="card-text"><%= product.product_detail %></p>
+            <h5 class="card-title"><%= product.product_price %></h5>
+            <input id = "product_id<%= product.product_id %>" type='number' min='1' max='99' value="1">
+            <button onclick="registcart(<%= product.product_id %>)">담기</button>
+            
           </div>
-        <% }) %>
         </div>
+      </div>
+    <% }) %>
     </div>
+  </div>
 
     <!-- 페이징 -->
-    <div id="pagination">
+    <div class="pagination" id="pagination">
         <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center" style="margin-top: 20px" >
+          <ul class="pagination justify-content-center">
             <% if (chunk_start - 1 > 0) { %>
                 <li class="page-item">
                     <a class="page-link" href="/?page=<%= chunk_start - 1 %>" tabindex="-1"

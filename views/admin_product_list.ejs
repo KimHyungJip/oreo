@@ -1,100 +1,124 @@
-
-<div class="d-flex justify-content-between align-items-end" style="margin-bottom: 10px">
-    <h2>상품 관리</h2>
-    <a class="btn btn-outline-dark" href="/admin_product_register" role="button">상품 등록하기</a>
+<div
+  class="d-flex justify-content-between align-items-end"
+  style="margin-bottom: 10px"
+>
+  <h2>상품 관리</h2>
+  <a class="btn btn-outline-dark" href="/admin_product_register" role="button"
+    >상품 등록하기</a
+  >
 </div>
 <section>
-    <div id="product-table">
-        <table class="table table-hover align-middle text-center">
-            <thead class="table-dark">
-            <tr>
-                <th scope="col">삭제</th>
-                <th scope="col">수정</th>
-                <th scope="col">상품번호</th>
-                <th scope="col">상품명</th>
-                <th scope="col">판매가</th>
-                <th scope="col">상세설명</th>
-                <th scope="col">상품이미지</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% products.forEach(product => { %>
-                <tr>
-                    <td>
-                        <button type="button" onclick="deleteProduct(<%= product.product_id %>)" class="btn
-                  btn-outline-danger">삭제
-                        </button>
-                    </td>
-                    <td><a class="btn btn-outline-secondary"
-                           href="/admin_product_modify?id=<%= product.product_id %>" role="button">수정</a></td>
-                    <th scope="row"><%= product.product_id %></th>
-                    <td><%= product.product_name %></td>
-                    <td><%= product.product_price %></td>
-                    <td><%= product.product_detail %></td>
-                    <td><img src="<%= product.product_image %>" class="img-fluid" style="height:50px" alt="..."></td>
-                </tr>
-            <% }) %>
-            </tbody>
-        </table>
-    </div>
+  <div id="product-table">
+    <table class="table table-hover align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">삭제</th>
+          <th scope="col">수정</th>
+          <th scope="col">상품번호</th>
+          <th scope="col">상품명</th>
+          <th scope="col">판매가</th>
+          <th scope="col">상세설명</th>
+          <th scope="col">상품이미지</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(product => { %>
+        <tr>
+          <td>
+            <button
+              type="button"
+              onclick="deleteProduct(<%= product.product_id %>)"
+              class="btn btn-outline-danger"
+            >
+              삭제
+            </button>
+          </td>
+          <td>
+            <a
+              class="btn btn-outline-secondary"
+              href="/admin_product_modify?id=<%= product.product_id %>"
+              role="button"
+              >수정</a
+            >
+          </td>
+          <th scope="row"><%= product.product_id %></th>
+          <td><%= product.product_name %></td>
+          <td><%= product.product_price %></td>
+          <td><%= product.product_detail %></td>
+          <td>
+            <img
+              src="<%= product.product_image %>"
+              class="img-fluid"
+              style="height: 50px"
+              alt="..."
+            />
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
 
-    <!-- 페이징 -->
-    <div id="pagination">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <% if (chunk_start - 1 > 0) { %>
-                    <li class="page-item">
-                        <a class="page-link" href="/admin_products?page=<%= chunk_start - 1 %>" tabindex="-1"
-                           aria-disabled="true"><</a>
-                    </li>
-                <% } %>
-                <% for (let i = chunk_start; i <= chunk_end; i++) { %>
-                    <!-- 무조건 5페이지씩 버튼 다는 게 아니라 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
-                    <% if (i <= last_page_num) { %>
-                        <% if (i == page) { %>
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link"><%= i %></span>
-                            </li>
-                        <% } else { %>
-                            <li class="page-item"><a class="page-link"
-                                 href="/admin_products?page=<%= i %>"><%= i %></a></li>
-                        <% } %>
-                    <% } %>
-                <% } %>
-                <% if (chunk_end < last_page_num) { %>
-                    <li class="page-item">
-                        <a class="page-link" href="/admin_products?page=<%= chunk_end + 1 %>">></a>
-                    </li>
-                <% } %>
-            </ul>
-        </nav>
-    </div>
+  <!-- 페이징 -->
+  <div id="pagination">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <% if (chunk_start - 1 > 0) { %>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="/admin_products?page=<%= chunk_start - 1 %>"
+            tabindex="-1"
+            aria-disabled="true"
+            ><</a
+          >
+        </li>
+        <% } %> <% for (let i = chunk_start; i <= chunk_end; i++) { %>
+        <!-- 무조건 5페이지씩 버튼 다는 게 아니라 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
+        <% if (i <= last_page_num) { %> <% if (i == page) { %>
+        <li class="page-item active" aria-current="page">
+          <span class="page-link"><%= i %></span>
+        </li>
+        <% } else { %>
+        <li class="page-item">
+          <a class="page-link" href="/admin_products?page=<%= i %>"><%= i %></a>
+        </li>
+        <% } %> <% } %> <% } %> <% if (chunk_end < last_page_num) { %>
+        <li class="page-item">
+          <a class="page-link" href="/admin_products?page=<%= chunk_end + 1 %>"
+            >></a
+          >
+        </li>
+        <% } %>
+      </ul>
+    </nav>
+  </div>
 </section>
 
 <script>
-    $(document).ready(function () {
-        me()
-    });
-    function deleteProduct(id) {
-        const check = confirm(`${id}번 상품을 정말 삭제하시겠습니까?`)
-        if (check) {
-            $.ajax({
-                type: 'DELETE',
-                url: `/products/admin/${id}`,
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                },
-                success: function (response) {
-                    alert(response.message);
-                    location.reload();
-                    // location.replace(location.href);
-                    // location.href = location.href;
-                },
-                error: function (xhr) {
-                    alert(xhr.responseJSON.errorMessage);
-                    // customAlert2(xhr.responseJSON.errorMessage);
-                },
-            })
-        }
+  $(document).ready(function () {
+    me();
+  });
+  function deleteProduct(id) {
+    const check = confirm(`${id}번 상품을 정말 삭제하시겠습니까?`);
+    if (check) {
+      $.ajax({
+        type: 'DELETE',
+        url: `/products/admin/${id}`,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        success: function (response) {
+          alert(response.message);
+          location.reload();
+          // location.replace(location.href);
+          // location.href = location.href;
+        },
+        error: function (xhr) {
+          alert(xhr.responseJSON.errorMessage);
+          // customAlert2(xhr.responseJSON.errorMessage);
+        },
+      });
     }
+  }
 </script>
