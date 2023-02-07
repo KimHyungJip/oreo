@@ -22,7 +22,7 @@ exports.cart = async (req, res) => {
 };
 
 exports.myOrders = async (req, res) => {
-  res.render('order_list', {
+  res.render('my_orders', {
     title: '내 주문 내역',
   });
 };
@@ -77,14 +77,22 @@ const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');
 const productService = new ProductService();
 const userService = new UserService();
-async function _get_items(page = 1, category, limit = 5) {
+
+// 'category(=상품|회원|주문)' 정보 전부 불러오기
+async function _get_all_items(category) {
+  let result;
   let items;
   if (category === 'products') {
     items = await productService.findAllProducts();
-  } else {
-    // category === 'users'
+  } else if (category === 'users') {
     items = await userService.userlistget();
   }
+  return items
+}
+
+// 페이지네이션을 위한 params들 생성 후 반환
+async function _get_items(page = 1, category, limit = 5) {
+  const items = await _get_all_items(category)
 
   // const limit = 5;
   const total_items_number = items.length;
@@ -130,11 +138,17 @@ exports.adminUserModify = async (req, res) => {
   const { email } = req.query;
   // const { email } = res.locals.user;
   const user = await userService.findUser(email);
-  // const user = res.locals;
 
-  // res.render('user_modify', {
   res.render('managerpost', {
     title: '회원 정보 수정',
     ...user,
   });
 };
+
+
+// 관리자 - 주문 내역 조회 페이지
+exports.adminOrderList = async (req, res) => {
+  res.render('admin_order_list', {
+    title: '주문/판매 내역 조회',
+  });
+}

@@ -179,7 +179,7 @@ class UserController {
   };
 
   deleteUserByAdmin = async (req, res) => {
-    const { email } = res.locals.user;
+    const { email } = req.params;
 
     try {
       const deleted = await this.userService.deleteUserByAdmin(email);

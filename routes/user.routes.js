@@ -26,14 +26,16 @@ router.delete('/accoutdestroy', authMiddleware, userController.accoutdestroy);
 router.put('/modifyinfo', authMiddleware, userController.modifyinfo);
 
 router.put('/modifypwd', authMiddleware, userController.modifypwd);
+
 router.put(
   '/admin',
   authMiddleware,
   adminCheck,
   userController.modifyUserByAdmin
 );
+
 router.delete(
-  '/admin',
+  '/admin/:email',
   authMiddleware,
   adminCheck,
   userController.deleteUserByAdmin
