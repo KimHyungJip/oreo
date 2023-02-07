@@ -234,7 +234,7 @@ function me() {
       const email = response.email;
       const phone = response.phone;
       const address = response.address;
-      const temp = `<div>${email}</div><div>${phone}</div><div>${address}</div>`;
+      const temp = `<div>이메일:${email}</div><div>연락처:${phone}</div><div>주소:${address}</div>`;
       $('#me').append(temp);
     },
     error: function (err) {

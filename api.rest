@@ -6,7 +6,7 @@ GET http://localhost:7000/product
 Get http://localhost:7000/mypage/5
 
 ###
-Get http://localhost:7000/users/4
+Get http://localhost:7000/mypage
 
 ###
 

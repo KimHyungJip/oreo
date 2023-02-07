@@ -107,10 +107,12 @@ class UserController {
   me = async (req, res) => {
     res.send(res.locals.user);
   };
+
+  
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
     try {
-      // 서비스 계층에 구현된 userlistget 함수를 실행한다.
+      // 서비스 계층에 구현된 userlistget 함수를 실행한다. 
       const userlistResult = await this.UserService.userlistget();
       return res.status(200).render('managermain', {
         success: true,
@@ -127,6 +129,33 @@ class UserController {
         .json({ success: error.success, message: error.message });
     }
   };
+
+  userInfoGet = async (req, res, next) => {
+    console.log("개인정보 컨트롤러")
+    const user_id = res.locals.user.user_id;
+    console.log(user_id);
+    const user = await this.userService.findUserInfo(user_id); 
+    res.status(200).josn({ user });
+  }
+
+  //   console.log("개인정보 컨트롤러")
+//   const user_id = res.locals.user
+//   console.log(user_id)
+//   const user = await this.userService.findUserInfo(user_id);
+//   res.status(200).josn({user});
+//   console.log(user)
+//   // const user = {
+//   //   user_id: 55,
+//   //   email: 'hwang@baker.com',
+//   //   phone: '01011112222',
+//   //   address: '공란',}
+//   res.render('mypage', {
+//     title: '마이페이지', email:'email',
+//     ...user,
+//   });
+// }; // 마이페이지.ejs 파일에서는 이제 <%= user_id %>, <%= email %>
+
+
 
   // 유저ID로 해당 유저 정보 수정
   modifyUser = async (req, res) => {
@@ -152,5 +181,9 @@ class UserController {
       res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
     }
   };
+
+
+
+
 }
 module.exports = UserController;
