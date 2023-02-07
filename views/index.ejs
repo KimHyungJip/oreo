@@ -4,34 +4,25 @@
     <h2>오늘의 상품</h2>
 </div>
 <section>
-    <div id="main-products">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <% products.forEach(product => { %>
-          <div class="col">
-            <div class="card h-100">
-              <img src="<%= product.product_image %>" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h3 class="card-title"><%= product.product_name %></h3>
-                <p class="card-text"><%= product.product_detail %></p>
-                <h5 class="card-title"><%= product.product_price %></h5>
-                <h5>
-                  <!-- <form action="/public/js/api.js">
-                  <%! const item_quantity = 0 %>
-                  <input type="number" name="item_quantity"value="<%=item_quantity%>" min="1" max="9">
-                  <input type="submit" value="담기"onclick="postCart(<%= product.product_id %>,<%=item_quantity%>)" ></a> -->
-                  <!-- <input type="number" name="favnum" min="1" max="9" id='product.product_id' value='item_quantity'>
-                  <a onclick="postCart(<%= product.product_id %>)" class="btn btn-outline-secondary" type="button" >담기</button> -->
-                  <!-- <a onclick="postCart(<%= product.product_id %>,<%=item_quantity%>)" class="btn btn-outline-secondary" type="button" >담기</button>
-                  </a>           -->
-                  </form>
-                </h5>
-                <!-- product_id item_quantity 받아와야함 -->
-              </div>
-            </div>
+  <div id="main-products">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% products.forEach(product => { %>
+      <div class="col">
+        <div class="card h-100">
+          <img src="<%= product.product_image %>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title"><%= product.product_name %></h3>
+            <p class="card-text"><%= product.product_detail %></p>
+            <h5 class="card-title"><%= product.product_price %></h5>
+            <input id = "product_id<%= product.product_id %>" type='number' min='1' max='99' value="1">
+            <button onclick="registcart(<%= product.product_id %>)">담기</button>
+            
           </div>
-        <% }) %>
         </div>
+      </div>
+    <% }) %>
     </div>
+  </div>
 
     <!-- 페이징 -->
     <div id="pagination">

@@ -1,6 +1,4 @@
-const { request } = require("express");
-const { func } = require("joi");
-<script src="/socket.js"></script>
+
 //header
 $(document).ready(function () {
   button_action();
@@ -177,11 +175,13 @@ function upload() {
     },
   });
 }
+
 //cart page
-function postCart(product_id,item_quantity){
-  console.log("확인",product_id,item_quantity)
-  //<%=request.getParameter("item_quantity") %>
-  console.log(item_quantity)
+function registcart(product_id){
+  let product = 'product_id'+product_id
+  let item_quantity = document.getElementById(product).value
+
+  
   $.ajax({
     type: 'POST',
     url: '/cart/cart_items',
