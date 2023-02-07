@@ -1,0 +1,53 @@
+<body>
+  <section>
+    <div class="signupCard">
+      <form>
+        <div class="input-group mb-3">
+          <input
+            id="emailId"
+            type="text"
+            class="form-control"
+            placeholder="아이디"
+            aria-describedby="button-addon2"
+          />
+          <span class="input-group-text">@</span>
+          <input
+            id="emailDomain"
+            type="text"
+            class="form-control"
+            placeholder="도메인"
+            aria-describedby="button-addon2"
+          />
+          <button
+            onclick="dupCheck()"
+            class="btn btn-outline-secondary"
+            type="button"
+          >
+            중복체크
+          </button>
+        </div>
+        <input
+          type="password"
+          id="password1"
+          placeholder="비밀번호를 입력하세요."
+        />
+        <input
+          type="password"
+          id="password2"
+          placeholder="비밀번호를 다시 입력하세요."
+        />
+        <input type="text" id="phone" placeholder="핸드폰 번호" />
+        <input type="text" id="address" placeholder="주소" />
+      </form>
+      <div class="signup_actions" style="margin-bottom: 30px">
+        <button
+          onclick="signup()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          가입하기
+        </button>
+      </div>
+    </div>
+  </section>
+</body>

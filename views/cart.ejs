@@ -1,0 +1,36 @@
+<body>
+    <div class="d-flex justify-content-between align-items-end" style="margin-bottom: 10px">
+        <h2>장바구니</h2>
+        <div id="total_price">0원</div>
+        <a class="btn btn-outline-dark" href="/" role="button">상품 주문하기</a>
+    </div>
+    <section>
+        <div id="product-table">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">상품명</th>
+                    <th scope="col">판매가</th>
+                    <th scope="col">상세설명</th>
+                    <th scope="col">상품이미지</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">수정</th>
+                    <th scope="col">삭제</th>
+                </tr>
+                </thead>
+                <tbody id = 'cart_item'>
+                </tbody>
+            </table>
+        </div>
+    
+    </section>
+    
+    <script> 
+        $(document).ready(function () {
+            me()
+            get_cart()
+        });
+        //받아올거 상품명 판매가 상세설명 상품이미지 수량
+        //    product_name,product_price,product_detail,product_image,item_quantity
+    </script>
+    </body>
