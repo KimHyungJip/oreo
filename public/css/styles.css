@@ -18,6 +18,7 @@ header {
     font-size: x-large;
 }
 
+
 footer {
     background-color:rgb(72, 25, 25) ;
     padding: 50px;
@@ -27,6 +28,8 @@ footer {
 }
 
 a { color: var(--bs-dark); }
+
+
 
 
 /* 마이페이지 */
@@ -43,13 +46,13 @@ a { color: var(--bs-dark); }
     color: rgb(41, 75, 76);
 } 
 
-.mainimg {
+/* .mainimg {
   display: block; 
   text-align: center;
   max-width: 100%;
   height: auto !important;
   
-}
+} */
 
 .todayitemstitle {
   display: block; 
@@ -61,3 +64,15 @@ a { color: var(--bs-dark); }
   padding-top: 5%; 
   padding-bottom: 2%; 
 }
+
+.mainimgOuter {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+}
+.mainimginner {
+  max-width: 100%;
+  width: auto\9 !important; /* ie8 */
+  width: auto !important;
+  height: auto ; }
