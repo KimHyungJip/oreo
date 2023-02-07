@@ -4,22 +4,30 @@ $(document).ready(function () {
   button_action();
 });
 function button_action() {
-  if (localStorage.getItem('accessToken')) {
-    $('#loginpagebutton').hide();
-    $('#logoutbutton').show();
-    $('#signuppagebutton').hide();
-    //login 되었을 때 localstorage에 is_admin이 저장되어있음
-    //활용해서 header가 보이는것을 컨트롤 해주면 될 것 같음
-  }
   if (localStorage.getItem('is_admin')) {
     if (localStorage.getItem('is_admin') === '1') {
       $('#admin_indexbutton').show();
+      $('#logoutbutton').show();
+      $('#orderpagebutton').show();
       $('#cartpagebutton').hide();
-      $('#orderpagebutton').hide();
+      $('#loginpagebutton').hide();
+      $('#logoutbutton').show();
+      $('#signuppagebutton').hide();
       $('#mypagebutton').hide();
-    } else if (localStorage.getItem('is_admin') === '0')
+    } else if (localStorage.getItem('is_admin') === '0') {
+      $('#loginpagebutton').hide();
+      $('#signuppagebutton').hide();
+      $('#mypagebutton').show();
+      $('#logoutbutton').show();
       $('#admin_indexbutton').hide();
+      $('#orderpagebutton').show();
+      $('#cartpagebutton').show();
+    }
   } else {
+    $('#orderpagebutton').hide();
+    $('#cartpagebutton').hide();
+    $('#logoutbutton').hide();
+    $('#mypagebutton').hide();
     $('#admin_indexbutton').hide();
   }
 }
@@ -409,7 +417,14 @@ function me() {
       const email = response.email;
       const phone = response.phone;
       const address = response.address;
-      const temp = `<div>이메일:${email}</div><div>연락처:${phone}</div><div>주소:${address}</div>`;
+      const temp = `          <div>
+      이메일<input value="${email}" readonly>
+      연락처<input value="${phone}" readonly>
+      주소<input value="${address}" readonly>
+      <div id="popbutton">
+        <button onclick="popbutton()" class="btn btn-outline-secondary" type="button">내 정보 수정하기</button>
+      </div>
+    </div>`;
       $('#me').append(temp);
     },
     error: function (err) {
