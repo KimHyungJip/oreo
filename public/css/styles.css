@@ -46,14 +46,23 @@ a { color: var(--bs-dark); }
     color: rgb(41, 75, 76);
 } 
 
-/* .mainimg {
-  display: block; 
-  text-align: center;
-  max-width: 100%;
-  height: auto !important;
-  
-} */
+/* 메인 빵 모음 사진 */
+.mainimgOuter {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
 
+}
+.mainimginner {
+  max-width: 100%;
+  width: auto\9 !important; /* ie8 */
+  width: auto !important;
+  height: auto ; 
+  max-width: 100%;
+  display: block;
+}
+
+/* 오늘의 상품 제목 */
 .todayitemstitle {
   display: block; 
   text-align: center;
@@ -65,14 +74,10 @@ a { color: var(--bs-dark); }
   padding-bottom: 2%; 
 }
 
-.mainimgOuter {
-  display: flex;
+
+.pagination {
   justify-content: center;
   align-content: center;
-
+  padding-top: 1%; 
+  padding-bottom: 1%; 
 }
-.mainimginner {
-  max-width: 100%;
-  width: auto\9 !important; /* ie8 */
-  width: auto !important;
-  height: auto ; }
