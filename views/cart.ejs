@@ -16,18 +16,7 @@
                     <th scope="col">수정</th>
                 </tr>
                 </thead>
-                <tbody>
-                <% Cart_items.forEach(cart => { %>
-                    <tr>
-                        <td><%= cart.product_name %></td>
-                        <td><%= cart.product_price %></td>
-                        <td><%= cart.product_detail %></td>
-                        <td><img src="/<%= product.product_image %>" class="img-fluid" style="height:50px" alt="..."></td>
-                        <td><%= cart.item_quantity %></td>
-                        <td><a class="btn btn-outline-secondary"
-                               href="/admin_product_modify?id=<%= product.product_id %>" role="button">수정</a></td>
-                    </tr>
-                <% }) %>
+                <tbody id = 'cart_item'>
                 </tbody>
             </table>
         </div>
@@ -41,68 +30,5 @@
         });
         //받아올거 상품명 판매가 상세설명 상품이미지 수량
         //    product_name,product_price,product_detail,product_image,item_quantity
-        function get_cart(){
-        $.ajax({
-        type: "GET",
-        url: "/cart_items",
-        data: {},
-        success: function (response) {
-            console.log(response)
-        //   let result3 = [];
-        //   response.data.forEach((item) => {
-        //     result3.push([item.name, item.current_status, item.address, item.phone, item.request_details, item.request_id]);
-        //   })
-
-        //   console.log(result3);
-
-        //   for (let i = 0; i < result3.length; i++) {
-        //     let name = result3[i][0]
-        //     let address = result3[i][2]
-        //     let phone = result3[i][3]
-        //     let request_details = result3[i][4]
-        //     // let status = result3[i][1]
-        //     if (result3[i][1] == 1) { let status = "수거 완료" }
-        //     else if (result3[i][1] == 2) (status = "수거 중")
-        //     else if (result3[i][1] == 3) (status = "수거 완료")
-        //     else if (result3[i][1] == 4) (status = "배송 중")
-        //     else if (result3[i][1] == 5) (status = "배송 완료")
-        //     let temp_html = ` <form class="abc">
-        //                           <div class="col-12">
-        //                               <label class="visually-hidden">${name}</label>
-        //                           </div>
-        //                           <div class="col-12">
-        //                               <label class="visually-hidden">${address}</label>
-        //                           </div>
-        //                           <div class="col-12">
-        //                               <label class="visually-hidden">${phone}</label>
-        //                           </div>
-        //                           <div class="col-12">
-        //                               <label class="visually-hidden">${request_details}</label>
-        //                           </div>
-        //                           <div class="col-12">
-        //                               <label class="visually-hidden">${status}</label>
-        //                           </div>
-
-        //                           <div class="col-12">
-        //                               <select name="order" class="custom-select" id="inputGroupSelect${i}">
-        //                                 <option value="-1" selected>상태변경</option>
-        //                                 <option value="1">대기 중</option>
-        //                                 <option value="2">수거 중</option>
-        //                                 <option value="3">수거 완료</option>
-        //                                 <option value="4">배송 중</option>
-        //                                 <option value="5">배송 완료</option>
-        //                               </select>
-        //                               <div class="input-group-append">
-        //                                 <button onclick="put_status(${i})" class="btn" type="button">Button</button>
-        //                               </div>
-        //                             </div>
-
-                                  
-        //                       </form>`
-        //     $('#statu').append(temp_html)
-        //   }
-         }
-      });
-    }
     </script>
     </body>
