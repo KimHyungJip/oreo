@@ -5,21 +5,20 @@
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 link-secondary">홈</a></li>
-        <li><a href="/mypage" class="nav-link px-2 link-dark">회원정보</a></li>
-        <li><a href="/mypage" class="nav-link px-2 link-dark">주문내역</a></li>
-        <li><a href="/cart" class="nav-link px-2 link-dark">장바구니</a></li>
+        <li><a href="/mypage" id="mypagebutton" class="nav-link px-2 link-dark">회원정보</a></li>
+        <li><a href="/mypage" id="orderpagebutton" class="nav-link px-2 link-dark">주문내역</a></li>
+        <li><a href="/cart" id="cartpagebutton" class="nav-link px-2 link-dark">장바구니</a></li>
 
     </ul>
 
     <div class="col-md-3 text-end">
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><button onclick="location.href='/login'" id="loginbutton" class="btn btn-outline-dark me-2"
+            <li><button onclick="location.href='/login'" id="loginpagebutton" class="btn btn-outline-dark me-2"
                         style="display:block;">로그인</button></li>
             <li><button onclick="logout()" id="logoutbutton" class="btn btn-outline-dark me-2" style="display:none;
 ">로그아웃</button></li>
-            <li><a href="/signup" id="signupbutton" class="btn btn-outline-dark me-2">회원가입</a></li>
-            <li><a href="/admin_index" class="btn btn-outline-dark me-2">관리자 페이지로</a></li>
+            <li><a href="/signup" id="signuppagebutton" class="btn btn-outline-dark me-2">회원가입</a></li>
+            <li><a href="/admin_index" id="admin_indexbutton" class="btn btn-outline-dark me-2">관리자 페이지로</a></li>
         </ul>
     </div>
 </header>

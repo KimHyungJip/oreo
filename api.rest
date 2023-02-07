@@ -1,4 +1,12 @@
 GET http://localhost:7000/products
+GET http://localhost:7000/product
+
+###
+
+Get http://localhost:7000/mypage/5
+
+###
+Get http://localhost:7000/mypage
 
 ###
 

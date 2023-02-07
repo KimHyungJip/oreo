@@ -15,9 +15,15 @@
                 <p class="card-text"><%= product.product_detail %></p>
                 <h5 class="card-title"><%= product.product_price %></h5>
                 <h5>
-                  <input type="number" name="favnum" min="1" max="9" value='item_quantity'>
-                  <a onclick="postCart(<%= product.product_id %>,${item_quantity})" class="btn btn-outline-secondary" type="button" >담기</button>
-                  </a>                  
+                  <!-- <form action="/public/js/api.js">
+                  <%! const item_quantity = 0 %>
+                  <input type="number" name="item_quantity"value="<%=item_quantity%>" min="1" max="9">
+                  <input type="submit" value="담기"onclick="postCart(<%= product.product_id %>,<%=item_quantity%>)" ></a> -->
+                  <!-- <input type="number" name="favnum" min="1" max="9" id='product.product_id' value='item_quantity'>
+                  <a onclick="postCart(<%= product.product_id %>)" class="btn btn-outline-secondary" type="button" >담기</button> -->
+                  <!-- <a onclick="postCart(<%= product.product_id %>,<%=item_quantity%>)" class="btn btn-outline-secondary" type="button" >담기</button>
+                  </a>           -->
+                  </form>
                 </h5>
                 <!-- product_id item_quantity 받아와야함 -->
               </div>
@@ -52,7 +58,7 @@
             <% } %>
             <% if (chunk_end < last_page_num) { %>
                 <li class="page-item">
-                    <a class="page-link" href="/?page=<%= chunk_end + i %>">Next</a>
+                    <a class="page-link" href="/?page=<%= chunk_end + 1 %>">Next</a>
                 </li>
             <% } %>
           </ul>

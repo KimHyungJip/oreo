@@ -24,11 +24,11 @@ class CartRepository {
   };
 
   //product_id로 장바구니에 있는 아이템량 수정
-  updateCart = async (user_id, product_id, item_quantity) => {
+  updateCart = async (user_id, cart_item_id, item_quantity) => {
     const updateCartdata = await this.cart_item.update(
       { item_quantity },
       {
-        where: { product_id },
+        where: { cart_item_id },
       }
     );
     return updateCartdata;
