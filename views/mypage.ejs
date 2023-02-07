@@ -16,14 +16,16 @@
   </div>
   <section>
     <div class="mypageCard">
-      <form>
-        <div id="modifyinfoinput">
+      <form id="modifyinfoinput">
+        <div>
           <input type="text" id="phone" placeholder="핸드폰 번호"/>
           <input type="text" id="address" placeholder="주소"/>
           <button onclick="modifyinfo()" class="btn btn-outline-secondary" type="button">정보수정하기</button>
           <button onclick="cancel()" class="btn btn-outline-secondary" type="button">취소하기</button>
         </div>
-        <div id="modifypwdinput">
+      </form>
+      <form id="modifypwdinput">
+        <div>
           <input type="password" id="modifypwd1" placeholder="비밀번호를 입력하세요."/>
           <input type="password" id="modifypwd2" placeholder="비밀번호를 다시 입력하세요."/>
           <button onclick="modifypwd()" class="btn btn-outline-secondary" type="button">비밀번호수정하기</button>
