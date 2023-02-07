@@ -13,15 +13,14 @@ body {
 
 
 header {
-    background-color:rgb(247, 235, 220) ;
-    padding: 10px;
+    background-color:rgb(242, 228, 212) ; 
     font-size: x-large;
 }
 
-
 footer {
-    background-color:rgb(72, 25, 25) ;
-    padding: 50px;
+    background-color:rgb(128, 125, 113) ;
+    /* background-color:rgb(72, 25, 25) ; */  
+    padding: 10%;
     text-align: center;
     color: rgb(212, 202, 202);
     font-size: large;
@@ -29,7 +28,10 @@ footer {
 
 a { color: var(--bs-dark); }
 
-
+.oreologo{
+  padding-left: 3%;
+  padding-bottom: 1px
+}
 
 
 /* 마이페이지 */
@@ -74,29 +76,45 @@ a { color: var(--bs-dark); }
 }
 
 /* 오늘의 상품 카드들 */
-.products_container {
-  max-width:95%;
-  max-height:100%;
+
+.card_thumbnail_wrapper {
+  max-height: 100%; 
+  max-width: 700px;
 
 }
 
-.card-body {
-  width:25%;
-  height: 100%;
-  margin-bottom : 4%;
-  /*border: 1px solid black;*/ 
-
+.card_thumbnail {
+  position: relative;
+  padding-top: 80%;  /*  ratio */
+  overflow: hidden;
 }
 
-.card_img_div {
-  text-align: center;
+.card_thumbnail .centered  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transform: translate(50%,50%);
+  -ms-transform: translate(50%,50%);
+  transform: translate(50%,50%);
 }
 
-.card-img-top {
-  max-width:95%;
-  max-height:100%;
+.card_img {
+  position: absolute;
+  top: 0;
+  left: 0;   
+  width: 100%;
+  height: auto;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 }
 
+.card_img.portrait {
+  width: 100%;
+  height: auto;
+}
 
 
 .pagination {
