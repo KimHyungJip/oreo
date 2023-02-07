@@ -1,11 +1,12 @@
 const express = require('express');
-const { Server } = require('http'); // 1. 모듈 불러오기
+const ws = require('ws');
+// const { Server } = require('http'); // 1. 모듈 불러오기
 
 const expressLayouts = require('express-ejs-layouts'); //헤더와 풋터 레이아웃 동시관리
 
 const app = express();
 const router = require('./routes');
-const http = Server(app); // 2. express app을 http 서버로 감싸기
+// const http = Server(app); // 2. express app을 http 서버로 감싸기
 
 require('dotenv').config();
 
@@ -27,6 +28,26 @@ app.use(express.static('public')); // 이후로 어디서든 파일 참조시, h
 // module.exports = http;
 const PORT = process.env.PORT;
 
-http.listen(PORT, () => {
+const httpServer = app.listen(PORT, () => {
   console.log(`서버가 ${PORT} 포트로 열렸습니다.`);
+});
+
+const webSocket = new ws.Server({
+  server: httpServer,
+});
+webSocket.on('connection', (ws, request) => {
+  console.log('서버 연결');
+  if (ws.readyState === ws.OPEN) {
+    console.log('연결 성공');
+  }
+  ws.on('message', (msg) => {
+    console.log(`${msg}`);
+    ws.send(`${msg}`);
+  });
+  ws.on('error', (error) => {
+    console.log(`에러 발생: ${error}`);
+  });
+  ws.on('close', () => {
+    console.log(`연결 종료`);
+  });
 });

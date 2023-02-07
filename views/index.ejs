@@ -9,35 +9,20 @@
     <h2>오늘의 상품</h2>
 </div>
 <section>
-    <div class="products_container">
-        <div class="">
-            <div id="main-products">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <% products.forEach(product=> { %>
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card_img_div">
-                                    <img src="<%= product.product_image %>" class="card-img-top"
-                                    alt="..."></div>
-                                <div class="card-body">
-                                    <h3 class="card-title">
-                                        <%= product.product_name %>
-                                    </h3>
-                                    <p class="card-text">
-                                        <%= product.product_detail %>
-                                    </p>
-                                    <h5 class="card-title">
-                                        <%= product.product_price %>
-                                    </h5>
-                                    <input id="product_id<%= product.product_id %>" type='number' min='1' max='99'
-                                        value="1">
-                                    <button onclick="registcart(<%= product.product_id %>)">담기</button>
-                                </div>
-                            </div>
-                        </div>
-                        <% }) %>
-                </div>
-            </div>
+  <div id="main-products">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% products.forEach(product => { %>
+      <div class="col">
+        <div class="card h-100">
+          <img src="<%= product.product_image %>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title" id="<%= product.product_id %>"><%= product.product_name %></h3>
+            <p class="card-text"><%= product.product_detail %></p>
+            <h5 class="card-title"><%= product.product_price %></h5>
+            <input id = "product_id<%= product.product_id %>" type='number' min='1' max='99' value="1">
+            <button onclick="registcart(<%= product.product_id %>)">담기</button>
+            
+          </div>
         </div>
 
     <!-- 페이징 -->

@@ -46,10 +46,7 @@ class OrderService {
     //오더 테이블 (주문은 1개)
     const createorder = await this.orderRepository.orderCreate(user_id);
     //오더 아이템 테이블//order_items table product_id order_id item_quantity
-    await this.orderItemRepository.orderItemCreate(
-      orderTableInfo,
-      createorder
-    );
+    await this.orderItemRepository.orderItemCreate(orderTableInfo, createorder);
     //카트아이템 삭제
     await this.cartRepository.deleteAllCart(orderTableInfo);
     return createorder;
