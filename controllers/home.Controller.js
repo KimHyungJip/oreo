@@ -1,17 +1,38 @@
 exports.homepage = async (req, res) => {
-  res.render('index', { title: '오레오조 베이커리 - Home' });
+  const { page } = req.query;
+  const params = await _get_items(page, 'products', 6);
+  res.render('index', {
+    title: '오레오조 베이커리 - Home',
+    page,
+    ...params,
+    products: params.items,
+  });
 };
 
 exports.mypage = async (req, res) => {
-  res.render('mypage', { title: '마이페이지' });
+  const user = res.locals;
+  // const user = {
+  //   user_id: 55,
+  //   email: 'hwang@baker.com',
+  //   phone: '01011112222',
+  //   address: '공란',
+  // }
+  res.render('mypage', {
+    title: '마이페이지',
+    ...user,
+  });
+}; // 마이페이지.ejs 파일에서는 이제 <%= user_id %>, <%= email %>
+
+exports.cart = async (req, res) => {
+  res.render('cart', { title: '장바구니' });
 };
 
 exports.loginpage = async (req, res) => {
-  res.render('loginpage', { title: '로그인페이지' });
+  res.render('login', { title: '로그인페이지' });
 };
 
 exports.signuppage = async (req, res) => {
-  res.render('signuppage', { title: '회원가입페이지' });
+  res.render('signup', { title: '회원가입페이지' });
 };
 
 // 관리자 - 인트로 페이지
@@ -47,7 +68,7 @@ const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');
 const productService = new ProductService();
 const userService = new UserService();
-async function _get_items(page = 1, category) {
+async function _get_items(page = 1, category, limit = 5) {
   let items;
   if (category === 'products') {
     items = await productService.findAllProducts();
@@ -56,7 +77,7 @@ async function _get_items(page = 1, category) {
     items = await userService.userlistget();
   }
 
-  const limit = 5;
+  // const limit = 5;
   const total_items_number = items.length;
   const start_index = (page - 1) * limit; // 2페이지라면, 인덱스 5~9번까지의 상품이 보여야 함.
   const current_page_items = items.slice(start_index, start_index + limit); // 현재 페이지 상품 리스트

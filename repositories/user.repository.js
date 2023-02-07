@@ -32,5 +32,37 @@ class UserRepository {
       throw error;
     }
   };
+  destroyaccount = async (userId) => {
+    const accoutdestroy = await this.userModel.destroy({
+      where: { user_id: userId },
+    });
+    return accoutdestroy;
+  };
+  modifyinfo = async (userId, email, phone, address) => {
+    const infomodify = await this.userModel.update(
+      {
+        email: email,
+        phone: phone,
+        address: address,
+        updatedAt: new Date(),
+      },
+      { where: { user_id: userId } }
+    );
+    return infomodify;
+  };
+  modifypwd = async (userId, hashedPwd, salt) => {
+    const pwdmodify = await this.userModel.update(
+      { password: hashedPwd, salt: salt, updatedAt: new Date() },
+      { where: { user_id: userId } }
+    );
+    return pwdmodify;
+  };
+
+  deleteUserByAdmin = async (email) => {
+    const deletedUser = await this.userModel.destroy({
+      where: { email },
+    });
+    return deletedUser;
+  };
 }
 module.exports = UserRepository;

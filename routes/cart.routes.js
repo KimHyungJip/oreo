@@ -1,22 +1,14 @@
 const CartController = require('../controllers/cart.controller');
 
 const express = require('express');
-//const AuthMiddleware = require('../controllers/auth.controller.js');
+const auth_middleware = require('../middlewares/auth-middleware');
+//const adminCheck = require('../middlewares/admin');
 const router = express.Router();
-//const authMiddleware = new AuthMiddleware();
 const cartController = new CartController();
 
-router.get('/', cartController.getCart);
-router.post(
-  '/',
-  (req, res, next) => {
-    console.log('장바구니등록');
-    next();
-  },
-  cartController.postCart
-);
-
-router.put('/', cartController.updateCart);
-router.delete('/', cartController.deleteCart);
+router.get('/cart_items', auth_middleware, cartController.getCart);
+router.post('/', auth_middleware, cartController.postCart);
+router.put('/modifyquantity', auth_middleware, cartController.updateCart);
+router.delete('/', auth_middleware, cartController.deleteCart);
 
 module.exports = router;
