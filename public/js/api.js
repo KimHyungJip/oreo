@@ -197,21 +197,26 @@ webSocket.onerror = function (error) {
 };
 //cart page
 function registcart(product_id) {
-  let product = 'product_id' + product_id;
-  let item_quantity = document.getElementById(product).value;
-  let product_name = document.getElementById(product_id).innerHTML;
-  const message =
-    product_name + item_quantity + '개만큼 장바구니에 담았습니다.';
-  webSocket.send(message);
-  $.ajax({
-    type: 'POST',
-    url: '/cart/cart_items',
-    headers: {
-      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    },
-    data: { product_id, item_quantity },
-    success: function (response) {},
-  });
+  if (localStorage.getItem('is_admin') === '0') {
+    let product = 'product_id' + product_id;
+    let item_quantity = document.getElementById(product).value;
+    let product_name = document.getElementById(product_id).innerHTML;
+    const message =
+      product_name + '를 ' + item_quantity + '개만큼 장바구니에 담았습니다.';
+    $.ajax({
+      type: 'POST',
+      url: '/cart/cart_items',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: { product_id, item_quantity },
+      success: function (response) {
+        webSocket.send(message);
+      },
+    });
+  } else {
+    alert('사장님도 주문을...?');
+  }
 }
 function get_cart() {
   let total_price = 0;
@@ -250,38 +255,16 @@ function get_cart() {
   });
 }
 function order() {
-  //get으로 페이지 꺼 다 받아와서 post로 다 넘겨줘
-  //product_id, item_quantity넘길꺼야
-
   $.ajax({
-    type: 'GET',
-    url: '/cart/cart_items',
+    type: 'POST',
+    url: '/orders',
     headers: {
       authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
     data: {},
     success: function (response) {
-      // socketOrderAlert(order_id, receipt_price)
-      // customAlert('선택하신 상품을 성공적으로 구매하였습니다.', function () {
-      //   window.location.href = '/'
-      // });
-      let rows = response.cart;
-      for (let i = 0; i < rows.length; i++) {
-        let product_id = rows[i]['product_id'];
-        let item_quantity = rows[i]['item_quantity'];
-        console.log(product_id, item_quantity);
-        $.ajax({
-          type: 'POST',
-          url: '/orders',
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-          data: { product_id },
-          success: function (response) {
-            console.log('post', response);
-          },
-        });
-      }
+      webSocket.send(response.message);
+      window.location.href = '/';
     },
   });
 }
