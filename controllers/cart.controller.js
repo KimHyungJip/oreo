@@ -31,9 +31,10 @@ class CartController {
     console.log('장바구니수정controller');
     const user_id = res.locals.user.user_id;
     const { item_quantity, product_id } = req.body;
-    await this.cartService.updateCart(user_id, product_id, item_quantity);
-
-    res.status(200).json({ message: '장바구니수정완료' });
+    if(item_quantity == Number){
+      await this.cartService.updateCart(user_id, product_id, item_quantity);
+      res.status(200).json({ message: '장바구니수정완료' });
+    }
   };
 
   //장바구니 삭제

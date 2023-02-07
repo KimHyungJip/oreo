@@ -198,6 +198,41 @@ function get_cart() {
     },
   });
 }
+function order(){
+  //get으로 페이지 꺼 다 받아와서 post로 다 넘겨줘
+  //product_id, item_quantity넘길꺼야
+  $.ajax({
+    type: 'GET',
+    url: '/cart/cart_items',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data:{},
+    success: function (response){
+      console.log("get",response)
+      let rows = response.cart;
+      for (let i = 0; i < rows.length; i++) {
+        let product_id = rows[i]['product_id'];
+        let item_quantity = rows[i]['item_quantity'];
+        console.log(product_id,item_quantity)
+        $.ajax({
+          type: 'POST',
+          url: '/orders',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+          data:{product_id,item_quantity},
+          success: function (response){
+            console.log("post",response)
+            
+          }
+        })
+      }
+
+    }
+  })
+  
+}
 function cartmodify(product_id) {
   const product = 'product_id' + product_id;
   const item_quantity = document.getElementById(product).value;
@@ -346,10 +381,3 @@ function me() {
     },
   });
 }
-
-
-const socket = io("ws://localhost:7000")
-
-socket.on("connect",()=>{
-  socket.send("접속")
-})
