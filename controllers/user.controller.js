@@ -108,11 +108,10 @@ class UserController {
     res.send(res.locals.user);
   };
 
-  
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
     try {
-      // 서비스 계층에 구현된 userlistget 함수를 실행한다. 
+      // 서비스 계층에 구현된 userlistget 함수를 실행한다.
       const userlistResult = await this.UserService.userlistget();
       return res.status(200).render('managermain', {
         success: true,
@@ -154,14 +153,14 @@ class UserController {
 
   modifyinfo = async (req, res) => {
     const userId = res.locals.user.user_id;
-    const { email , phone, address } = req.body;
+    const { email, phone, address } = req.body;
     try {
       const userinfomodify = await this.userService.modifyinfo(
         userId,
         email,
         phone,
         address
-      )
+      );
       res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
     } catch (err) {
       res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
@@ -183,7 +182,7 @@ class UserController {
         // error: error,
       });
     }
-  }
+  };
 
   modifypwd = async (req, res) => {
     const userId = res.locals.user.user_id;
