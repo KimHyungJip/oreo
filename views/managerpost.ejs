@@ -13,13 +13,19 @@
 
 <div class="row align-items-center">
   <div class="col"></div>
-  <div class="col">
+  <div class="col" style="margin-bottom: 50px">
     <h1>회원 정보 수정</h1>
     <form class="row g-3">
       <div class="row mb-3">
-          <div class="col-sm-10">
-              <input type="text" class="form-control" id="userId" hidden value="<%= user_id %>">
-          </div>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="userId"
+            hidden
+            value="<%= user_id %>"
+          />
+        </div>
       </div>
       <div class="col-12">
         <label for="inputEmail" class="form-label">Email</label>
@@ -68,8 +74,20 @@
       </div> -->
 
       <div class="col-12">
-        <button type="button" onclick="usersInformation()" class="btn btn-outline-info">변경 완료</button>
-        <button type="button" onclick="history.back()" class="btn btn-outline-secondary">취소</button>
+        <button
+          type="button"
+          onclick="usersInformation()"
+          class="btn btn-outline-info"
+        >
+          변경 완료
+        </button>
+        <button
+          type="button"
+          onclick="history.back()"
+          class="btn btn-outline-secondary"
+        >
+          취소
+        </button>
       </div>
     </form>
   </div>
@@ -78,7 +96,7 @@
 
 <script>
   $(document).ready(function () {
-      me()
+    me();
   });
   // 회원 정보 수정
   function usersInformation() {
@@ -89,11 +107,11 @@
     // const usergrade = $('#usergrade').val();
 
     if (!email) {
-        alert('이메일을 입력하세요.')
+      alert('이메일을 입력하세요.');
     } else if (!phone) {
-        alert('핸드폰 번호를 입력하세요.')
+      alert('핸드폰 번호를 입력하세요.');
     } else if (!address) {
-        alert('주소를 입력하세요.')
+      alert('주소를 입력하세요.');
     } else {
       $.ajax({
         type: 'PUT',

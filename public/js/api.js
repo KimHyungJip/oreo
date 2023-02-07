@@ -1,25 +1,32 @@
-
 //header
 $(document).ready(function () {
   button_action();
 });
 function button_action() {
-  if (localStorage.getItem('accessToken')) {
-    $('#loginpagebutton').hide();
-    $('#logoutbutton').show();
-    $('#signuppagebutton').hide();
-    //login 되었을 때 localstorage에 is_admin이 저장되어있음
-    //활용해서 header가 보이는것을 컨트롤 해주면 될 것 같음
-  }
   if (localStorage.getItem('is_admin')) {
     if (localStorage.getItem('is_admin') === '1') {
       $('#admin_indexbutton').show();
+      $('#logoutbutton').show();
+      $('#orderpagebutton').show();
       $('#cartpagebutton').hide();
-      $('#orderpagebutton').hide();
+      $('#loginpagebutton').hide();
+      $('#logoutbutton').show();
+      $('#signuppagebutton').hide();
       $('#mypagebutton').hide();
-    } else if (localStorage.getItem('is_admin') === '0')
+    } else if (localStorage.getItem('is_admin') === '0') {
+      $('#loginpagebutton').hide();
+      $('#signuppagebutton').hide();
+      $('#mypagebutton').show();
+      $('#logoutbutton').show();
       $('#admin_indexbutton').hide();
+      $('#orderpagebutton').show();
+      $('#cartpagebutton').show();
+    }
   } else {
+    $('#orderpagebutton').hide();
+    $('#cartpagebutton').hide();
+    $('#logoutbutton').hide();
+    $('#mypagebutton').hide();
     $('#admin_indexbutton').hide();
   }
 }
@@ -175,24 +182,36 @@ function upload() {
     },
   });
 }
-
+const webSocket = new WebSocket('ws://localhost:7000');
+webSocket.onopen = function () {
+  console.log('연결 성공');
+};
+webSocket.onmessage = function (event) {
+  alert(event.data);
+};
+webSocket.onclose = function () {
+  console.log('웹소켓 서버와 연결이 종료되었습니다.');
+};
+webSocket.onerror = function (error) {
+  console.log(error);
+};
 //cart page
-function registcart(product_id){
-  let product = 'product_id'+product_id
-  let item_quantity = document.getElementById(product).value
-
-  
+function registcart(product_id) {
+  let product = 'product_id' + product_id;
+  let item_quantity = document.getElementById(product).value;
+  let product_name = document.getElementById(product_id).innerHTML;
+  const message =
+    product_name + item_quantity + '개만큼 장바구니에 담았습니다.';
+  webSocket.send(message);
   $.ajax({
     type: 'POST',
     url: '/cart/cart_items',
     headers: {
       authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    data: {product_id,item_quantity},
-    success: function (response){
-
-    }
-  })
+    data: { product_id, item_quantity },
+    success: function (response) {},
+  });
 }
 function get_cart() {
   let total_price = 0;
@@ -230,58 +249,72 @@ function get_cart() {
     },
   });
 }
-function order(){
+function order() {
   //get으로 페이지 꺼 다 받아와서 post로 다 넘겨줘
   //product_id, item_quantity넘길꺼야
-  
+
   $.ajax({
     type: 'GET',
     url: '/cart/cart_items',
     headers: {
       authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    data:{},
-    success: function (response){
-      socketOrderAlert(order_id, receipt_price)
-      customAlert('선택하신 상품을 성공적으로 구매하였습니다.', function () {
-        window.location.href = '/'
-      });
+    data: {},
+    success: function (response) {
+      // socketOrderAlert(order_id, receipt_price)
+      // customAlert('선택하신 상품을 성공적으로 구매하였습니다.', function () {
+      //   window.location.href = '/'
+      // });
       let rows = response.cart;
       for (let i = 0; i < rows.length; i++) {
         let product_id = rows[i]['product_id'];
         let item_quantity = rows[i]['item_quantity'];
-        console.log(product_id,item_quantity)
+        console.log(product_id, item_quantity);
         $.ajax({
           type: 'POST',
           url: '/orders',
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
-          data:{product_id},
-          success: function (response){
-            console.log("post",response)
-            
-          }
-        })
+          data: { product_id },
+          success: function (response) {
+            console.log('post', response);
+          },
+        });
       }
-
-    }
-  })
-  
+    },
+  });
 }
-function cartmodify(product_id) {
-  const product = 'product_id' + product_id;
-  const item_quantity = document.getElementById(product).value;
+function cartdelete(cart_item_id) {
+  $.ajax({
+    type: 'DELETE',
+    url: '/cart/deletecart',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: { cart_item_id: cart_item_id },
+    success: function (response) {
+      alert(response.message);
+      window.location.href = '/cart';
+    },
+    error: function (err) {
+      alert(err.responseJSON.message);
+    },
+  });
+}
+function cartmodify(cart_item_id) {
+  const cart = 'cart_item_id' + cart_item_id;
+  const item_quantity = document.getElementById(cart).value;
   $.ajax({
     type: 'PUT',
     url: '/cart/modifyquantity',
     headers: {
       authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
-    data: { product_id: product_id, item_quantity: item_quantity },
+    data: { cart_item_id: cart_item_id, item_quantity: item_quantity },
     success: function (response) {
       alert(response.message);
-      window.location.href = '/';
+      window.location.href = '/cart';
     },
     error: function (err) {
       alert(err.responseJSON.message);
@@ -409,7 +442,14 @@ function me() {
       const email = response.email;
       const phone = response.phone;
       const address = response.address;
-      const temp = `<div>이메일:${email}</div><div>연락처:${phone}</div><div>주소:${address}</div>`;
+      const temp = `          <div>
+      이메일<input value="${email}" readonly>
+      연락처<input value="${phone}" readonly>
+      주소<input value="${address}" readonly>
+      <div id="popbutton">
+        <button onclick="popbutton()" class="btn btn-outline-secondary" type="button">내 정보 수정하기</button>
+      </div>
+    </div>`;
       $('#me').append(temp);
     },
     error: function (err) {
