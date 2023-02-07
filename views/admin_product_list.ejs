@@ -73,6 +73,9 @@
 
 <!--    <script src="./admin_products.js" type="text/javascript"></script>-->
 <script>
+    $(document).ready(function () {
+        me()
+    });
     function deleteProduct(id) {
         const check = confirm(`${id}번 상품을 정말 삭제하시겠습니까?`)
         if (check) {

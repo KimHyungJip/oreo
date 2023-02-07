@@ -55,11 +55,11 @@ class CartService {
   };
 
   //장바구니 수정
-  updateCart = async (user_id, product_id, item_quantity) => {
+  updateCart = async (user_id, cart_item_id, item_quantity) => {
     console.log('service진입');
     const updateCart = await this.cartRepository.updateCart(
       user_id,
-      product_id,
+      cart_item_id,
       item_quantity
     );
     return updateCart;

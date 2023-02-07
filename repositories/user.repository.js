@@ -38,10 +38,9 @@ class UserRepository {
     });
     return accoutdestroy;
   };
-  modifyinfo = async (userId, email, phone, address) => {
+  modifyinfo = async (userId, phone, address) => {
     const infomodify = await this.userModel.update(
       {
-        email: email,
         phone: phone,
         address: address,
         updatedAt: new Date(),
