@@ -30,9 +30,9 @@ class OrderController {
   getOrdersByUserId = async (req, res, next) => {
     const { user_id } = res.locals.user;
     try {
-      const useUser = await this.orderService.getOrdersByUserId(user_id);
+      const UserOrderList = await this.orderService.getOrdersByUserId(user_id);
 
-      return res.status(200).send(useUser);
+      return res.status(200).send(UserOrderList);
     } catch (error) {
       return res
         .status(error.status)
