@@ -6,9 +6,7 @@ class CartService {
   cartRepository = new CartRepository(Cart_item);
   productRepository = new ProductRepository(Product);
   //장바구니조회
-  //상품명 판매가 상세설명 상품이미지 수량
   findAllCart = async (user_id) => {
-    console.log('service진입');
     //user_id가 같은 카트아이템들 가져옴,cart_item_id, user_id, product_id,item_quantity
     const allCart = await this.cartRepository.findCart(user_id);
     const allCart_Info = allCart.map((cart) => cart.dataValues);
@@ -38,9 +36,7 @@ class CartService {
       };
     });
     return join_cart_product;
-    // if (!allCart) {
-    //   return -1;
-    // }
+    
   };
 
   //장바구니 등록

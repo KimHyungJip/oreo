@@ -9,10 +9,16 @@ class CartController {
 
   //장바구니조회
   getCart = async (req, res, next) => {
-    console.log('장바구니조회controller');
+    try {
     const user_id = res.locals.user.user_id;
     const cart = await this.cartService.findAllCart(user_id);
-    res.status(200).json({ cart });
+    return res.status(200).json({ cart });
+    } catch (error){
+      return res.status(500).json({
+        errorMessage: error.message,
+        error: error,
+      });
+    }
   };
 
   //장바구니 등록
