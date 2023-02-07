@@ -390,7 +390,14 @@ function me() {
       const email = response.email;
       const phone = response.phone;
       const address = response.address;
-      const temp = `<div>이메일:${email}</div><div>연락처:${phone}</div><div>주소:${address}</div>`;
+      const temp = `          <div>
+      이메일<input value="${email}" readonly>
+      연락처<input value="${phone}" readonly>
+      주소<input value="${address}" readonly>
+      <div id="popbutton">
+        <button onclick="popbutton()" class="btn btn-outline-secondary" type="button">내 정보 수정하기</button>
+      </div>
+    </div>`;
       $('#me').append(temp);
     },
     error: function (err) {
