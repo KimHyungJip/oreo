@@ -1,8 +1,8 @@
 const UserController = require('../controllers/user.controller.js');
 const express = require('express');
+const authMiddleware = require('../middlewares/auth-middleware.js');
 const router = express.Router();
 const userController = new UserController();
-const authMiddleware = require('../middlewares/auth-middleware');
 const adminCheck = require('../middlewares/admin');
 
 router.post('/signup', userController.signup);
@@ -26,7 +26,12 @@ router.delete('/accoutdestroy', authMiddleware, userController.accoutdestroy);
 router.put('/modifyinfo', authMiddleware, userController.modifyinfo);
 
 router.put('/modifypwd', authMiddleware, userController.modifypwd);
-
+router.put(
+  '/admin',
+  authMiddleware,
+  adminCheck,
+  userController.modifyUserByAdmin
+);
 router.delete(
   '/admin',
   authMiddleware,

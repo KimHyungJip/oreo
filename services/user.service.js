@@ -43,10 +43,9 @@ class UserService {
     const accountdestroy = await this.userRepository.destroyaccount(userId);
     return accountdestroy;
   };
-  modifyinfo = async (userId, email, phone, address) => {
+  modifyinfo = async (userId, phone, address) => {
     const infomodify = await this.userRepository.modifyinfo(
       userId,
-      email,
       phone,
       address
     );
