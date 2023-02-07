@@ -1,4 +1,12 @@
-.managermain-body {
-  margin-top: 50px;
-  /*background-color: greenyellow;*/
+.containerWrapOuter {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
+
+.containerWrapInner {
+  margin: auto;
+  padding-top: 10%; 
+  padding-bottom: 10%; 
+}
+
