@@ -4,18 +4,22 @@ $(document).ready(function () {
 });
 function button_action() {
   if (localStorage.getItem('accessToken')) {
-    $('#loginbutton').hide();
+    $('#loginpagebutton').hide();
     $('#logoutbutton').show();
-    $('#signupbutton').hide();
+    $('#signuppagebutton').hide();
     //login 되었을 때 localstorage에 is_admin이 저장되어있음
     //활용해서 header가 보이는것을 컨트롤 해주면 될 것 같음
-    // if(localStorage.getItem(is_admin)===0){
-
-    // }else if(localStorage.getItem(is_admin)===1){
-
-    // }else{
-
-    // }
+  }
+  if (localStorage.getItem('is_admin')) {
+    if (localStorage.getItem('is_admin') === '1') {
+      $('#admin_indexbutton').show();
+      $('#cartpagebutton').hide();
+      $('#orderpagebutton').hide();
+      $('#mypagebutton').hide();
+    } else if (localStorage.getItem('is_admin') === '0')
+      $('#admin_indexbutton').hide();
+  } else {
+    $('#admin_indexbutton').hide();
   }
 }
 function logout() {
@@ -108,7 +112,7 @@ function login() {
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.setItem('is_admin', response.is_admin);
-        document.getElementById('loginbutton').style.display = 'none';
+        document.getElementById('loginpagebutton').style.display = 'none';
         document.getElementById('logoutbutton').style.display = 'block';
         window.location.href = '/';
       },
@@ -152,6 +156,9 @@ function upload() {
   $.ajax({
     type: 'POST',
     url: '/products/admin',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
     data: {
       product_name: product_name,
       product_price: product_price,
@@ -160,15 +167,16 @@ function upload() {
     },
     success: function (response) {
       alert(response.message);
-      window.location.reload();
+      location.href = '/admin_products';
     },
     error: function (err) {
-      alert(err.errorMessage);
+      alert(err.responseJSON.errorMessage);
     },
   });
 }
 //cart page
 function get_cart() {
+  let total_price = 0;
   $.ajax({
     type: 'GET',
     url: '/cart/cart_items',
@@ -179,6 +187,7 @@ function get_cart() {
     success: function (response) {
       let rows = response.cart;
       for (let i = 0; i < rows.length; i++) {
+        let cart_item_id = rows[i]['cart_item_id'];
         let product_id = rows[i]['product_id'];
         let product_name = rows[i]['product_name'];
         let product_price = rows[i]['product_price'];
@@ -190,32 +199,67 @@ function get_cart() {
               <td>${product_price}</td>
               <td>${product_detail}</td>
               <td><img src="${product_image}" class="img-fluid" style="height:50px" alt="..."></td>
-              <td><input id = "product_id${product_id}" type='number' min='1' value="${item_quantity}"></td>
-              <td><a class="btn btn-outline-secondary" onclick="cartmodify('${product_id}')" role="button">수정</a></td>
+              <td><input id = "cart_item_id${cart_item_id}" type='number' min='1' max='99' value="${item_quantity}"></td>
+              <td><a class="btn btn-outline-secondary" onclick="cartmodify('${cart_item_id}')" role="button">수정</a></td>
+              <td><a class="btn btn-outline-secondary" onclick="cartdelete('${cart_item_id}')" role="button">삭제</a></td>
           </tr>`;
         $('#cart_item').append(temp);
+        total_price += product_price * item_quantity;
       }
+      document.getElementById('total_price').innerHTML =
+        String(total_price) + '원';
     },
   });
 }
-function cartmodify(product_id) {
-  const product = 'product_id' + product_id;
-  const item_quantity = document.getElementById(product).value;
-  $.ajax({
-    type: 'PUT',
-    url: '/cart/modifyquantity',
-    headers: {
-      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    },
-    data: { product_id: product_id, item_quantity: item_quantity },
-    success: function (response) {
-      alert(response.message);
-      window.location.href = '/';
-    },
-    error: function (err) {
-      alert(err.responseJSON.message);
-    },
-  });
+function cartmodify(cart_item_id) {
+  const cart = 'cart_item_id' + cart_item_id;
+  const item_quantity = Number(document.getElementById(cart).value);
+  if (item_quantity > 99) {
+    alert('99개 까지 주문할 수 있습니다.');
+  } else if (item_quantity <= 0) {
+    alert('0개 이하의 주문은 처리 할 수 없습니다.');
+  } else if (!item_quantity) {
+    alert('입력값에 문제가 있습니다.');
+  } else {
+    $.ajax({
+      type: 'PUT',
+      url: '/cart/modifyquantity',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: { cart_item_id: cart_item_id, item_quantity: item_quantity },
+      success: function (response) {
+        alert(response.message);
+        window.location.href = '/cart';
+      },
+      error: function (err) {
+        alert(err.responseJSON.message);
+      },
+    });
+  }
+}
+function cartdelete(cart_item_id) {
+  const istrue = confirm('정말 삭제하시겠습니까?');
+  if (istrue) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/cart/deletecart',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: { cart_item_id: cart_item_id },
+      success: function (response) {
+        alert(response.message);
+        window.location.href = '/cart';
+      },
+      error: function (err) {
+        alert(err.responseJSON.message);
+      },
+    });
+  } else {
+    alert('취소되었습니다.');
+    window.location.href = '/cart';
+  }
 }
 //mypage
 function cancel() {
@@ -253,35 +297,27 @@ function modifyinfobutton() {
   $('#modifyinfoinput').show();
 }
 function modifyinfo() {
-  const emailId = $('#emailId').val();
-  const emailDomain = $('#emailDomain').val();
-  const email = emailId + '@' + emailDomain;
   const phone = $('#phone').val();
   const address = $('#address').val();
-  if (!emailId || !emailId) {
-    alert('수정 양식에 맞지 않습니다.');
-  } else {
-    $.ajax({
-      type: 'PUT',
-      url: '/users/modifyinfo',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-      data: {
-        email: email,
-        phone: phone,
-        address: address,
-      },
-      success: function (response) {
-        alert(response.message);
-        alert('다시 로그인 해주세요');
-        logout();
-      },
-      error: function (err) {
-        alert(err.responseJSON.message);
-      },
-    });
-  }
+  $.ajax({
+    type: 'PUT',
+    url: '/users/modifyinfo',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {
+      phone: phone,
+      address: address,
+    },
+    success: function (response) {
+      alert(response.message);
+      alert('다시 로그인 해주세요');
+      logout();
+    },
+    error: function (err) {
+      alert(err.responseJSON.message);
+    },
+  });
 }
 function modifypwdbutton() {
   $('#mypageButton').hide();
@@ -312,21 +348,27 @@ function modifypwd() {
   }
 }
 function accountdestroy() {
-  $.ajax({
-    type: 'DELETE',
-    url: '/users/accoutdestroy',
-    headers: {
-      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    },
-    data: {},
-    success: function (response) {
-      alert(response.message);
-      logout();
-    },
-    error: function (err) {
-      alert(err.responseJSON.message);
-    },
-  });
+  const is_true = confirm('정말로 탈퇴하시겠습니까?');
+  if (is_true) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/users/accoutdestroy',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: {},
+      success: function (response) {
+        alert(response.message);
+        logout();
+      },
+      error: function (err) {
+        alert(err.responseJSON.message);
+      },
+    });
+  } else {
+    alert('취소 되었습니다.');
+    cancel();
+  }
 }
 function me() {
   $.ajax({
@@ -340,17 +382,16 @@ function me() {
       const email = response.email;
       const phone = response.phone;
       const address = response.address;
-      const temp = `<div>이메일:${email}</div><div>연락처:${phone}</div><div>주소:${address}</div>`;
+      const temp = `
+      <div>이메일:${email}</div>
+      <div>연락처:${phone}</div>
+      <div>주소:${address}</div>
+      `;
       $('#me').append(temp);
     },
     error: function (err) {
       alert(err.responseJSON.errorMessage);
+      window.location.href = '/';
     },
   });
 }
-
-const socket = io('ws://localhost:7000');
-
-socket.on('connect', () => {
-  socket.send('접속');
-});

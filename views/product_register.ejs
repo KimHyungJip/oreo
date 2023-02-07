@@ -32,28 +32,8 @@
                   id="inputDetail"
                   placeholder="제품 상세설명을 입력하세요"
                   class="form-control"
-                  value="원래 상품명"
                   style="height: 100px"></textarea>
                 </div>
-            </div>
-
-            <div class="input-image-field">
-              이미지:
-              <div id="image-show">
-                <img id="image"/>
-              </div>
-              <input
-                type="file"
-                name="userfile"
-                id="image_file"
-                accept="image/*"
-              /><button ></button>
-            </div>
-            <div class="input-field button">
-              <button
-                type="button"
-                onclick="upload()"
-              >등록하기</button>
             </div>
             <div class="row mb-3">
                 <div id="image-show">
@@ -61,11 +41,11 @@
                 </div>
                 <label for="formFile" class="col-sm-2 col-form-label">이미지</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="file" onchange="loadFile(this)" name="userfile" id="formFile">
+                    <input class="form-control" type="file" onchange="upload_image()" name="userfile" id="image_file" accept="image/*">
                 </div>
             </div>
             <button type="button"
-                    onclick="applyProduct()"
+                    onclick="upload()"
                     class="btn btn-primary">등록하기
             </button>
             <button type="button" onclick="history.back()" class="btn btn-secondary">취소</button>
@@ -73,3 +53,8 @@
     </div>
   </div>
 </div>
+<script> 
+  $(document).ready(function () {
+      me()
+  });
+</script>
