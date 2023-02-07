@@ -5,7 +5,6 @@ const authMiddleware = require('../middlewares/auth-middleware');
 const adminCheck = require('../middlewares/admin');
 
 // App Routes
-
 router.get('/', homeController.homepage);
 router.get('/mypage', homeController.mypage);
 router.get('/cart', homeController.cart);

@@ -41,7 +41,7 @@
                 <% if (chunk_start - 1 > 0) { %>
                     <li class="page-item">
                         <a class="page-link" href="/admin_users?page=<%= chunk_start - 1 %>" tabindex="-1"
-                           aria-disabled="true">Previous</a>
+                           aria-disabled="true"><</a>
                     </li>
                 <% } %>
                 <% for (let i = chunk_start; i <= chunk_end; i++) { %>
@@ -59,7 +59,7 @@
                 <% } %>
                 <% if (chunk_end < last_page_num) { %>
                     <li class="page-item">
-                        <a class="page-link" href="/admin_users?page=<%= chunk_end + i %>">Next</a>
+                        <a class="page-link" href="/admin_users?page=<%= chunk_end + 1 %>">></a>
                     </li>
                 <% } %>
               </ul>

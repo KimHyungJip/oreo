@@ -156,6 +156,9 @@ function upload() {
   $.ajax({
     type: 'POST',
     url: '/products/admin',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
     data: {
       product_name: product_name,
       product_price: product_price,
@@ -164,10 +167,10 @@ function upload() {
     },
     success: function (response) {
       alert(response.message);
-      window.location.reload();
+      location.href = '/admin_products';
     },
     error: function (err) {
-      alert(err.errorMessage);
+      alert(err.responseJSON.errorMessage);
     },
   });
 }
@@ -379,7 +382,7 @@ function me() {
       const email = response.email;
       const phone = response.phone;
       const address = response.address;
-      const temp = `<div>${email}</div><div>${phone}</div><div>${address}</div>`;
+      const temp = `<div>이메일:${email}</div><div>연락처:${phone}</div><div>주소:${address}</div>`;
       $('#me').append(temp);
     },
     error: function (err) {
@@ -388,9 +391,3 @@ function me() {
     },
   });
 }
-
-// const socket = io('ws://localhost:7000');
-
-// socket.on('connect', () => {
-//   socket.send('접속');
-// });

@@ -43,7 +43,7 @@ class UserRepository {
       {
         phone: phone,
         address: address,
-        updatedAt: new Date(),
+        // updatedAt: new Date(),
       },
       { where: { user_id: userId } }
     );
