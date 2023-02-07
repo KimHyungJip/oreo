@@ -107,6 +107,7 @@ class UserController {
   me = async (req, res) => {
     res.send(res.locals.user);
   };
+
   // 회원 목록 조회(관리자)
   userlistget = async (req, res, next) => {
     try {
@@ -158,7 +159,7 @@ class UserController {
         userId,
         phone,
         address
-      )
+      );
       res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
     } catch (err) {
       console.log("modifyinfo error: ", err)
@@ -196,7 +197,7 @@ class UserController {
         // error: error,
       });
     }
-  }
+  };
 
   modifypwd = async (req, res) => {
     const userId = res.locals.user.user_id;
