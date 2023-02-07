@@ -10,13 +10,7 @@ exports.homepage = async (req, res) => {
 };
 
 exports.mypage = async (req, res) => {
-  const user = res.locals;
-  // const user = {
-  //   user_id: 55,
-  //   email: 'hwang@baker.com',
-  //   phone: '01011112222',
-  //   address: '공란',
-  // }
+  const { user } = res.locals;
   res.render('mypage', {
     title: '마이페이지',
     ...user,
@@ -42,7 +36,11 @@ exports.adminIndex = async (req, res) => {
 
 // 관리자 - 상품 관리 페이지
 exports.adminProducts = async (req, res) => {
-  const { page } = req.query; // 왜 '문자'그대로 놔둬야 제대로 동작하는 거지?
+  let { page } = req.query; // 왜 '문자'그대로 놔둬야 제대로 동작하는 거지?
+  console.log("page: ", page)
+  if (!page) { // undefined일시
+    page = 1
+  }
   const params = await _get_items(page, 'products');
   res.render('admin_product_list', {
     title: '상품 관리',
@@ -54,7 +52,10 @@ exports.adminProducts = async (req, res) => {
 
 // 관리자 - 회원 관리 페이지
 exports.adminUsers = async (req, res) => {
-  const { page } = req.query;
+  let { page } = req.query;
+  if (!page) { // undefined일시
+    page = 1
+  }
   const params = await _get_items(page, 'users');
   res.render('admin_user_list', {
     title: '회원 관리',

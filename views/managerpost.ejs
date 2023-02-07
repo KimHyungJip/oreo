@@ -16,6 +16,11 @@
   <div class="col">
     <h1>회원 정보 수정</h1>
     <form class="row g-3">
+      <div class="row mb-3">
+          <div class="col-sm-10">
+              <input type="text" class="form-control" id="userId" hidden value="<%= user_id %>">
+          </div>
+      </div>
       <div class="col-12">
         <label for="inputEmail" class="form-label">Email</label>
         <input
@@ -24,6 +29,7 @@
           id="inputuserEmail"
           placeholder="OREO-OZO@Bakery.com"
           value="<%= email %>"
+          readonly
         />
       </div>
       <div class="col-12">
@@ -42,7 +48,7 @@
           type="text"
           class="form-control"
           id="inputuserAddress"
-          placeholder="Apartment, studio, or floor"
+          placeholder="경북 영천시 화산면 부계길"
           value="<%= address %>"
         />
       </div>
@@ -62,8 +68,8 @@
       </div> -->
 
       <div class="col-12">
-        <button type="submit" class="btn btn-outline-info">변경 완료</button>
-        <button type="button" onclick="location.href='/admin_users'" class="btn btn-outline-secondary">취소</button>
+        <button type="button" onclick="usersInformation()" class="btn btn-outline-info">변경 완료</button>
+        <button type="button" onclick="history.back()" class="btn btn-outline-secondary">취소</button>
       </div>
     </form>
   </div>
@@ -72,38 +78,43 @@
 
 <script>
   // 회원 정보 수정
-  function usersinformation() {
-    // const orderId = document.getElementById('order-id').innerText;
-    const email = $('#inputuserEmail').val();
-    const phone = $('#inputuserPhone').val();
-    const address = $('#inputuserAddress').val();
+  function usersInformation() {
+    const user_id = document.getElementById('userId').value;
+    const email = document.getElementById('inputuserEmail').value;
+    const phone = document.getElementById('inputuserPhone').value;
+    const address = document.getElementById('inputuserAddress').value;
     // const usergrade = $('#usergrade').val();
 
     if (!email) {
-        alert('핸드폰 번호를 입력하세요.')
-    } else if (!phone) {
         alert('이메일을 입력하세요.')
+    } else if (!phone) {
+        alert('핸드폰 번호를 입력하세요.')
     } else if (!address) {
         alert('주소를 입력하세요.')
     } else {
       $.ajax({
         type: 'PUT',
-        url: `/users`,
+        url: `/users/admin`,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
         data: {
-          phone,
+          user_id,
           email,
+          phone,
           address,
           // usergrade: usergrade,
         },
-
         success: function (response) {
           // alert('회원정보 수정 완료했습니다!');
-          alert(response.data.message);
-          location.href = '/admin_users';
+          alert(response.message);
+          // location.href = '/admin_users';
+          history.back();
+          location.reload();
         },
         error: function (error) {
           // alert('회원정보를 수정하는데 실패했습니다!');
-          alert(error.response.data.errorMessage);
+          alert(error.responseJSON.message);
         },
       });
     }

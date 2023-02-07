@@ -153,19 +153,34 @@ class UserController {
 
   modifyinfo = async (req, res) => {
     const userId = res.locals.user.user_id;
-    const { email, phone, address } = req.body;
+    const { phone, address } = req.body;
     try {
       const userinfomodify = await this.userService.modifyinfo(
         userId,
-        email,
         phone,
         address
       );
       res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
     } catch (err) {
+      console.log("modifyinfo error: ", err)
       res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
     }
   };
+
+  modifyUserByAdmin = async (req, res) => {
+    const { user_id, phone, address } = req.body;
+    try {
+      await this.userService.modifyinfo(
+        user_id,
+        phone,
+        address
+      )
+      res.status(200).send({ message: '회원정보 수정에 성공하였습니다.' });
+    } catch (err) {
+      console.log("modifyinfo error: ", err)
+      res.status(403).send({ message: '회원정보 수정에 실패하였습니다.' });
+    }
+  }
 
   deleteUserByAdmin = async (req, res) => {
     const { email } = res.locals.user;
