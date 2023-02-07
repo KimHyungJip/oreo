@@ -21,6 +21,12 @@ exports.cart = async (req, res) => {
   res.render('cart', { title: '장바구니' });
 };
 
+exports.myOrders = async (req, res) => {
+  res.render('order_list', {
+    title: '내 주문 내역',
+  })
+}
+
 exports.loginpage = async (req, res) => {
   res.render('login', { title: '로그인페이지' });
 };

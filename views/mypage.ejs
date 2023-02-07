@@ -1,5 +1,3 @@
-<p></p>
-
 <span class="userinfo">
   <h1><%- title %> </h1>
 
@@ -11,6 +9,7 @@
   <div id="popbutton">
     <button onclick="popbutton()" class="btn btn-outline-secondary" type="button">내 정보 수정하기</button>
   </div>
+  
   <div id = "istrue">
     <input type="password" id="istruepwd" placeholder="비밀번호를 입력하세요."/>
     <button onclick="istrue()" class="btn btn-outline-secondary" type="button">입력하기</button>
@@ -20,16 +19,11 @@
     <button onclick="modifypwdbutton()" class="btn btn-outline-secondary" type="button">비밀번호수정하기</button>
     <button onclick="accountdestroy()" class="btn btn-outline-secondary" type="button">회원탈퇴하기</button>
   </div>
+
   <section>
-    <div class="mypageCard">
+    <!-- <div class="mypageCard"> -->
       <form>
         <div id="modifyinfoinput">
-          <!-- <div class="input-group mb-3">
-            <input id="emailId" type="text" class="form-control" placeholder="아이디" aria-describedby="button-addon2">
-            <span class="input-group-text">@</span>
-            <input id="emailDomain" type="text" class="form-control" placeholder="도메인" aria-describedby="button-addon2">
-            <button onclick="dupCheck()" class="btn btn-outline-secondary" type="button">중복체크</button>
-          </div> -->
           <input type="text" id="phone" placeholder="핸드폰 번호"/>
           <input type="text" id="address" placeholder="주소"/>
           <button onclick="modifyinfo()" class="btn btn-outline-secondary" type="button">정보수정하기</button>
@@ -42,13 +36,16 @@
           <button onclick="cancel()" class="btn btn-outline-secondary" type="button">취소하기</button>
         </div>
       </form>
-    </div>
+    <!-- </div> -->
   </section>
 </body>
 
 <script>
 $(document).ready(function () {
-  $('#modifyinfo').hide()
+  $('#mypageButton').hide()
+  $('#modifyinfoinput').hide()
+  $('#istrue').hide()
+  $('#modifypwdinput').hide()
   me();
 });
 </script>

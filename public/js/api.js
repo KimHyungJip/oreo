@@ -383,9 +383,25 @@ function me() {
       const phone = response.phone;
       const address = response.address;
       const temp = `
-      <div>이메일:${email}</div>
-      <div>연락처:${phone}</div>
-      <div>주소:${address}</div>
+        <div class="signupCard">
+            <form>
+                <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="${email}">
+                </div>
+                <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">연락처</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticphone" value="${phone}">
+                </div>
+                <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">주소</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly class="form-control-plaintext" id="staticAddress" value="${address}">
+                </div>
+            </form>
+        </div>
       `;
       $('#me').append(temp);
     },
