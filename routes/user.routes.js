@@ -13,4 +13,6 @@ router.post('/refresh', userController.tokenRefresh);
 
 router.get('/admin', userController.userlistget);
 
+router.put('/admin/:id', userController.modifyUser);
+
 module.exports = router;
