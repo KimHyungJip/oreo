@@ -1,3 +1,4 @@
+
 //header
 $(document).ready(function () {
   button_action();
@@ -174,7 +175,25 @@ function upload() {
     },
   });
 }
+
 //cart page
+function registcart(product_id){
+  let product = 'product_id'+product_id
+  let item_quantity = document.getElementById(product).value
+
+  
+  $.ajax({
+    type: 'POST',
+    url: '/cart/cart_items',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {product_id,item_quantity},
+    success: function (response){
+
+    }
+  })
+}
 function get_cart() {
   let total_price = 0;
   $.ajax({
@@ -211,55 +230,63 @@ function get_cart() {
     },
   });
 }
-function cartmodify(cart_item_id) {
-  const cart = 'cart_item_id' + cart_item_id;
-  const item_quantity = Number(document.getElementById(cart).value);
-  if (item_quantity > 99) {
-    alert('99개 까지 주문할 수 있습니다.');
-  } else if (item_quantity <= 0) {
-    alert('0개 이하의 주문은 처리 할 수 없습니다.');
-  } else if (!item_quantity) {
-    alert('입력값에 문제가 있습니다.');
-  } else {
-    $.ajax({
-      type: 'PUT',
-      url: '/cart/modifyquantity',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-      data: { cart_item_id: cart_item_id, item_quantity: item_quantity },
-      success: function (response) {
-        alert(response.message);
-        window.location.href = '/cart';
-      },
-      error: function (err) {
-        alert(err.responseJSON.message);
-      },
-    });
-  }
+function order(){
+  //get으로 페이지 꺼 다 받아와서 post로 다 넘겨줘
+  //product_id, item_quantity넘길꺼야
+  
+  $.ajax({
+    type: 'GET',
+    url: '/cart/cart_items',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data:{},
+    success: function (response){
+      socketOrderAlert(order_id, receipt_price)
+      customAlert('선택하신 상품을 성공적으로 구매하였습니다.', function () {
+        window.location.href = '/'
+      });
+      let rows = response.cart;
+      for (let i = 0; i < rows.length; i++) {
+        let product_id = rows[i]['product_id'];
+        let item_quantity = rows[i]['item_quantity'];
+        console.log(product_id,item_quantity)
+        $.ajax({
+          type: 'POST',
+          url: '/orders',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+          data:{product_id},
+          success: function (response){
+            console.log("post",response)
+            
+          }
+        })
+      }
+
+    }
+  })
+  
 }
-function cartdelete(cart_item_id) {
-  const istrue = confirm('정말 삭제하시겠습니까?');
-  if (istrue) {
-    $.ajax({
-      type: 'DELETE',
-      url: '/cart/deletecart',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-      data: { cart_item_id: cart_item_id },
-      success: function (response) {
-        alert(response.message);
-        window.location.href = '/cart';
-      },
-      error: function (err) {
-        alert(err.responseJSON.message);
-      },
-    });
-  } else {
-    alert('취소되었습니다.');
-    window.location.href = '/cart';
-  }
+function cartmodify(product_id) {
+  const product = 'product_id' + product_id;
+  const item_quantity = document.getElementById(product).value;
+  $.ajax({
+    type: 'PUT',
+    url: '/cart/modifyquantity',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: { product_id: product_id, item_quantity: item_quantity },
+    success: function (response) {
+      alert(response.message);
+      window.location.href = '/';
+    },
+    error: function (err) {
+      alert(err.responseJSON.message);
+    },
+  });
 }
 //mypage
 function cancel() {
