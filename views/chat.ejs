@@ -1,0 +1,59 @@
+<body>
+    <div class = "chatbox" id="chatbox">
+
+    </div>
+    <div class = "chatme" id="chatme"></div>
+    <hr />
+    
+</body>
+<script>
+    $(document).ready(function(){
+        chatme()
+    })
+
+    let socket;
+    window.onload = () => {
+        // socket 연결
+        socket = io.connect("/");
+        // message 수신 이벤트
+        socket.on("message", data => {
+            appendchat(data.name, data.content);
+        });
+    };
+    // 버튼 클릭 시 메시지 송신
+    function sendmessage(){
+        let name = document.getElementById("user_email").value;
+        let content = document.getElementById("content").value;
+        document.getElementById("content").value = "";
+
+        socket.emit("message", {
+            name,
+            content
+        });
+        
+    };
+
+    const appendchat = (name, content) => {
+        if($('#user_email').val()===name){
+            let temp = `        <form>
+            <div>
+                <input style="text-align:right" value="${name}" readonly>
+                <br>
+                <input style="text-align:right" value="${content}" readonly>
+            </div>
+        </form>`
+            $('#chatbox').append(temp)
+        }else{
+            let temp = `        <form>
+            <div>
+                <input style="text-align:left" value="${name}" readonly>
+                <br>
+                <input style="text-align:left" value="${content}" readonly>
+            </div>
+        </form>`
+            $('#chatbox').append(temp)
+        }
+        
+        document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight
+    };
+</script>
