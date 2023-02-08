@@ -73,6 +73,17 @@ class ProductService {
     findProduct = await this.productRepository.findProductById(product_id);
     return findProduct;
   };
+
+  getAllProductList = async () => {
+    const products = await this.productRepository.getAllProductList();
+    console.log('서비스.js 성공1' + products);
+  };
+
+  searchAllProducts = async (term) => {
+    const results = await this.productRepository.searchAllProducts(term);
+    return results;
+    // console.log('서비스.js 성공2' + results)
+  };
 }
 
 module.exports = ProductService;

@@ -156,4 +156,21 @@ exports.adminOrderList = async (req, res) => {
   res.render('admin_order_list', {
     title: '주문/판매 내역 조회',
   });
+}
+
+// name='term'에 담긴 쿼리가 들어가서 시작.
+exports.searchProductList = async (req, res) => {
+  const { term } = req.query;
+  console.log('홈컨트롤러 검색중----', term);
+  try {
+    const terms = await productService.searchAllProducts(term);
+    // console.log('홈컨트롤러====반환중=================', value)
+    res.render('search_results', {
+      title: '검색결과', 
+      due:'당장! 주문하지 않으면... 곧 품절!!',
+      terms,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
 };

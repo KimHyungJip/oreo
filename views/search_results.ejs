@@ -1,0 +1,50 @@
+<section style="width: 80%; margin-top: 3%">
+  <h3><%= due %></h3>
+  <br/>
+  <div id="order-tables-container"></div>
+</section>
+
+  <div id="main-products"  style="margin-bottom: 3%" >
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% for(let i=0; i < terms.length; i++) {%>
+        <div class="col">
+          <div class="card h-100">
+
+            <div class="card_thumbnail_wrapper">
+              <div class="card_thumbnail">
+                <div class="centered">
+                  <div class="card_img">
+                    <img src="<%= terms[i].product_image %>" class="card-img-top" alt="...">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title" id="<%= terms[i].product_id %>">
+                <%= terms[i].product_name %>
+              </h3>
+              <p class="card-text">
+                <%= terms[i].product_detail %>
+              </p>
+              <h5 class="card-title">
+                <%= terms[i].product_price %>원
+              </h5>
+              <input id="product_id<%= terms[i].product_id %>" type='number' min='1' max='99' value="1">
+              <button onclick="registcart(<%= terms[i].product_id %>)">담기</button>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
