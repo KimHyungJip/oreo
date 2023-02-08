@@ -9,28 +9,28 @@ class OrderRepository {
   getOrderList = async () => {
     const orderList = await this.orderModel.findAll({
       include: [
-      {
-        model: Order_item,
-        as: 'order_item',
-        attributes: ['product_id', 'item_quantity'],
-        include: [
+        {
+          model: Order_item,
+          as: 'order_item',
+          attributes: ['product_id', 'item_quantity'],
+          include: [
             {
               model: Product,
               as: 'product',
               attributes: ['product_price', 'product_image'],
-            }
-          ]
-      },
+            },
+          ],
+        },
         {
           model: User,
           as: 'user',
           attributes: ['address', 'phone', 'email'],
-        }
-    ],
-    // raw: true,
-    // plain: true,
-    order: [['createdAt', 'DESC']],
-    attributes: ['order_id', 'user_id', 'createdAt'],
+        },
+      ],
+      // raw: true,
+      // plain: true,
+      order: [['createdAt', 'DESC']],
+      attributes: ['order_id', 'user_id', 'createdAt'],
     });
     return orderList;
   };
@@ -49,8 +49,8 @@ class OrderRepository {
               as: 'product',
               attributes: { exclude: ['createdAt', 'updatedAt'] },
               // attributes: ['product_price'],
-            }
-          ]
+            },
+          ],
         },
       ],
       where: { user_id },

@@ -23,6 +23,7 @@ function button_action() {
       $('#cartpagebutton').show();
     }
   } else {
+    $('#chattingbutton').hide();
     $('#orderpagebutton').hide();
     $('#cartpagebutton').hide();
     $('#logoutbutton').hide();
@@ -182,19 +183,6 @@ function upload() {
     },
   });
 }
-const webSocket = new WebSocket('ws://localhost:7000');
-webSocket.onopen = function () {
-  console.log('연결 성공');
-};
-webSocket.onmessage = function (event) {
-  alert(event.data);
-};
-webSocket.onclose = function () {
-  console.log('웹소켓 서버와 연결이 종료되었습니다.');
-};
-webSocket.onerror = function (error) {
-  console.log(error);
-};
 //cart page
 function registcart(product_id) {
   if (localStorage.getItem('is_admin') === '0') {
@@ -211,7 +199,7 @@ function registcart(product_id) {
       },
       data: { product_id, item_quantity },
       success: function (response) {
-        webSocket.send(message);
+        alert(response.message);
       },
     });
   } else {
@@ -263,7 +251,7 @@ function order() {
     },
     data: {},
     success: function (response) {
-      webSocket.send(response.message);
+      alert(response.message);
       window.location.href = '/';
     },
   });
@@ -426,7 +414,7 @@ function me() {
       const phone = response.phone;
       const address = response.address;
       const temp = `          <div>
-      이메일<input value="${email}" readonly>
+      이메일<input id='user_email' value="${email}" readonly>
       연락처<input value="${phone}" readonly>
       주소<input value="${address}" readonly>
       <div id="popbutton">
@@ -434,6 +422,29 @@ function me() {
       </div>
     </div>`;
       $('#me').append(temp);
+    },
+    error: function (err) {
+      alert(err.responseJSON.errorMessage);
+      window.location.href = '/';
+    },
+  });
+}
+function chatme() {
+  $.ajax({
+    type: 'GET',
+    url: '/users/me',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: {},
+    success: function (response) {
+      const email = response.email;
+      const temp = `          <div>
+      <input id='user_email' value="${email}" style="display:none;" readonly>
+      <input id="content" type="text" placeholder="메시지를 적어주세요" />
+      <button onclick="sendmessage()">보내기</button>
+    </div>`;
+      $('#chatme').append(temp);
     },
     error: function (err) {
       alert(err.responseJSON.errorMessage);
