@@ -1,3 +1,4 @@
+
 //header
 $(document).ready(function () {
   button_action();
@@ -203,7 +204,7 @@ function registcart(product_id) {
       },
     });
   } else {
-    alert('사장님도 주문을...?');
+    alert('허용되지 않는 기능입니다.');
   }
 }
 function get_cart() {
@@ -422,6 +423,11 @@ function me() {
       </div>
     </div>`;
       $('#me').append(temp);
+
+      // if(localStorage.getItem('is_admin')!=='1'){
+      //     alert('관리자 권한이 없습니다.')
+      //     window.location.href='/'
+      // }
     },
     error: function (err) {
       alert(err.responseJSON.errorMessage);

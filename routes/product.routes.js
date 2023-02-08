@@ -10,6 +10,7 @@ router.get('/', productController.getProducts);
 router.post('/imageupload', upload.single('image'), (req, res) => {
   res.json({ url: req.file.location });
 });
+
 router.post(
   '/admin',
   authMiddleware,

@@ -51,6 +51,12 @@
 </div>
 
 <script>
+    // 진입 시
+    if(localStorage.getItem('is_admin')!=='1'){
+        alert('관리자 권한이 없습니다.')
+        window.location.href='/'
+    }
+
     $(document).ready(function () {
         me()
     });
@@ -69,12 +75,6 @@
         const product_price = document.getElementById('inputPrice').value;
         const product_detail = document.getElementById('inputDetail').value;
         let product_image = document.getElementById('image').src;
-        // product_image = product_image.split('7000/')[1];
-        // let file = document.getElementById('image_file').files[0];
-        // if (file !== undefined) { // 이미지를 새로 첨부할 경우.
-        //     product_image = `img/${file.name}`;
-        // }
-        console.log("이미지:", product_image)
 
         if (!product_name) {
             alert('상품명을 입력하세요.')
