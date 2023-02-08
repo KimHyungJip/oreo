@@ -8,7 +8,13 @@ exports.homepage = async (req, res) => {
     products: params.items,
   });
 };
-
+exports.chattingpage = async (req, res) => {
+  const { user } = res.locals;
+  res.render('chat', {
+    title: '채팅페이지',
+    ...user,
+  });
+};
 exports.mypage = async (req, res) => {
   const { user } = res.locals;
   res.render('mypage', {
@@ -150,7 +156,7 @@ exports.adminOrderList = async (req, res) => {
   res.render('admin_order_list', {
     title: '주문/판매 내역 조회',
   });
-};
+}
 
 // name='term'에 담긴 쿼리가 들어가서 시작.
 exports.searchProductList = async (req, res) => {
@@ -160,7 +166,8 @@ exports.searchProductList = async (req, res) => {
     const terms = await productService.searchAllProducts(term);
     // console.log('홈컨트롤러====반환중=================', value)
     res.render('search_results', {
-      title: '당장! 주문하지 않으면... 곧 품절!!',
+      title: '검색결과', 
+      due:'당장! 주문하지 않으면... 곧 품절!!',
       terms,
     });
   } catch (err) {
