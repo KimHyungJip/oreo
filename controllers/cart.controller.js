@@ -20,16 +20,26 @@ class CartController {
       });
     }
   };
-
+  getAdmin = async (req, res, next) => {
+    const is_admin = res.locals.user.is_admin;
+    console.log("isadmin",is_admin)
+    return is_admin
+  }
   //장바구니 등록
   postCart = async (req, res, next) => {
-    console.log('장바구니등록controller');
+    try{
     const user_id = res.locals.user.user_id;
-
+    if(is_admin===1){
+      return res.status(400).json({ message: '관리자는 등록이 불가' });
+    }
+    console.log("확인-----")
     const { product_id, item_quantity } = req.body;
     await this.cartService.productToCart(user_id, product_id, item_quantity);
 
     res.status(200).json({ message: '장바구니등록완료' });
+   } catch(err){
+     
+   }
   };
 
   //장바구니 수정

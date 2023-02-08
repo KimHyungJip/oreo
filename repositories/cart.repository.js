@@ -13,6 +13,11 @@ class CartRepository {
     return getCartdata;
   };
 
+  findCartItemById = async (cart_item_id) => {
+    const cartItem = await this.cart_item.findByPk(cart_item_id, { raw: true });
+    return cartItem;
+  };
+  
   //장바구니에 상품 등록
   createCart = async (user_id, product_id, item_quantity) => {
     const createCartdata = await this.cart_item.create({

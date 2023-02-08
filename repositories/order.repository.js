@@ -41,6 +41,7 @@ class OrderRepository {
 
   //order table에 넣음
   orderCreate = async (user_id) => {
+    console.log("order reposi")
     const createOrder = await this.orderModel.create({
       user_id,
     });

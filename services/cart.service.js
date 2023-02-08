@@ -41,7 +41,6 @@ class CartService {
 
   //장바구니 등록
   productToCart = async (user_id, product_id, item_quantity) => {
-    console.log('service진입');
     const createdCart = await this.cartRepository.createCart(
       user_id,
       product_id,
@@ -52,7 +51,13 @@ class CartService {
 
   //장바구니 수정
   updateCart = async (user_id, cart_item_id, item_quantity) => {
-    console.log('service진입');
+    let findCartItem = await this.cartRepository.findCartItemById(cart_item_id);
+    if (!findCartItem) {
+      throw new Error('해당 id의 상품이 존재하지 않습니다.');
+    }
+    if(item_quantity !==Number){
+      throw new Error('숫자를 입력해주세요');
+    }
     const updateCart = await this.cartRepository.updateCart(
       user_id,
       cart_item_id,
@@ -62,6 +67,10 @@ class CartService {
   };
   //장바구니 삭제
   deleteCart = async (cart_item_id) => {
+    let findCartItem = await this.cartRepository.findCartItemById(cart_item_id);
+    if (!findCartItem) {
+      throw new Error('해당 id의 상품이 존재하지 않습니다.');
+    }
     const deleteCart = await this.cartRepository.deleteCart(cart_item_id);
     return deleteCart;
   };

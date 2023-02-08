@@ -41,6 +41,7 @@ class OrderService {
   };
 
   postOrder = async (user_id) => {
+    console.log("order Service")
     const allCart = await this.cartRepository.findCart(user_id);
     const orderTableInfo = allCart.map((cart) => cart.dataValues);
     //오더 테이블 (주문은 1개)

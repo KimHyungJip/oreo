@@ -40,6 +40,7 @@ class OrderController {
 
   //주문(cart_items들)
   postOrder = async (req, res, next) => {
+    console.log("order controller")
     const { user_id } = res.locals.user;
     await this.orderService.postOrder(user_id);
     res.status(200).json({ message: '주문완료' });

@@ -195,11 +195,28 @@ webSocket.onclose = function () {
 webSocket.onerror = function (error) {
   console.log(error);
 };
+function checkAdmin(){
+  console.log("checkAdmin확인")
+  $.ajax({
+    type:'GET',
+    url:'/cart/admin',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data:{},
+    success: function (response) {
+      console.log("ajax안 확인",response)
+    }
+  })
+}
+
 //cart page
 function registcart(product_id) {
+  console.log("check",checkAdmin())
   let product = 'product_id' + product_id;
   let item_quantity = document.getElementById(product).value;
   let product_name = document.getElementById(product_id).innerHTML;
+  
   const message =
     product_name + item_quantity + '개만큼 장바구니에 담았습니다.';
   webSocket.send(message);
