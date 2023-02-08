@@ -5,6 +5,11 @@
 </section>
 
 <script>
+    // 진입 시
+    if(localStorage.getItem('is_admin')!=='1'){
+        alert('관리자 권한이 없습니다.')
+        window.location.href='/'
+    }
     // 페이지 로딩 완료 시
     $(document).ready(function () {
         me()
