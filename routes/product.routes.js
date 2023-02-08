@@ -10,6 +10,7 @@ router.get('/', productController.getProducts);
 router.post('/imageupload', upload.single('image'), (req, res) => {
   res.json({ url: req.file.location });
 });
+
 router.post(
   '/admin',
   authMiddleware,
@@ -28,4 +29,8 @@ router.delete(
   adminCheck,
   productController.deleteProduct
 );
+
+router.get('/', productController.getProductList);
+router.get('/', productController.searchForProducts);
+
 module.exports = router;

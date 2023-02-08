@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-end" style="margin-bottom: 10px">
         <h2>장바구니</h2>
         <div id="total_price">0원</div>
-        <a class="btn btn-outline-dark" href="/" role="button">상품 주문하기</a>
+        <button class="btn btn-outline-dark" onclick="order()" role="button">상품 주문하기</button>
     </div>
     <section>
         <div id="product-table">
@@ -24,13 +24,10 @@
         </div>
     
     </section>
-    
     <script> 
         $(document).ready(function () {
             me()
             get_cart()
-        });
-        //받아올거 상품명 판매가 상세설명 상품이미지 수량
-        //    product_name,product_price,product_detail,product_image,item_quantity
+        });        
     </script>
-    </body>
+</body>

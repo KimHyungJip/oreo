@@ -1,0 +1,90 @@
+<section style="width: 80%; margin: 30px auto;">
+    <h1><%= title %></h1>
+    <br/>
+    <div id="order-tables-container"></div>
+</section>
+
+<script>
+    // 진입 시
+    if(localStorage.getItem('is_admin')!=='1'){
+        alert('관리자 권한이 없습니다.')
+        window.location.href='/'
+    }
+    // 페이지 로딩 완료 시
+    $(document).ready(function () {
+        me()
+        showOrderTables();
+    });
+
+    const colors = ['#FFFBE9', '#E3CAA5', '#CEAB93', '#AD8B73']
+
+    function showOrderTables() {
+        // 주문별 테이블들을 담을 element
+        const tableContainer = document.getElementById('order-tables-container')
+        $.ajax({
+                type: 'GET',
+                url: `/orders/admin`,
+                // async: false,
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+                success: function (response) {
+                    const orders = response.orderList;
+                    for (let i = 0; i < orders.length; i++) {
+                        if (orders[i].order_item.length !== 0) {
+                            let tempHtml = `<table class="table table-hover align-middle"
+                                style="background-color: ${colors[i % colors.length]}; border-radius: 8px;">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">주문 번호 #</th>
+                                      <th scope="col">주문 날짜</th>
+                                      <th scope="col">회원 번호 #</th>
+                                      <th scope="col">제품 번호 #</th>
+                                      <th scope="col">물품 수량</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">${i}</th>
+                                      <td>${orders[i].order_id}</td>
+                                      <td>${orders[i].createdAt.split('T')[0]}</td>
+                                      <td>${orders[i].user_id}</td>
+                                      <td>${orders[i].order_item[0].product_id}</td>
+                                      <td>${orders[i].order_item[0].item_quantity} 개</td>
+                                    </tr>`
+                            let priceSum = orders[i].order_item[0].product.product_price * orders[i].order_item[0].item_quantity
+                            const items = orders[i].order_item;
+                            for (let j = 1; j < items.length; j++) {
+                                tempHtml += `<tr class="">
+                                          <th scope="row"></th>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td>${items[j].product_id}</td>
+                                          <td>${items[j].item_quantity} 개</td>
+                                        </tr>`
+                                priceSum += (items[j].product.product_price * items[j].item_quantity);
+                            }
+                            tempHtml += `<tr class="">
+                                          <th scope="row"></th>
+                                          <td>배송지: </td>
+                                          <td>${orders[i].user.address}</td>
+                                          <td></td>
+                                          <td>판매액: </td>
+                                          <td>${priceSum} 원</td>
+                                        </tr>
+                                    </tbody>
+                                </table>`
+                            tableContainer.innerHTML += tempHtml;
+                        }
+                    }
+                },
+                error: function (response) {
+                    console.log(response.responseJSON.message);
+                }
+        });
+    }
+</script>
+
+

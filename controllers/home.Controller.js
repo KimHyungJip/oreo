@@ -8,7 +8,13 @@ exports.homepage = async (req, res) => {
     products: params.items,
   });
 };
-
+exports.chattingpage = async (req, res) => {
+  const { user } = res.locals;
+  res.render('chat', {
+    title: '채팅페이지',
+    ...user,
+  });
+};
 exports.mypage = async (req, res) => {
   const { user } = res.locals;
   res.render('mypage', {
@@ -22,7 +28,7 @@ exports.cart = async (req, res) => {
 };
 
 exports.myOrders = async (req, res) => {
-  res.render('order_list', {
+  res.render('my_orders', {
     title: '내 주문 내역',
   });
 };
@@ -43,7 +49,6 @@ exports.adminIndex = async (req, res) => {
 // 관리자 - 상품 관리 페이지
 exports.adminProducts = async (req, res) => {
   let { page } = req.query; // 왜 '문자'그대로 놔둬야 제대로 동작하는 거지?
-  console.log('page: ', page);
   if (!page) {
     // undefined일시
     page = 1;
@@ -77,14 +82,22 @@ const ProductService = require('../services/product.service');
 const UserService = require('../services/user.service');
 const productService = new ProductService();
 const userService = new UserService();
-async function _get_items(page = 1, category, limit = 5) {
+
+// 'category(=상품|회원|주문)' 정보 전부 불러오기
+async function _get_all_items(category) {
+  let result;
   let items;
   if (category === 'products') {
     items = await productService.findAllProducts();
-  } else {
-    // category === 'users'
+  } else if (category === 'users') {
     items = await userService.userlistget();
   }
+  return items;
+}
+
+// 페이지네이션을 위한 params들 생성 후 반환
+async function _get_items(page = 1, category, limit = 5) {
+  const items = await _get_all_items(category);
 
   // const limit = 5;
   const total_items_number = items.length;
@@ -110,7 +123,6 @@ async function _get_items(page = 1, category, limit = 5) {
 exports.adminProductModify = async (req, res) => {
   const { id } = req.query;
   const product = await productService.findProductById(id);
-  console.log('\n\nreached to edit page. => ', product);
 
   res.render('product_modify', {
     title: '상품 수정',
@@ -130,11 +142,33 @@ exports.adminUserModify = async (req, res) => {
   const { email } = req.query;
   // const { email } = res.locals.user;
   const user = await userService.findUser(email);
-  // const user = res.locals;
 
-  // res.render('user_modify', {
   res.render('managerpost', {
     title: '회원 정보 수정',
     ...user,
   });
+};
+
+// 관리자 - 주문 내역 조회 페이지
+exports.adminOrderList = async (req, res) => {
+  res.render('admin_order_list', {
+    title: '주문/판매 내역 조회',
+  });
+}
+
+// name='term'에 담긴 쿼리가 들어가서 시작.
+exports.searchProductList = async (req, res) => {
+  const { term } = req.query;
+  console.log('홈컨트롤러 검색중----', term);
+  try {
+    const terms = await productService.searchAllProducts(term);
+    // console.log('홈컨트롤러====반환중=================', value)
+    res.render('search_results', {
+      title: '검색결과', 
+      due:'당장! 주문하지 않으면... 곧 품절!!',
+      terms,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
 };

@@ -1,4 +1,4 @@
-const { Order_item, Order, User, Sequelize } = require('../models');
+const { Order_item, Order, User, Product, Sequelize } = require('../models');
 
 class OrderRepository {
   constructor(OrderModel) {
@@ -7,16 +7,32 @@ class OrderRepository {
 
   // 주문 목록 조회(관리자)
   getOrderList = async () => {
-    try {
-      const orderlist = await this.orderModel.findAll({ raw: true });
-      return orderlist;
-    } catch (error) {
-      console.log(error);
-      error.name = 'Database Error';
-      error.message = '요청을 처리하지 못하였습니다.';
-      error.status = 500;
-      throw error;
-    }
+    const orderList = await this.orderModel.findAll({
+      include: [
+        {
+          model: Order_item,
+          as: 'order_item',
+          attributes: ['product_id', 'item_quantity'],
+          include: [
+            {
+              model: Product,
+              as: 'product',
+              attributes: ['product_price', 'product_image'],
+            },
+          ],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['address', 'phone', 'email'],
+        },
+      ],
+      // raw: true,
+      // plain: true,
+      order: [['createdAt', 'DESC']],
+      attributes: ['order_id', 'user_id', 'createdAt'],
+    });
+    return orderList;
   };
 
   // 주문 목록 조회 (사용자)
@@ -26,14 +42,20 @@ class OrderRepository {
         {
           model: Order_item,
           as: 'order_item',
-          // attributes: { include: ['product_id', 'item_quantity'] },
-          attributes: ['product_id', 'item_quantity'],
+          attributes: ['item_quantity'],
+          include: [
+            {
+              model: Product,
+              as: 'product',
+              attributes: { exclude: ['createdAt', 'updatedAt'] },
+              // attributes: ['product_price'],
+            },
+          ],
         },
       ],
       where: { user_id },
       // raw: true,
       order: [['createdAt', 'DESC']],
-      attributes: ['order_id', 'user_id'],
     });
 
     return orders;

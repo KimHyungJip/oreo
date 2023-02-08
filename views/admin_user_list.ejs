@@ -20,7 +20,8 @@
               <tbody>
                 <% users.forEach(user => { %>
                 <tr>
-                  <td><a class="btn btn-outline-danger" href="#" role="button">삭제</a></td>
+                  <td><button class="btn btn-outline-danger" onclick="deleteUser('<%= user.email %>')"
+                         type="button">삭제</button></td>
                   <td><a class="btn btn-outline-secondary" href="/admin_user_modify?email=<%= user.email%>"
                          role="button">수정</a></td>
                   <th scope="row"><%= user.user_id %></th>
@@ -67,8 +68,37 @@
         </div>
     </section>
     <script>
+        // 진입 시
+    if(localStorage.getItem('is_admin')!=='1'){
+        alert('관리자 권한이 없습니다.')
+        window.location.href='/'
+    }
+
       $(document).ready(function () {
         me()
-    });
+        });
+
+      function deleteUser(email) {
+        const check = confirm(`${email} 사용자 정보를 정말 삭제하시겠습니까?`);
+        if (check) {
+          $.ajax({
+            type: 'DELETE',
+            url: `/users/admin/${email}`,
+            headers: {
+              authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+            success: function (response) {
+              alert(response.message);
+              location.reload();
+              // location.replace(location.href);
+              // location.href = location.href;
+            },
+            error: function (xhr) {
+              alert(xhr.responseJSON.errorMessage);
+              // customAlert2(xhr.responseJSON.errorMessage);
+            },
+          });
+        }
+      }
     </script>
 </body>

@@ -27,7 +27,7 @@
           <td>
             <button
               type="button"
-              onclick="deleteProduct(<%= product.product_id %>)"
+              onclick="deleteProduct(`<%= product.product_id %>`)"
               class="btn btn-outline-danger"
             >
               삭제
@@ -95,8 +95,13 @@
   </div>
 </section>
 
-<!--    <script src="./admin_products.js" type="text/javascript"></script>-->
 <script>
+    // 진입 시
+    if(localStorage.getItem('is_admin')!=='1'){
+        alert('관리자 권한이 없습니다.')
+        window.location.href='/'
+    }
+
   $(document).ready(function () {
     me();
   });

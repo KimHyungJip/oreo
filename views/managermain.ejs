@@ -24,15 +24,39 @@
               <div class="card-body">
                 <!-- <h5 class="card-title">Bakery Shop</h5> -->
                 <p class="card-text"></p>
-                <a href="/admin_products" class="btn btn-primary btn-primary btn-lg btn-lg">상품 관리</a>
+                <a href="/admin_products" class="btn btn-primary btn-lg">상품 관리</a>
               </div>
             </div>
+          </div>
+          <div class="col">
+          <div class="card" style="width: 18rem; ; margin-left: 50px;">
+            <img
+              src="https://cdn.pixabay.com/photo/2020/09/16/07/46/delivery-5575698_960_720.png"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <!-- <h5 class="card-title">Orders</h5> -->
+              <p class="card-text"></p>
+              <a
+                href="/admin_orders"
+                class="btn btn-primary btn-lg"
+                >주문 관리</a
+              >
+            </div>
+          </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+</body>
   <script>
+    // 진입 시
+    if(localStorage.getItem('is_admin')!=='1'){
+        alert('관리자 권한이 없습니다.')
+        window.location.href='/'
+    }
+
     $(document).ready(function () {
         me()
     });

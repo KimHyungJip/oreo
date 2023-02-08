@@ -1,103 +1,35 @@
 <span class="userinfo">
   <h1><%- title %> </h1> 
-
 <body>
-  <div id="myinfo" style="text-align: center">
-    <div class="me" id="me"></div>
-  </div>
-  <div
-    id="popbutton"
-    style="text-align: center; margin-top: 20px; margin-bottom: 30px"
-  >
-    <button
-      onclick="popbutton()"
-      class="btn btn-outline-secondary"
-      type="button"
-      style="display: inline-block"
-    >
-      내 정보 수정하기
-    </button>
-  </div>
-  <div id="istrue" style="text-align: center; margin-bottom: 30px">
-    <input
-      type="password"
-      id="istruepwd"
-      placeholder="비밀번호를 입력하세요."
-    />
-    <button onclick="istrue()" class="btn btn-outline-secondary" type="button">
-      입력하기
-    </button>
-  </div>
-  <div id="mypageButton" style="text-align: center; margin-bottom: 30px">
-    <button
-      onclick="modifyinfobutton()"
-      class="btn btn-outline-secondary"
-      type="button"
-    >
-      정보수정하기
-    </button>
-    <button
-      onclick="modifypwdbutton()"
-      class="btn btn-outline-secondary"
-      type="button"
-    >
-      비밀번호수정하기
-    </button>
-    <button
-      onclick="accountdestroy()"
-      class="btn btn-outline-secondary"
-      type="button"
-    >
-      회원탈퇴하기
-    </button>
-  </div>
-
   <section>
-    <!-- <div class="mypageCard"> -->
-      <form>
-        <div id="modifyinfoinput">
-          <input type="text" id="phone" placeholder="핸드폰 번호" />
-          <input type="text" id="address" placeholder="주소" />
-          <button
-            onclick="modifyinfo()"
-            class="btn btn-outline-secondary"
-            type="button"
-          >
-            정보수정하기
-          </button>
-          <button
-            onclick="cancel()"
-            class="btn btn-outline-secondary"
-            type="button"
-          >
-            취소하기
-          </button>
+    <div class="mypageCard">
+      <form id="mypageButton">
+        <button onclick="modifyinfobutton()" class="btn btn-outline-secondary" type="button">정보수정하기</button>
+        <button onclick="modifypwdbutton()" class="btn btn-outline-secondary" type="button">비밀번호수정하기</button>
+        <button onclick="accountdestroy()" class="btn btn-outline-secondary" type="button">회원탈퇴하기</button>
+      </form>
+      <div id = "myinfo">
+        <form class ="me" id="me">
+        </form>
+      </div>
+      <form id = "istrue">
+        <input type="password" id="istruepwd" placeholder="비밀번호를 입력하세요."/>
+        <button onclick="istrue()" class="btn btn-outline-secondary" type="button">입력하기</button>
+      </form>
+      <form id="modifyinfoinput">
+        <div>
+          <input type="text" id="phone" placeholder="핸드폰 번호"/>
+          <input type="text" id="address" placeholder="주소"/>
+          <button onclick="modifyinfo()" class="btn btn-outline-secondary" type="button">정보수정하기</button>
+          <button onclick="cancel()" class="btn btn-outline-secondary" type="button">취소하기</button>
         </div>
-        <div id="modifypwdinput">
-          <input
-            type="password"
-            id="modifypwd1"
-            placeholder="비밀번호를 입력하세요."
-          />
-          <input
-            type="password"
-            id="modifypwd2"
-            placeholder="비밀번호를 다시 입력하세요."
-          />
-          <button
-            onclick="modifypwd()"
-            class="btn btn-outline-secondary"
-            type="button"
-          >
-            비밀번호수정하기
-          </button>
-          <button
-            onclick="cancel()"
-            class="btn btn-outline-secondary"
-            type="button"
-          >
-            취소하기
-          </button>
+      </form>
+      <form id="modifypwdinput">
+        <div>
+          <input type="password" id="modifypwd1" placeholder="비밀번호를 입력하세요."/>
+          <input type="password" id="modifypwd2" placeholder="비밀번호를 다시 입력하세요."/>
+          <button onclick="modifypwd()" class="btn btn-outline-secondary" type="button">비밀번호수정하기</button>
+          <button onclick="cancel()" class="btn btn-outline-secondary" type="button">취소하기</button>
         </div>
       </form>
     <!-- </div> -->

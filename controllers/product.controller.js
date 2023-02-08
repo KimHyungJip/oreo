@@ -112,6 +112,38 @@ class ProductController {
       });
     }
   };
+
+  getProductList = async (req, res) => {
+    try {
+      const products = await this.productService.getAllProductList();
+      console.log('컨트롤러.js 성공' + products);
+      return res.status(200).json({
+        products,
+      });
+    } catch {
+      return res.status(500).json({
+        errorMessage: error.message,
+        error: error,
+      });
+    }
+  };
+
+  searchForProducts = async (req, res) => {
+    const { term } = req.query;
+    console.log(term);
+    try {
+      const terms = await this.productService.getAllProductList(term);
+      return res.status(200).json({
+        message: '검색중',
+        terms,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        errorMessage: error.message,
+        error: error,
+      });
+    }
+  };
 }
 
 module.exports = ProductController;
