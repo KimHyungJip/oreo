@@ -30,4 +30,7 @@ router.delete(
   productController.deleteProduct
 );
 
+router.get('/', productController.getProductList);
+router.get('/', productController.searchForProducts);
+
 module.exports = router;

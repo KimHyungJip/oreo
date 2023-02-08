@@ -422,6 +422,11 @@ function me() {
       </div>
     </div>`;
       $('#me').append(temp);
+
+      if(localStorage.getItem('is_admin')!=='1'){
+          alert('관리자 권한이 아닙니다.')
+          window.loaction.href='/'
+      }
     },
     error: function (err) {
       alert(err.responseJSON.errorMessage);
