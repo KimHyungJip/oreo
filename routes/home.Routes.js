@@ -22,4 +22,6 @@ router.get('/admin_orders', homeController.adminOrderList);
 router.get('/login', homeController.loginpage);
 router.get('/signup', homeController.signuppage);
 
+router.get('/search', homeController.searchProductList);
+
 module.exports = router;

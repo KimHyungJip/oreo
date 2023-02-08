@@ -20,7 +20,6 @@ header {
 footer {
     background-color:rgb(128, 125, 113) ;
     /* background-color:rgb(72, 25, 25) ; */  
-    padding: 10%;
     text-align: center;
     color: rgb(212, 202, 202);
     font-size: large;
@@ -79,8 +78,7 @@ a { color: var(--bs-dark); }
 
 .card_thumbnail_wrapper {
   max-height: 100%; 
-  max-width: 400px;
-
+  max-width: 700px;
 }
 
 .card_thumbnail {
@@ -116,7 +114,7 @@ a { color: var(--bs-dark); }
   height: auto;
 }
 
-
+/* 상품목록 페이지네이션 */
 .pagination {
   justify-content: center;
   align-content: center;

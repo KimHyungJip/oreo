@@ -13,8 +13,8 @@ class OrderService {
 
   // 주문 목록 조회(관리자)
   getOrderList = async () => {
-      const ordersList = await this.orderRepository.getOrderList();
-      return ordersList;
+    const ordersList = await this.orderRepository.getOrderList();
+    return ordersList;
   };
 
   // 주문 목록 조회(사용자)

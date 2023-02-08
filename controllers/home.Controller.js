@@ -87,12 +87,12 @@ async function _get_all_items(category) {
   } else if (category === 'users') {
     items = await userService.userlistget();
   }
-  return items
+  return items;
 }
 
 // 페이지네이션을 위한 params들 생성 후 반환
 async function _get_items(page = 1, category, limit = 5) {
-  const items = await _get_all_items(category)
+  const items = await _get_all_items(category);
 
   // const limit = 5;
   const total_items_number = items.length;
@@ -145,10 +145,25 @@ exports.adminUserModify = async (req, res) => {
   });
 };
 
-
 // 관리자 - 주문 내역 조회 페이지
 exports.adminOrderList = async (req, res) => {
   res.render('admin_order_list', {
     title: '주문/판매 내역 조회',
   });
-}
+};
+
+// name='term'에 담긴 쿼리가 들어가서 시작.
+exports.searchProductList = async (req, res) => {
+  const { term } = req.query;
+  console.log('홈컨트롤러 검색중----', term);
+  try {
+    const terms = await productService.searchAllProducts(term);
+    // console.log('홈컨트롤러====반환중=================', value)
+    res.render('search_results', {
+      title: '당장! 주문하지 않으면... 곧 품절!!',
+      terms,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};

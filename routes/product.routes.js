@@ -28,4 +28,8 @@ router.delete(
   adminCheck,
   productController.deleteProduct
 );
+
+router.get('/', productController.getProductList);
+router.get('/', productController.searchForProducts);
+
 module.exports = router;
