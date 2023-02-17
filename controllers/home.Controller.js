@@ -156,13 +156,12 @@ exports.adminOrderList = async (req, res) => {
   });
 }
 
-// name='term'에 담긴 쿼리가 들어가서 시작.
+// 검색기능, 화면단의 name='term'에 담긴 쿼리가 들어가서 시작.
 exports.searchProductList = async (req, res) => {
   const { term } = req.query;
   console.log('홈컨트롤러 검색중----', term);
   try {
     const terms = await productService.searchAllProducts(term);
-    // console.log('홈컨트롤러====반환중=================', value)
     res.render('search_results', {
       title: '검색결과', 
       due:'당장! 주문하지 않으면... 곧 품절!!',
