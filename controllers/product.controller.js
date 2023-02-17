@@ -116,7 +116,6 @@ class ProductController {
   getProductList = async (req, res) => {
     try {
       const products = await this.productService.getAllProductList();
-      console.log('컨트롤러.js 성공' + products);
       return res.status(200).json({
         products,
       });
